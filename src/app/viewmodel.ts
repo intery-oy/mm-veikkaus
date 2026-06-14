@@ -66,6 +66,13 @@ export interface PlayedResult {
   preliminary: boolean;
 }
 
+export interface UpcomingBacker {
+  /** Veikatun joukkueen lippu (kertoo kumpaa puolta veikkasi). */
+  flag: string;
+  avatar: string;
+  name: string;
+}
+
 export interface UpcomingMatch {
   id: string;
   utcDate: string;
@@ -73,6 +80,8 @@ export interface UpcomingMatch {
   awayName: string;
   homeFlag: string;
   awayFlag: string;
+  /** Veikkaajat, joilla on jokin ottelun joukkue valinnoissaan. */
+  backers: UpcomingBacker[];
 }
 
 export interface PortalData {
@@ -102,6 +111,22 @@ export function buildPortalData(): PortalData {
   const standings = computeStandings({ bettors, picks, matches, outcome });
   const nameById = new Map(bettors.map((b) => [b.id, b.name]));
   const picksById = new Map(picks.map((p) => [p.bettorId, p]));
+
+  // teamId -> veikkaajat (nimi + avatar), joilla joukkue on valinnoissaan.
+  const ownerIdsByTeam = new Map<string, Set<string>>();
+  for (const p of picks) {
+    for (const t of p.teams) {
+      if (!ownerIdsByTeam.has(t.teamId)) ownerIdsByTeam.set(t.teamId, new Set());
+      ownerIdsByTeam.get(t.teamId)!.add(p.bettorId);
+    }
+  }
+  const ownersByTeam = new Map<string, Array<{ name: string; avatar: string }>>();
+  for (const [teamId, ids] of ownerIdsByTeam) {
+    const refs = [...ids]
+      .map((id) => ({ name: nameById.get(id) ?? id, avatar: bettorAvatar(id) }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+    ownersByTeam.set(teamId, refs);
+  }
 
   const bettorViews: BettorView[] = standings.map((s) => {
     const p = picksById.get(s.bettorId);
@@ -196,14 +221,23 @@ export function buildPortalData(): PortalData {
     results,
     hasPreliminary: results.some((r) => r.preliminary),
     upcoming: upcomingFixtures
-      .map((u) => ({
-        id: u.id,
-        utcDate: u.utcDate,
-        homeName: teamName(u.homeId),
-        awayName: teamName(u.awayId),
-        homeFlag: flagEmoji(u.homeId),
-        awayFlag: flagEmoji(u.awayId),
-      }))
+      .map((u) => {
+        const homeFlag = flagEmoji(u.homeId);
+        const awayFlag = flagEmoji(u.awayId);
+        const backers: UpcomingBacker[] = [
+          ...(ownersByTeam.get(u.homeId) ?? []).map((o) => ({ ...o, flag: homeFlag })),
+          ...(ownersByTeam.get(u.awayId) ?? []).map((o) => ({ ...o, flag: awayFlag })),
+        ];
+        return {
+          id: u.id,
+          utcDate: u.utcDate,
+          homeName: teamName(u.homeId),
+          awayName: teamName(u.awayId),
+          homeFlag,
+          awayFlag,
+          backers,
+        };
+      })
       .sort((a, b) => a.utcDate.localeCompare(b.utcDate)),
   };
 }

@@ -110,18 +110,34 @@ export function App() {
             {nextMatches.map((u) => (
               <div
                 key={u.id}
-                className="flex items-center gap-2 rounded-2xl bg-[--color-card] px-3 py-2 text-sm shadow-sm ring-1 ring-black/5"
+                className="rounded-2xl bg-[--color-card] px-3 py-2 shadow-sm ring-1 ring-black/5"
               >
-                <span className="flex flex-1 items-center justify-end gap-1.5 font-bold text-[--color-ink]">
-                  {u.homeName} <span>{u.homeFlag}</span>
-                </span>
-                <span className="num shrink-0 text-[--color-muted]">–</span>
-                <span className="flex flex-1 items-center gap-1.5 font-bold text-[--color-ink]">
-                  <span>{u.awayFlag}</span> {u.awayName}
-                </span>
-                <span className="num ml-2 shrink-0 text-xs text-[--color-muted]">
-                  {fmt.format(new Date(u.utcDate))}
-                </span>
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="flex flex-1 items-center justify-end gap-1.5 font-bold text-[--color-ink]">
+                    {u.homeName} <span>{u.homeFlag}</span>
+                  </span>
+                  <span className="num shrink-0 text-[--color-muted]">–</span>
+                  <span className="flex flex-1 items-center gap-1.5 font-bold text-[--color-ink]">
+                    <span>{u.awayFlag}</span> {u.awayName}
+                  </span>
+                  <span className="num ml-2 shrink-0 text-xs text-[--color-muted]">
+                    {fmt.format(new Date(u.utcDate))}
+                  </span>
+                </div>
+                {u.backers.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-1 border-t border-[--color-line] pt-2">
+                    {u.backers.map((b, i) => (
+                      <span
+                        key={i}
+                        className="flex items-center gap-1 rounded-full bg-[--color-grass]/10 px-2 py-0.5 text-xs font-bold text-[--color-ink]"
+                      >
+                        <span>{b.flag}</span>
+                        <span>{b.avatar}</span>
+                        {b.name}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>
