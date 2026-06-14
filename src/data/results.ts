@@ -36,8 +36,8 @@ const RESULTS: Record<string, MatchResult> = {
   'C-BRA-MAR': { homeGoals: 1, awayGoals: 1 },
   // 13.6. Australia–Turkki (Turkin avausottelu)
   'D-AUS-TUR': { homeGoals: 2, awayGoals: 0 },
-  // 14.6. Saksa–Curaçao — ALUSTAVA, peli kesken
-  'E-GER-CUW': { homeGoals: 3, awayGoals: 1 },
+  // 14.6. Saksa–Curaçao — ALUSTAVA, peli kesken (livescore 70': 5–1)
+  'E-GER-CUW': { homeGoals: 5, awayGoals: 1 },
 };
 
 // Ottelut joiden tulos on vasta alustava (peli kesken / ei loppuvihellystä).
