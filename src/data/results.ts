@@ -35,6 +35,10 @@ const RESULTS: Record<string, MatchResult> = {
   'C-BRA-MAR': { homeGoals: 2, awayGoals: 0 },
   // Saksa–Curaçao.
   'E-GER-CUW': { homeGoals: 1, awayGoals: 1 },
+  // Lohko D (13.6.): Australia–Turkki — Turkin avausottelu.
+  'D-AUS-TUR': { homeGoals: 2, awayGoals: 0 },
+  // Lohko D (12.6.): USA–Paraguay (ei veikattuja joukkueita, mukana fiidissä).
+  'D-USA-PAR': { homeGoals: 4, awayGoals: 1 },
 };
 
 // Generoi lohkon round-robin (jokainen pari kerran) -> 6 ottelua / lohko.
