@@ -66,20 +66,17 @@ kuin kenttä on `null`, kyseinen bonus näkyy korteissa "kesken".
 
 ## Deploy (Vercel)
 
-Ensimmäinen kerta:
+GitHub-repo on kytketty Vercel-projektiin, joten **deploy on automaattinen**:
 
-1. Pushaa repo GitHubiin.
-2. [vercel.com](https://vercel.com) → **Add New… → Project** → valitse repo.
-3. Vercel tunnistaa Vite-projektin `vercel.json`:sta automaattisesti
-   (build `npm run build`, output `dist`). Paina **Deploy**.
+- `git push` **main**-haaraan → tuotantodeploy (mm-veikkaus-six.vercel.app)
+- push muuhun haaraan → oma esikatselu-URL (preview)
 
-Tämän jälkeen jokainen `git push` päähaaraan deplottaa automaattisesti.
-Vaihtoehtoisesti CLI:llä:
+Eli tulosten päivitys on vain: muokkaa `src/data/results.ts` → `git commit` → `git push`.
+
+Varakeino (CLI, jos tarvitset manuaalisen deployn):
 
 ```bash
-npm i -g vercel
-vercel          # esikatselu-deploy
-vercel --prod   # tuotanto
+npx vercel --prod
 ```
 
 ## Pisteytyssäännöt (lyhyesti)
