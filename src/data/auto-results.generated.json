@@ -14,12 +14,10 @@
     },
     "F-NED-JPN": {
       "homeGoals": 2,
-      "awayGoals": 1
+      "awayGoals": 2
     }
   },
-  "preliminaryIds": [
-    "F-NED-JPN"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "F-SWE-TUN",
