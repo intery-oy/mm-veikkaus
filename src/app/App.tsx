@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { buildPortalData } from './viewmodel.js';
+import { buildCommentary } from './commentary.js';
 import { StandingsTable } from './StandingsTable.js';
 import { BettorCards } from './BettorCards.js';
 import { Confetti } from './Confetti.js';
@@ -17,6 +18,7 @@ export function App() {
   const data = buildPortalData();
   const leader = data.bettors[0];
   const anyPoints = data.bettors.some((b) => b.total > 0);
+  const commentary = buildCommentary(data);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 sm:py-10">
@@ -37,6 +39,19 @@ export function App() {
           {data.outcomePending && <Pill>🏅 mitalit & palkinnot kesken</Pill>}
         </div>
       </header>
+
+      {/* Selostaja — hauska kommentaari tilanteesta */}
+      <div className="mb-6 flex items-start gap-3 rounded-3xl bg-[--color-card] p-4 shadow-sm ring-1 ring-black/5">
+        <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[--color-sun]/20 text-2xl">
+          🎙️
+        </div>
+        <div className="min-w-0">
+          <div className="font-display text-xs font-bold uppercase tracking-wider text-[--color-muted]">
+            Selostaja
+          </div>
+          <p className="font-semibold text-[--color-ink]">{commentary}</p>
+        </div>
+      </div>
 
       {/* Tulosfiidi */}
       {data.results.length > 0 && (
