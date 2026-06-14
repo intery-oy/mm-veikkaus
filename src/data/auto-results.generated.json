@@ -1,8 +1,19 @@
 {
   "results": {
-    "C-BRA-MAR": { "homeGoals": 1, "awayGoals": 1 },
-    "D-AUS-TUR": { "homeGoals": 2, "awayGoals": 0 },
-    "E-GER-CUW": { "homeGoals": 5, "awayGoals": 1 }
+    "C-BRA-MAR": {
+      "homeGoals": 1,
+      "awayGoals": 1
+    },
+    "D-AUS-TUR": {
+      "homeGoals": 2,
+      "awayGoals": 0
+    },
+    "E-GER-CUW": {
+      "homeGoals": 6,
+      "awayGoals": 1
+    }
   },
-  "preliminaryIds": ["E-GER-CUW"]
+  "preliminaryIds": [
+    "E-GER-CUW"
+  ]
 }
