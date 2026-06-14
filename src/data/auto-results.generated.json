@@ -9,12 +9,85 @@
       "awayGoals": 0
     },
     "E-GER-CUW": {
-      "homeGoals": 6,
+      "homeGoals": 7,
       "awayGoals": 1
     }
   },
   "preliminaryIds": [
     "E-GER-CUW"
   ],
-  "upcoming": []
+  "upcoming": [
+    {
+      "id": "F-NED-JPN",
+      "utcDate": "2026-06-14T20:00:00Z",
+      "homeId": "NED",
+      "awayId": "JPN"
+    },
+    {
+      "id": "F-SWE-TUN",
+      "utcDate": "2026-06-15T02:00:00Z",
+      "homeId": "SWE",
+      "awayId": "TUN"
+    },
+    {
+      "id": "H-ESP-CPV",
+      "utcDate": "2026-06-15T16:00:00Z",
+      "homeId": "ESP",
+      "awayId": "CPV"
+    },
+    {
+      "id": "G-BEL-EGY",
+      "utcDate": "2026-06-15T19:00:00Z",
+      "homeId": "BEL",
+      "awayId": "EGY"
+    },
+    {
+      "id": "H-KSA-URU",
+      "utcDate": "2026-06-15T22:00:00Z",
+      "homeId": "KSA",
+      "awayId": "URU"
+    },
+    {
+      "id": "I-FRA-SEN",
+      "utcDate": "2026-06-16T19:00:00Z",
+      "homeId": "FRA",
+      "awayId": "SEN"
+    },
+    {
+      "id": "J-ARG-ALG",
+      "utcDate": "2026-06-17T01:00:00Z",
+      "homeId": "ARG",
+      "awayId": "ALG"
+    },
+    {
+      "id": "K-POR-COD",
+      "utcDate": "2026-06-17T17:00:00Z",
+      "homeId": "POR",
+      "awayId": "COD"
+    },
+    {
+      "id": "L-ENG-CRO",
+      "utcDate": "2026-06-17T20:00:00Z",
+      "homeId": "ENG",
+      "awayId": "CRO"
+    },
+    {
+      "id": "K-UZB-COL",
+      "utcDate": "2026-06-18T02:00:00Z",
+      "homeId": "UZB",
+      "awayId": "COL"
+    },
+    {
+      "id": "C-MAR-SCO",
+      "utcDate": "2026-06-19T22:00:00Z",
+      "homeId": "SCO",
+      "awayId": "MAR"
+    },
+    {
+      "id": "C-BRA-HAI",
+      "utcDate": "2026-06-20T00:30:00Z",
+      "homeId": "BRA",
+      "awayId": "HAI"
+    }
+  ]
 }
