@@ -30,16 +30,26 @@ const GROUPS: Record<string, [string, string, string, string]> = {
 };
 
 // Pelatut tulokset ottelun id:llä. Täytä tämä kisojen edetessä.
+// Lähde: Wikipedia, 2026 FIFA World Cup -lohkosivut (varmistettu 14.6.2026).
 const RESULTS: Record<string, MatchResult> = {
-  // Brasilia–Marokko (New Jersey, 13.6.), Vinícius tasoitti -> 1–1.
-  'C-BRA-MAR': { homeGoals: 1, awayGoals: 1 },
-  // Saksa–Curaçao.
-  'E-GER-CUW': { homeGoals: 2, awayGoals: 1 },
-  // Lohko D (13.6.): Australia–Turkki — Turkin avausottelu.
-  'D-AUS-TUR': { homeGoals: 2, awayGoals: 0 },
-  // Lohko D (12.6.): USA–Paraguay (ei veikattuja joukkueita, mukana fiidissä).
-  'D-USA-PAR': { homeGoals: 4, awayGoals: 1 },
+  // --- 11.6. (lohko A) ---
+  'A-MEX-RSA': { homeGoals: 2, awayGoals: 0 }, // Meksiko–Etelä-Afrikka
+  'A-KOR-CZE': { homeGoals: 2, awayGoals: 1 }, // Etelä-Korea–Tšekki
+  // --- 12.6. ---
+  'B-CAN-BIH': { homeGoals: 1, awayGoals: 1 }, // Kanada–Bosnia ja Hertsegovina
+  'D-USA-PAR': { homeGoals: 4, awayGoals: 1 }, // USA–Paraguay
+  // --- 13.6. ---
+  'B-QAT-SUI': { homeGoals: 1, awayGoals: 1 }, // Qatar–Sveitsi
+  'C-BRA-MAR': { homeGoals: 1, awayGoals: 1 }, // Brasilia–Marokko (Vinícius tasoitti)
+  'C-HAI-SCO': { homeGoals: 0, awayGoals: 1 }, // Haiti–Skotlanti
+  'D-AUS-TUR': { homeGoals: 2, awayGoals: 0 }, // Australia–Turkki (Turkin avaus)
+  // --- 14.6. ---
+  'E-GER-CUW': { homeGoals: 2, awayGoals: 1 }, // Saksa–Curaçao — ALUSTAVA, peli kesken
 };
+
+// Ottelut joiden tulos on vasta alustava (peli kesken / ei loppuvihellystä).
+// Näytetään UI:ssa "alustava"-merkinnällä; pisteet voivat vielä muuttua.
+export const preliminaryIds: string[] = ['E-GER-CUW'];
 
 // Generoi lohkon round-robin (jokainen pari kerran) -> 6 ottelua / lohko.
 function groupMatches(): Match[] {

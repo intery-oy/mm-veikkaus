@@ -5,7 +5,7 @@
 import { computeStandings } from '../domain/scoring.js';
 import type { PickRole } from '../domain/types.js';
 import { bettors, picks } from '../data/picks.js';
-import { matches, outcome } from '../data/results.js';
+import { matches, outcome, preliminaryIds } from '../data/results.js';
 import { teamById } from '../data/teams.js';
 import { playerById } from '../data/players.js';
 import { bettorAvatar, flagEmoji } from './flags.js';
@@ -62,6 +62,8 @@ export interface PlayedResult {
   awayFlag: string;
   homeGoals: number;
   awayGoals: number;
+  /** Tulos vasta alustava (peli kesken). */
+  preliminary: boolean;
 }
 
 export interface PortalData {
@@ -73,6 +75,8 @@ export interface PortalData {
   outcomePending: boolean;
   /** Pelatut ottelut tuloksineen (tulosfiidiä varten). */
   results: PlayedResult[];
+  /** Onko mukana vähintään yksi alustava (kesken oleva) tulos. */
+  hasPreliminary: boolean;
 }
 
 function teamName(id: string): string {
@@ -151,6 +155,7 @@ export function buildPortalData(): PortalData {
     };
   });
 
+  const prelim = new Set(preliminaryIds);
   const results: PlayedResult[] = matches
     .filter((m) => m.result !== null)
     .map((m) => ({
@@ -161,6 +166,7 @@ export function buildPortalData(): PortalData {
       awayFlag: flagEmoji(m.awayTeamId),
       homeGoals: m.result!.homeGoals,
       awayGoals: m.result!.awayGoals,
+      preliminary: prelim.has(m.id),
     }));
 
   const playedMatches = results.length;
@@ -177,5 +183,6 @@ export function buildPortalData(): PortalData {
     totalMatches: matches.length,
     outcomePending,
     results,
+    hasPreliminary: results.some((r) => r.preliminary),
   };
 }

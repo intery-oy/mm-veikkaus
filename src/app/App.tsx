@@ -55,12 +55,22 @@ export function App() {
 
       {/* Tulosfiidi */}
       {data.results.length > 0 && (
-        <div className="mb-8 flex flex-wrap justify-center gap-2">
+        <div className="mb-2 flex flex-wrap justify-center gap-2">
           {data.results.map((r) => (
             <div
               key={r.id}
-              className="num flex items-center gap-2 rounded-2xl bg-[--color-card] px-3 py-1.5 text-sm font-bold shadow-sm ring-1 ring-black/5"
+              className={[
+                'num flex items-center gap-2 rounded-2xl bg-[--color-card] px-3 py-1.5 text-sm font-bold shadow-sm ring-1',
+                r.preliminary ? 'ring-2 ring-red-400' : 'ring-black/5',
+              ].join(' ')}
+              title={r.preliminary ? 'Alustava — peli kesken' : undefined}
             >
+              {r.preliminary && (
+                <span className="flex items-center gap-1 text-[0.7rem] font-bold uppercase tracking-wider text-red-500">
+                  <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-red-500" />
+                  Live
+                </span>
+              )}
               <span>{r.homeFlag}</span>
               <span className="text-[--color-grass-deep]">
                 {r.homeGoals}–{r.awayGoals}
@@ -69,6 +79,11 @@ export function App() {
             </div>
           ))}
         </div>
+      )}
+      {data.hasPreliminary && (
+        <p className="mb-8 text-center text-xs font-semibold text-red-500">
+          🔴 Sisältää alustavan tuloksen (peli kesken) — pisteet voivat vielä muuttua.
+        </p>
       )}
 
       <main className="space-y-10">
