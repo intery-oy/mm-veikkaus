@@ -1,20 +1,22 @@
 // Otteluohjelma + tulokset committoituna datana (EI tietokantaa, EI per-selain-
 // tilaa). MM-2026:n lohkovaihe (72 ottelua) on generoitu virallisesta
-// loppuarvonnasta (lohkot A–L, ks. data/teams.ts). Pudotuspeleja (R32→finaali,
-// 32 ottelua) EI ole tässä: niiden joukkueet selviävät vasta lohkovaiheen
-// jälkeen, eikä niitä saa arvata. Ne lisätään kun parit ovat tiedossa.
+// loppuarvonnasta (lohkot A–L, ks. data/teams.ts).
 //
-// === NÄIN LISÄÄT / PÄIVITÄT TULOKSEN ===
-// Lisää rivi RESULTS-objektiin: ottelun id -> { homeGoals, awayGoals }.
+// === TULOSTEN LÄHTEET (kaksi, automaatti + käsin) ===
+// 1. AUTOMAATTI: scripts/sync-results.ts hakee football-data.orgista ja
+//    kirjoittaa src/data/auto-results.generated.json. GitHub Action ajaa sen
+//    ottelupäivinä ja commitoi -> Vercel auto-deplottaa. Älä muokkaa generated-
+//    tiedostoa käsin (automaatti ylikirjoittaa sen).
+// 2. KÄSIN: lisää korjaus/ohitus OVERRIDES-objektiin alla. Käsin VOITTAA aina
+//    automaatin (hyvä korjauksille tai jos API on väärässä/jäljessä).
+//
 // Ottelun id on muotoa `${lohko}-${kotiId}-${vierasId}`, esim. 'C-BRA-MAR'.
-// Koti/vieras on nimellinen (virallista järjestystä ei seedattu) — syötä
-// tulos ottelun id:n osoittamassa koti–vieras-suunnassa. Sitten:
-//   git commit -am "Tulos: ..." && git push   -> Vercel auto-deplottaa.
 
 import type { Match, MatchResult, TournamentOutcome } from '../domain/types.js';
+import autoData from './auto-results.generated.json';
 
 // Lohkot A–L, joukkueet arvonnan mukaisessa järjestyksessä (id = FIFA-koodi).
-const GROUPS: Record<string, [string, string, string, string]> = {
+export const GROUPS: Record<string, [string, string, string, string]> = {
   A: ['MEX', 'RSA', 'KOR', 'CZE'],
   B: ['CAN', 'BIH', 'QAT', 'SUI'],
   C: ['BRA', 'MAR', 'HAI', 'SCO'],
@@ -29,20 +31,24 @@ const GROUPS: Record<string, [string, string, string, string]> = {
   L: ['ENG', 'CRO', 'GHA', 'PAN'],
 };
 
-// Pelatut tulokset ottelun id:llä. Vain ottelut joissa on perheen veikkaama
-// joukkue. Lähde: Wikipedia / livescore.com (varmistettu 14.6.2026).
-const RESULTS: Record<string, MatchResult> = {
-  // 13.6. Brasilia–Marokko (Vinícius tasoitti)
-  'C-BRA-MAR': { homeGoals: 1, awayGoals: 1 },
-  // 13.6. Australia–Turkki (Turkin avausottelu)
-  'D-AUS-TUR': { homeGoals: 2, awayGoals: 0 },
-  // 14.6. Saksa–Curaçao — ALUSTAVA, peli kesken (livescore 70': 5–1)
-  'E-GER-CUW': { homeGoals: 5, awayGoals: 1 },
-};
+interface AutoResults {
+  results: Record<string, MatchResult>;
+  preliminaryIds: string[];
+}
+const auto = autoData as AutoResults;
 
-// Ottelut joiden tulos on vasta alustava (peli kesken / ei loppuvihellystä).
-// Näytetään UI:ssa "alustava"-merkinnällä; pisteet voivat vielä muuttua.
-export const preliminaryIds: string[] = ['E-GER-CUW'];
+// Käsin tehdyt korjaukset/ohitukset. Voittavat automaatin samalla id:llä.
+// Esim. 'C-BRA-MAR': { homeGoals: 1, awayGoals: 1 },
+const OVERRIDES: Record<string, MatchResult> = {};
+
+// Lopulliset tulokset = automaatti + käsin (käsin viimeisenä -> voittaa).
+const RESULTS: Record<string, MatchResult> = { ...auto.results, ...OVERRIDES };
+
+// Alustavat (kesken) = automaatin merkitsemät, paitsi jos käsin ohitettu
+// (manuaalinen ohitus tulkitaan lopulliseksi).
+export const preliminaryIds: string[] = auto.preliminaryIds.filter(
+  (id) => !(id in OVERRIDES),
+);
 
 // Generoi lohkon round-robin (jokainen pari kerran) -> 6 ottelua / lohko.
 function groupMatches(): Match[] {

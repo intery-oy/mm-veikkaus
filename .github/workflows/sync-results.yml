@@ -1,0 +1,50 @@
+name: Sync results
+
+# Hakee MM-tulokset football-data.orgista ja commitoi muutokset.
+# Push laukaisee Vercelin auto-deployn -> sivu päivittyy itsestään.
+
+on:
+  schedule:
+    # Joka 10. minuutti kesä- ja heinäkuussa (MM-kisojen aika).
+    # Huom: GitHubin ajastus voi viivästyä muutaman minuutin.
+    - cron: '*/10 * * 6,7 *'
+  workflow_dispatch: {} # manuaalinen ajo "Run workflow" -napista
+
+permissions:
+  contents: write
+
+# Vain yksi ajo kerrallaan; ei peruta käynnissä olevaa.
+concurrency:
+  group: sync-results
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Hae tulokset
+        env:
+          FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
+        run: npm run sync:results
+
+      - name: Commitoi ja pushaa muutokset
+        run: |
+          if [[ -n "$(git status --porcelain src/data/auto-results.generated.json)" ]]; then
+            git config user.name "mm-veikkaus-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add src/data/auto-results.generated.json
+            git commit -m "Auto: päivitä tulokset (football-data.org)"
+            git push
+            echo "Tulokset päivitetty ja pushattu."
+          else
+            echo "Ei muutoksia tuloksiin."
+          fi

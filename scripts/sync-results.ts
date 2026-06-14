@@ -1,0 +1,208 @@
+// Hakee MM-2026:n tulokset football-data.orgista ja kirjoittaa ne tiedostoon
+// src/data/auto-results.generated.json (malli A). GitHub Action ajaa tämän.
+//
+// Periaatteet:
+//  - Vain ottelut, joissa on perheen veikkaama joukkue (sama rajaus kuin UI).
+//  - Tulos orientoidaan meidän ottelun id:n koti–vieras-suuntaan.
+//  - Ei koskaan ylikirjoita tiedostoa virhetilanteessa (säilyttää viimeisen hyvän).
+//  - Tuntemattomat joukkueet/ottelut vain varoituksena, ei kaadu.
+//
+// Aja: FOOTBALL_DATA_TOKEN=xxx npx tsx scripts/sync-results.ts
+
+import { writeFileSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import type { MatchResult } from '../src/domain/types.js';
+import { matches } from '../src/data/results.js';
+import { picks } from '../src/data/picks.js';
+import { teams } from '../src/data/teams.js';
+
+const OUT_PATH = fileURLToPath(new URL('../src/data/auto-results.generated.json', import.meta.url));
+const API_URL = 'https://api.football-data.org/v4/competitions/WC/matches';
+
+// --- Joukkueiden tunnistus: football-data (name/tla) -> meidän FIFA-id ---
+const OUR_IDS = new Set(teams.map((t) => t.id));
+
+function norm(s: string): string {
+  return s
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+// Englanninkieliset nimet (ja yleiset variantit) -> meidän id.
+const NAME_TO_ID: Record<string, string> = {};
+const addName = (id: string, ...names: string[]) => {
+  for (const n of names) NAME_TO_ID[norm(n)] = id;
+};
+addName('MEX', 'Mexico');
+addName('RSA', 'South Africa');
+addName('KOR', 'South Korea', 'Korea Republic');
+addName('CZE', 'Czechia', 'Czech Republic');
+addName('CAN', 'Canada');
+addName('BIH', 'Bosnia and Herzegovina', 'Bosnia & Herzegovina', 'Bosnia-Herzegovina');
+addName('QAT', 'Qatar');
+addName('SUI', 'Switzerland');
+addName('BRA', 'Brazil');
+addName('MAR', 'Morocco');
+addName('HAI', 'Haiti');
+addName('SCO', 'Scotland');
+addName('USA', 'United States', 'USA', 'United States of America');
+addName('PAR', 'Paraguay');
+addName('AUS', 'Australia');
+addName('TUR', 'Turkey', 'Türkiye', 'Turkiye');
+addName('GER', 'Germany');
+addName('CUW', 'Curacao', 'Curaçao');
+addName('CIV', 'Ivory Coast', "Côte d'Ivoire", 'Cote d Ivoire');
+addName('ECU', 'Ecuador');
+addName('NED', 'Netherlands', 'Holland');
+addName('JPN', 'Japan');
+addName('SWE', 'Sweden');
+addName('TUN', 'Tunisia');
+addName('BEL', 'Belgium');
+addName('EGY', 'Egypt');
+addName('IRN', 'Iran', 'IR Iran');
+addName('NZL', 'New Zealand');
+addName('ESP', 'Spain');
+addName('CPV', 'Cape Verde', 'Cabo Verde');
+addName('KSA', 'Saudi Arabia');
+addName('URU', 'Uruguay');
+addName('FRA', 'France');
+addName('SEN', 'Senegal');
+addName('IRQ', 'Iraq');
+addName('NOR', 'Norway');
+addName('ARG', 'Argentina');
+addName('ALG', 'Algeria');
+addName('AUT', 'Austria');
+addName('JOR', 'Jordan');
+addName('POR', 'Portugal');
+addName('COD', 'DR Congo', 'Congo DR', 'Democratic Republic of the Congo', 'DR Congo (Kinshasa)');
+addName('UZB', 'Uzbekistan');
+addName('COL', 'Colombia');
+addName('ENG', 'England');
+addName('CRO', 'Croatia');
+addName('GHA', 'Ghana');
+addName('PAN', 'Panama');
+
+interface ApiTeam {
+  name?: string;
+  shortName?: string;
+  tla?: string;
+}
+
+function resolveId(team: ApiTeam): string | null {
+  if (team.tla && OUR_IDS.has(team.tla)) return team.tla;
+  for (const cand of [team.name, team.shortName]) {
+    if (cand && NAME_TO_ID[norm(cand)]) return NAME_TO_ID[norm(cand)]!;
+  }
+  return null;
+}
+
+// --- Kanoniset ottelut: pari (lajiteltu) -> meidän { id, home, away } ---
+const fixtureByPair = new Map<string, { id: string; home: string; away: string }>();
+for (const m of matches) {
+  const key = [m.homeTeamId, m.awayTeamId].sort().join('|');
+  fixtureByPair.set(key, { id: m.id, home: m.homeTeamId, away: m.awayTeamId });
+}
+
+// Veikatut joukkueet (vain näitä sisältävät ottelut otetaan mukaan).
+const BETTED = new Set(picks.flatMap((p) => p.teams.map((t) => t.teamId)));
+
+interface ApiMatch {
+  status: string;
+  homeTeam: ApiTeam;
+  awayTeam: ApiTeam;
+  score?: { fullTime?: { home: number | null; away: number | null } };
+}
+
+async function main() {
+  const token = process.env.FOOTBALL_DATA_TOKEN;
+  if (!token) {
+    console.error('VIRHE: FOOTBALL_DATA_TOKEN puuttuu.');
+    process.exit(1);
+  }
+
+  const res = await fetch(API_URL, { headers: { 'X-Auth-Token': token } });
+  if (!res.ok) {
+    console.error(`VIRHE: football-data API ${res.status} ${res.statusText}`);
+    process.exit(1);
+  }
+  const data = (await res.json()) as { matches?: ApiMatch[] };
+  const apiMatches = data.matches ?? [];
+  if (apiMatches.length === 0) {
+    console.error('VIRHE: API palautti 0 ottelua — ei kirjoiteta (säilytetään vanha).');
+    process.exit(1);
+  }
+
+  const results: Record<string, MatchResult> = {};
+  const preliminary: string[] = [];
+  let mapped = 0;
+  const warnings: string[] = [];
+
+  for (const m of apiMatches) {
+    const live = m.status === 'IN_PLAY' || m.status === 'PAUSED';
+    const finished = m.status === 'FINISHED';
+    if (!live && !finished) continue; // SCHEDULED/TIMED/POSTPONED yms. ohi
+
+    const homeId = resolveId(m.homeTeam);
+    const awayId = resolveId(m.awayTeam);
+    if (!homeId || !awayId) {
+      warnings.push(`Tuntematon joukkue: ${m.homeTeam.name} vs ${m.awayTeam.name}`);
+      continue;
+    }
+    if (!BETTED.has(homeId) && !BETTED.has(awayId)) continue; // ei veikattu
+
+    const fx = fixtureByPair.get([homeId, awayId].sort().join('|'));
+    if (!fx) {
+      warnings.push(`Ei kanonista ottelua parille: ${homeId} vs ${awayId}`);
+      continue;
+    }
+
+    const ft = m.score?.fullTime;
+    if (!ft || ft.home == null || ft.away == null) continue;
+
+    // Orientoi tulos meidän ottelun koti–vieras-suuntaan.
+    const result: MatchResult =
+      fx.home === homeId
+        ? { homeGoals: ft.home, awayGoals: ft.away }
+        : { homeGoals: ft.away, awayGoals: ft.home };
+
+    results[fx.id] = result;
+    if (live) preliminary.push(fx.id);
+    mapped++;
+  }
+
+  if (warnings.length) console.warn('Varoitukset:\n  ' + warnings.join('\n  '));
+
+  if (mapped === 0) {
+    console.error('VIRHE: 0 veikattua ottelua tunnistettu — ei kirjoiteta.');
+    process.exit(1);
+  }
+
+  // Vakaa, lajiteltu ulostulo -> siistit diffit.
+  const sortedResults: Record<string, MatchResult> = {};
+  for (const id of Object.keys(results).sort()) sortedResults[id] = results[id]!;
+  const payload = { results: sortedResults, preliminaryIds: preliminary.sort() };
+  const json = JSON.stringify(payload, null, 2) + '\n';
+
+  const prev = (() => {
+    try {
+      return readFileSync(OUT_PATH, 'utf8');
+    } catch {
+      return '';
+    }
+  })();
+
+  if (prev === json) {
+    console.log(`Ei muutoksia (${mapped} veikattua ottelua).`);
+    return;
+  }
+  writeFileSync(OUT_PATH, json);
+  console.log(`Päivitetty ${mapped} veikattua ottelua (${preliminary.length} alustavaa).`);
+}
+
+main().catch((err) => {
+  console.error('VIRHE:', err);
+  process.exit(1);
+});
