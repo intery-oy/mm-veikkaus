@@ -38,9 +38,11 @@ describe('buildPortalData', () => {
     expect(names).not.toContain('BRA');
   });
 
-  it('lohkovaiheen ohjelma on 72 ottelua, Brasilia–Marokko pelattu', () => {
+  it('lohkovaiheen ohjelma on 72 ottelua, ja Brasilia–Marokko on pelattu', () => {
     expect(data.totalMatches).toBe(72);
-    expect(data.playedMatches).toBe(1);
+    // playedMatches kasvaa tulosten myötä; varmistetaan vain että BRA–MAR on mukana.
+    expect(data.playedMatches).toBeGreaterThanOrEqual(1);
+    expect(data.results.some((r) => r.id === 'C-BRA-MAR')).toBe(true);
   });
 
   it('BRA 2–0 MAR antaa ottelupisteet Brasilian omistajille', () => {
