@@ -1,36 +1,111 @@
 @import 'tailwindcss';
 
-/* Design-tokenit (Revenue Portal / HUR -linja): indigo-paletti, Inter +
-   JetBrains Mono, tiheä Tufte/Rams-henkinen ruudukko. */
+/* === Bright & Playful -teema ☀️⚽ ===
+   Vaalea, aurinkoinen, perheystävällinen. Pyöreät iloiset kortit,
+   nurmenvihreä + taivaansininen + aurinkoinen keltainen, paljon emojeja. */
 @theme {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+  --font-sans: 'Nunito', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Fredoka', 'Nunito', ui-sans-serif, system-ui, sans-serif;
 
-  /* Pohja: tumma, hillitty — numerot ja indigo saavat puhua. */
-  --color-ink: #e7e8ee; /* päätekstit */
-  --color-muted: #8b8fa3; /* sekundääri */
-  --color-faint: #4a4d5e; /* viivat / hyvin hiljaiset */
-  --color-surface: #14151b; /* kortit */
-  --color-surface-2: #1b1d25; /* korotetut rivit */
-  --color-bg: #0c0d11; /* sivun tausta */
-  --color-line: #23252f; /* ruudukon viivat */
+  /* Paletti */
+  --color-grass: #22c55e; /* nurmi, primaari */
+  --color-grass-deep: #15803d;
+  --color-sky: #38bdf8; /* taivas, sekundaari */
+  --color-sun: #facc15; /* aurinko, korostus */
+  --color-ink: #14532d; /* tummanvihreä teksti */
+  --color-muted: #5b7766; /* vihertävä sekundääriteksti */
+  --color-faint: #9bb3a5;
+  --color-card: #ffffff;
+  --color-line: #d8eade; /* ohuet viivat */
+
+  /* Podium-värit sijoituksille */
+  --color-gold: #f5b301;
+  --color-silver: #9aa7b4;
+  --color-bronze: #cd7f32;
 }
 
 html {
-  font-feature-settings: 'tnum' 1, 'cv05' 1; /* tabular figures */
+  background:
+    radial-gradient(120% 80% at 50% -10%, #bbf7d0 0%, #dcfce7 35%, #e0f2fe 100%) fixed;
+  min-height: 100%;
 }
 
 body {
   margin: 0;
-  background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  font-weight: 600;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* Numerot aina monolla ja tabular-leveydellä — vertailtavat sarakkeet. */
+/* Scoreboard-numerot: pyöreällä display-fontilla, tabular. */
 .num {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Iloinen pomppu napautukseen / hoveriin. */
+.pop {
+  transition:
+    transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.15s ease;
+}
+.pop:hover {
+  transform: translateY(-3px) scale(1.015);
+}
+.pop:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+/* Leader-tuiske */
+@keyframes pulse-gold {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 179, 1, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(245, 179, 1, 0);
+  }
+}
+.glow-leader {
+  animation: pulse-gold 2.2s ease-in-out infinite;
+}
+
+/* Konfetti: emoji-palat putoavat ylhäältä kerran. */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-12vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(108vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+.confetti-piece {
+  position: fixed;
+  top: 0;
+  font-size: 1.4rem;
+  pointer-events: none;
+  z-index: 50;
+  animation: confetti-fall linear forwards;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pop,
+  .glow-leader,
+  .confetti-piece {
+    animation: none !important;
+    transition: none !important;
+  }
 }

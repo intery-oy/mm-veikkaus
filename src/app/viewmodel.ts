@@ -8,6 +8,7 @@ import { bettors, picks } from '../data/picks.js';
 import { matches, outcome } from '../data/results.js';
 import { teamById } from '../data/teams.js';
 import { playerById } from '../data/players.js';
+import { bettorAvatar, flagEmoji } from './flags.js';
 
 export const ROLE_LABEL: Record<PickRole, string> = {
   champion: 'Mestari',
@@ -24,10 +25,13 @@ export interface TeamPickView {
   role: PickRole;
   roleLabel: string;
   teamName: string;
+  flag: string;
 }
 
 export interface BonusSlot {
   label: string;
+  /** Emoji-ikoni ruudulle (lippu joukkueelle, ⭐/👟 pelaajille). */
+  icon: string;
   /** Pisteet jos ratkennut; null jos kisat vielä kesken kyseiseltä osalta. */
   points: number | null;
   /** Mihin veikattiin (joukkue tai pelaaja). */
@@ -37,6 +41,7 @@ export interface BonusSlot {
 export interface BettorView {
   bettorId: string;
   name: string;
+  avatar: string;
   rank: number;
   total: number;
   matchPoints: number;
@@ -49,6 +54,16 @@ export interface BettorView {
   bonusSlots: BonusSlot[];
 }
 
+export interface PlayedResult {
+  id: string;
+  homeName: string;
+  awayName: string;
+  homeFlag: string;
+  awayFlag: string;
+  homeGoals: number;
+  awayGoals: number;
+}
+
 export interface PortalData {
   bettors: BettorView[];
   /** Montako ottelua on pelattu (tuloksellisia). */
@@ -56,6 +71,8 @@ export interface PortalData {
   totalMatches: number;
   /** Onko koko outcome vielä auki. */
   outcomePending: boolean;
+  /** Pelatut ottelut tuloksineen (tulosfiidiä varten). */
+  results: PlayedResult[];
 }
 
 function teamName(id: string): string {
@@ -79,31 +96,40 @@ export function buildPortalData(): PortalData {
       role,
       roleLabel: ROLE_LABEL[role],
       teamName: teamName(byRole.get(role)!),
+      flag: flagEmoji(byRole.get(role)!),
     }));
+
+    const medalIcon = (role: PickRole, fallback: string) =>
+      byRole.has(role) ? flagEmoji(byRole.get(role)!) : fallback;
 
     const bonusSlots: BonusSlot[] = [
       {
         label: 'Mestari',
+        icon: medalIcon('champion', '🥇'),
         points: outcome.championTeamId === null ? null : s.medalBonus.champion,
         pick: byRole.has('champion') ? teamName(byRole.get('champion')!) : '—',
       },
       {
         label: 'Hopea',
+        icon: medalIcon('silver', '🥈'),
         points: outcome.silverTeamId === null ? null : s.medalBonus.silver,
         pick: byRole.has('silver') ? teamName(byRole.get('silver')!) : '—',
       },
       {
         label: 'Pronssi',
+        icon: medalIcon('bronze', '🥉'),
         points: outcome.bronzeTeamId === null ? null : s.medalBonus.bronze,
         pick: byRole.has('bronze') ? teamName(byRole.get('bronze')!) : '—',
       },
       {
         label: 'Paras pelaaja',
+        icon: '⭐',
         points: outcome.bestPlayerId === null ? null : s.prizeBonus.bestPlayer,
         pick: p ? playerName(p.bestPlayerId) : '—',
       },
       {
         label: 'Maalikuningas',
+        icon: '👟',
         points: outcome.topScorerId === null ? null : s.prizeBonus.topScorer,
         pick: p ? playerName(p.topScorerId) : '—',
       },
@@ -112,6 +138,7 @@ export function buildPortalData(): PortalData {
     return {
       bettorId: s.bettorId,
       name: nameById.get(s.bettorId) ?? s.bettorId,
+      avatar: bettorAvatar(s.bettorId),
       rank: s.rank,
       total: s.total,
       matchPoints: s.matchPoints,
@@ -124,7 +151,19 @@ export function buildPortalData(): PortalData {
     };
   });
 
-  const playedMatches = matches.filter((m) => m.result !== null).length;
+  const results: PlayedResult[] = matches
+    .filter((m) => m.result !== null)
+    .map((m) => ({
+      id: m.id,
+      homeName: teamName(m.homeTeamId),
+      awayName: teamName(m.awayTeamId),
+      homeFlag: flagEmoji(m.homeTeamId),
+      awayFlag: flagEmoji(m.awayTeamId),
+      homeGoals: m.result!.homeGoals,
+      awayGoals: m.result!.awayGoals,
+    }));
+
+  const playedMatches = results.length;
   const outcomePending =
     outcome.championTeamId === null &&
     outcome.silverTeamId === null &&
@@ -137,5 +176,6 @@ export function buildPortalData(): PortalData {
     playedMatches,
     totalMatches: matches.length,
     outcomePending,
+    results,
   };
 }
