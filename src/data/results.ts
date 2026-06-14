@@ -31,8 +31,8 @@ const GROUPS: Record<string, [string, string, string, string]> = {
 
 // Pelatut tulokset ottelun id:llä. Täytä tämä kisojen edetessä.
 const RESULTS: Record<string, MatchResult> = {
-  // Brasilia–Marokko (New Jersey), ensimmäinen veikattuja joukkueita sisältävä peli.
-  'C-BRA-MAR': { homeGoals: 2, awayGoals: 0 },
+  // Brasilia–Marokko (New Jersey, 13.6.), Vinícius tasoitti -> 1–1.
+  'C-BRA-MAR': { homeGoals: 1, awayGoals: 1 },
   // Saksa–Curaçao.
   'E-GER-CUW': { homeGoals: 1, awayGoals: 1 },
   // Lohko D (13.6.): Australia–Turkki — Turkin avausottelu.

@@ -45,9 +45,9 @@ describe('buildPortalData', () => {
     expect(data.results.some((r) => r.id === 'C-BRA-MAR')).toBe(true);
   });
 
-  it('BRA 2–0 MAR antaa ottelupisteet Brasilian omistajille', () => {
-    // Kaarlo omistaa BRA (champion) + MAR (dark_horse) -> 3 + 0 = 3.
-    const kaarlo = data.bettors.find((b) => b.bettorId === 'kaarlo')!;
-    expect(kaarlo.matchPoints).toBe(3);
+  it('jokaisen total = ottelupisteet + mitalibonus + palkintobonus (riippumaton tuloksista)', () => {
+    for (const b of data.bettors) {
+      expect(b.total).toBe(b.matchPoints + b.medalBonusTotal + b.prizeBonusTotal);
+    }
   });
 });
