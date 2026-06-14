@@ -1,0 +1,36 @@
+@import 'tailwindcss';
+
+/* Design-tokenit (Revenue Portal / HUR -linja): indigo-paletti, Inter +
+   JetBrains Mono, tiheä Tufte/Rams-henkinen ruudukko. */
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  /* Pohja: tumma, hillitty — numerot ja indigo saavat puhua. */
+  --color-ink: #e7e8ee; /* päätekstit */
+  --color-muted: #8b8fa3; /* sekundääri */
+  --color-faint: #4a4d5e; /* viivat / hyvin hiljaiset */
+  --color-surface: #14151b; /* kortit */
+  --color-surface-2: #1b1d25; /* korotetut rivit */
+  --color-bg: #0c0d11; /* sivun tausta */
+  --color-line: #23252f; /* ruudukon viivat */
+}
+
+html {
+  font-feature-settings: 'tnum' 1, 'cv05' 1; /* tabular figures */
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Numerot aina monolla ja tabular-leveydellä — vertailtavat sarakkeet. */
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
