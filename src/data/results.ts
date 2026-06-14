@@ -33,6 +33,8 @@ const GROUPS: Record<string, [string, string, string, string]> = {
 const RESULTS: Record<string, MatchResult> = {
   // Brasilia–Marokko (New Jersey), ensimmäinen veikattuja joukkueita sisältävä peli.
   'C-BRA-MAR': { homeGoals: 2, awayGoals: 0 },
+  // Saksa–Curaçao (alustava tulos).
+  'E-GER-CUW': { homeGoals: 1, awayGoals: 0 },
 };
 
 // Generoi lohkon round-robin (jokainen pari kerran) -> 6 ottelua / lohko.
