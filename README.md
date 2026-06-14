@@ -36,19 +36,26 @@ npm run build      # tsc --noEmit && vite build -> dist/
 
 ## Miten lisään ottelutuloksen
 
-1. Avaa **`src/data/results.ts`**.
-2. Etsi ottelu `matches`-listasta (tai lisää uusi: `homeTeamId`/`awayTeamId`
-   ovat `src/data/teams.ts`:n FIFA-koodeja, esim. `'BRA'`, `'MAR'`).
-3. Aseta tulos:
+Koko lohkovaiheen ohjelma (72 ottelua) on jo `src/data/results.ts`:ssä,
+generoituna virallisesta arvonnasta. Tuloksia varten lisäät vain rivin:
+
+1. Avaa **`src/data/results.ts`** ja etsi `RESULTS`-objekti.
+2. Lisää rivi: ottelun id → tulos. Id on muotoa `${lohko}-${kotiId}-${vierasId}`
+   (FIFA-koodit `src/data/teams.ts`:stä), esim:
    ```ts
-   { id: 'BRA-MAR', homeTeamId: 'BRA', awayTeamId: 'MAR',
-     result: { homeGoals: 2, awayGoals: 0 } }   // null = pelaamatta
+   const RESULTS: Record<string, MatchResult> = {
+     'C-BRA-MAR': { homeGoals: 2, awayGoals: 0 },
+     'H-ESP-URU': { homeGoals: 1, awayGoals: 1 },
+   };
    ```
-4. Committaa ja pushaa:
+3. Committaa ja pushaa:
    ```bash
-   git add src/data/results.ts && git commit -m "Tulos: Brasilia–Marokko 2–0" && git push
+   git commit -am "Tulos: Espanja–Uruguay 1–1" && git push
    ```
-5. Vercel auto-deplottaa pushista → taulukko päivittyy kaikilla.
+4. Vercel auto-deplottaa pushista → taulukko päivittyy kaikilla.
+
+> Pudotuspelit (R32→finaali, 32 ottelua) lisätään ohjelmaan vasta kun
+> lohkovaihe on ratkennut ja parit ovat tiedossa — niitä ei voi seedata etukäteen.
 
 ### Mitalit ja palkinnot (kisojen lopussa)
 

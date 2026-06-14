@@ -37,4 +37,15 @@ describe('buildPortalData', () => {
     expect(names).toContain('Brasilia');
     expect(names).not.toContain('BRA');
   });
+
+  it('lohkovaiheen ohjelma on 72 ottelua, Brasilia–Marokko pelattu', () => {
+    expect(data.totalMatches).toBe(72);
+    expect(data.playedMatches).toBe(1);
+  });
+
+  it('BRA 2–0 MAR antaa ottelupisteet Brasilian omistajille', () => {
+    // Kaarlo omistaa BRA (champion) + MAR (dark_horse) -> 3 + 0 = 3.
+    const kaarlo = data.bettors.find((b) => b.bettorId === 'kaarlo')!;
+    expect(kaarlo.matchPoints).toBe(3);
+  });
 });

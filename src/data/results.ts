@@ -1,27 +1,62 @@
-// Ottelutulokset committoituna datana (EI per-selain-tilaa, EI tietokantaa).
+// Otteluohjelma + tulokset committoituna datana (EI tietokantaa, EI per-selain-
+// tilaa). MM-2026:n lohkovaihe (72 ottelua) on generoitu virallisesta
+// loppuarvonnasta (lohkot A–L, ks. data/teams.ts). Pudotuspeleja (R32→finaali,
+// 32 ottelua) EI ole tässä: niiden joukkueet selviävät vasta lohkovaiheen
+// jälkeen, eikä niitä saa arvata. Ne lisätään kun parit ovat tiedossa.
 //
-// Näin lisäät / päivität tuloksen:
-//   1. Etsi tai lisää ottelu alle (homeTeamId/awayTeamId = §8.1 FIFA-koodit).
-//   2. Aseta result: { homeGoals, awayGoals }. null = pelaamatta ("kesken").
-//   3. Committaa + pushaa -> Vercel auto-deplottaa -> taulukko elää.
-//
-// Appi laskee standingsin näistä otteluista + seed-valinnoista (data/picks.ts).
-// TournamentOutcome (mestari/hopea/pronssi/paras pelaaja/maalikuningas) pidetään
-// toistaiseksi kauttaaltaan null:ina -> mitali- ja palkintobonukset ovat 0
-// kunnes kisat ratkeavat (täytetään myöhemmin samaan tyyliin).
+// === NÄIN LISÄÄT / PÄIVITÄT TULOKSEN ===
+// Lisää rivi RESULTS-objektiin: ottelun id -> { homeGoals, awayGoals }.
+// Ottelun id on muotoa `${lohko}-${kotiId}-${vierasId}`, esim. 'C-BRA-MAR'.
+// Koti/vieras on nimellinen (virallista järjestystä ei seedattu) — syötä
+// tulos ottelun id:n osoittamassa koti–vieras-suunnassa. Sitten:
+//   git commit -am "Tulos: ..." && git push   -> Vercel auto-deplottaa.
 
-import type { Match, TournamentOutcome } from '../domain/types.js';
+import type { Match, MatchResult, TournamentOutcome } from '../domain/types.js';
 
-export const matches: Match[] = [
-  // Ensimmäinen veikattuja joukkueita sisältävä ottelu (New Jersey).
-  // Täytä tulos kun peli on pelattu — korvaa null { homeGoals, awayGoals }:lla.
-  {
-    id: 'BRA-MAR',
-    homeTeamId: 'BRA',
-    awayTeamId: 'MAR',
-    result: { homeGoals: 2, awayGoals: 0 }
-  },
-];
+// Lohkot A–L, joukkueet arvonnan mukaisessa järjestyksessä (id = FIFA-koodi).
+const GROUPS: Record<string, [string, string, string, string]> = {
+  A: ['MEX', 'RSA', 'KOR', 'CZE'],
+  B: ['CAN', 'BIH', 'QAT', 'SUI'],
+  C: ['BRA', 'MAR', 'HAI', 'SCO'],
+  D: ['USA', 'PAR', 'AUS', 'TUR'],
+  E: ['GER', 'CUW', 'CIV', 'ECU'],
+  F: ['NED', 'JPN', 'SWE', 'TUN'],
+  G: ['BEL', 'EGY', 'IRN', 'NZL'],
+  H: ['ESP', 'CPV', 'KSA', 'URU'],
+  I: ['FRA', 'SEN', 'IRQ', 'NOR'],
+  J: ['ARG', 'ALG', 'AUT', 'JOR'],
+  K: ['POR', 'COD', 'UZB', 'COL'],
+  L: ['ENG', 'CRO', 'GHA', 'PAN'],
+};
+
+// Pelatut tulokset ottelun id:llä. Täytä tämä kisojen edetessä.
+const RESULTS: Record<string, MatchResult> = {
+  // Brasilia–Marokko (New Jersey), ensimmäinen veikattuja joukkueita sisältävä peli.
+  'C-BRA-MAR': { homeGoals: 2, awayGoals: 0 },
+};
+
+// Generoi lohkon round-robin (jokainen pari kerran) -> 6 ottelua / lohko.
+function groupMatches(): Match[] {
+  const out: Match[] = [];
+  for (const [group, teamIds] of Object.entries(GROUPS)) {
+    for (let i = 0; i < teamIds.length; i++) {
+      for (let j = i + 1; j < teamIds.length; j++) {
+        const home = teamIds[i]!;
+        const away = teamIds[j]!;
+        const id = `${group}-${home}-${away}`;
+        out.push({
+          id,
+          homeTeamId: home,
+          awayTeamId: away,
+          result: RESULTS[id] ?? null,
+        });
+      }
+    }
+  }
+  return out;
+}
+
+export const matches: Match[] = groupMatches();
 
 export const outcome: TournamentOutcome = {
   championTeamId: null,
