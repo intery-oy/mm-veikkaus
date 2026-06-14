@@ -5,7 +5,7 @@
 import { computeStandings } from '../domain/scoring.js';
 import type { PickRole } from '../domain/types.js';
 import { bettors, picks } from '../data/picks.js';
-import { matches, outcome, preliminaryIds } from '../data/results.js';
+import { matches, outcome, preliminaryIds, upcomingFixtures } from '../data/results.js';
 import { teamById } from '../data/teams.js';
 import { playerById } from '../data/players.js';
 import { bettorAvatar, flagEmoji } from './flags.js';
@@ -66,6 +66,15 @@ export interface PlayedResult {
   preliminary: boolean;
 }
 
+export interface UpcomingMatch {
+  id: string;
+  utcDate: string;
+  homeName: string;
+  awayName: string;
+  homeFlag: string;
+  awayFlag: string;
+}
+
 export interface PortalData {
   bettors: BettorView[];
   /** Montako ottelua on pelattu (tuloksellisia). */
@@ -77,6 +86,8 @@ export interface PortalData {
   results: PlayedResult[];
   /** Onko mukana vähintään yksi alustava (kesken oleva) tulos. */
   hasPreliminary: boolean;
+  /** Tulevat veikatut ottelut aikajärjestyksessä (App suodattaa "nyt"-hetken). */
+  upcoming: UpcomingMatch[];
 }
 
 function teamName(id: string): string {
@@ -184,5 +195,15 @@ export function buildPortalData(): PortalData {
     outcomePending,
     results,
     hasPreliminary: results.some((r) => r.preliminary),
+    upcoming: upcomingFixtures
+      .map((u) => ({
+        id: u.id,
+        utcDate: u.utcDate,
+        homeName: teamName(u.homeId),
+        awayName: teamName(u.awayId),
+        homeFlag: flagEmoji(u.homeId),
+        awayFlag: flagEmoji(u.awayId),
+      }))
+      .sort((a, b) => a.utcDate.localeCompare(b.utcDate)),
   };
 }

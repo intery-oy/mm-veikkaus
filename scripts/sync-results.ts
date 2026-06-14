@@ -111,9 +111,17 @@ const BETTED = new Set(picks.flatMap((p) => p.teams.map((t) => t.teamId)));
 
 interface ApiMatch {
   status: string;
+  utcDate?: string;
   homeTeam: ApiTeam;
   awayTeam: ApiTeam;
   score?: { fullTime?: { home: number | null; away: number | null } };
+}
+
+interface UpcomingFixture {
+  id: string;
+  utcDate: string;
+  homeId: string;
+  awayId: string;
 }
 
 async function main() {
@@ -137,18 +145,23 @@ async function main() {
 
   const results: Record<string, MatchResult> = {};
   const preliminary: string[] = [];
-  let mapped = 0;
+  let upcoming: UpcomingFixture[] = [];
+  let mappedResults = 0;
   const warnings: string[] = [];
 
   for (const m of apiMatches) {
     const live = m.status === 'IN_PLAY' || m.status === 'PAUSED';
     const finished = m.status === 'FINISHED';
-    if (!live && !finished) continue; // SCHEDULED/TIMED/POSTPONED yms. ohi
+    const scheduled = m.status === 'SCHEDULED' || m.status === 'TIMED';
+    if (!live && !finished && !scheduled) continue; // POSTPONED/CANCELLED yms.
 
     const homeId = resolveId(m.homeTeam);
     const awayId = resolveId(m.awayTeam);
     if (!homeId || !awayId) {
-      warnings.push(`Tuntematon joukkue: ${m.homeTeam.name} vs ${m.awayTeam.name}`);
+      // Pudotuspelien TBD-joukkueet eivät resolvaudu — varoita vain pelatuista.
+      if (live || finished) {
+        warnings.push(`Tuntematon joukkue: ${m.homeTeam.name} vs ${m.awayTeam.name}`);
+      }
       continue;
     }
     if (!BETTED.has(homeId) && !BETTED.has(awayId)) continue; // ei veikattu
@@ -159,31 +172,36 @@ async function main() {
       continue;
     }
 
-    const ft = m.score?.fullTime;
-    if (!ft || ft.home == null || ft.away == null) continue;
-
-    // Orientoi tulos meidän ottelun koti–vieras-suuntaan.
-    const result: MatchResult =
-      fx.home === homeId
-        ? { homeGoals: ft.home, awayGoals: ft.away }
-        : { homeGoals: ft.away, awayGoals: ft.home };
-
-    results[fx.id] = result;
-    if (live) preliminary.push(fx.id);
-    mapped++;
+    if (finished || live) {
+      const ft = m.score?.fullTime;
+      if (!ft || ft.home == null || ft.away == null) continue;
+      // Orientoi tulos meidän ottelun koti–vieras-suuntaan.
+      results[fx.id] =
+        fx.home === homeId
+          ? { homeGoals: ft.home, awayGoals: ft.away }
+          : { homeGoals: ft.away, awayGoals: ft.home };
+      if (live) preliminary.push(fx.id);
+      mappedResults++;
+    } else if (scheduled && m.utcDate) {
+      // Tuleva ottelu: säilytä todellinen koti/vieras näyttöä varten.
+      upcoming.push({ id: fx.id, utcDate: m.utcDate, homeId, awayId });
+    }
   }
 
   if (warnings.length) console.warn('Varoitukset:\n  ' + warnings.join('\n  '));
 
-  if (mapped === 0) {
+  if (mappedResults === 0 && upcoming.length === 0) {
     console.error('VIRHE: 0 veikattua ottelua tunnistettu — ei kirjoiteta.');
     process.exit(1);
   }
 
+  // Tulevat: aikajärjestykseen, talteen seuraavat 12 (UI näyttää muutaman).
+  upcoming = upcoming.sort((a, b) => a.utcDate.localeCompare(b.utcDate)).slice(0, 12);
+
   // Vakaa, lajiteltu ulostulo -> siistit diffit.
   const sortedResults: Record<string, MatchResult> = {};
   for (const id of Object.keys(results).sort()) sortedResults[id] = results[id]!;
-  const payload = { results: sortedResults, preliminaryIds: preliminary.sort() };
+  const payload = { results: sortedResults, preliminaryIds: preliminary.sort(), upcoming };
   const json = JSON.stringify(payload, null, 2) + '\n';
 
   const prev = (() => {
@@ -195,11 +213,13 @@ async function main() {
   })();
 
   if (prev === json) {
-    console.log(`Ei muutoksia (${mapped} veikattua ottelua).`);
+    console.log(`Ei muutoksia (${mappedResults} tulosta, ${upcoming.length} tulevaa).`);
     return;
   }
   writeFileSync(OUT_PATH, json);
-  console.log(`Päivitetty ${mapped} veikattua ottelua (${preliminary.length} alustavaa).`);
+  console.log(
+    `Päivitetty: ${mappedResults} tulosta (${preliminary.length} alustavaa), ${upcoming.length} tulevaa.`,
+  );
 }
 
 main().catch((err) => {

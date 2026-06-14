@@ -31,11 +31,22 @@ export const GROUPS: Record<string, [string, string, string, string]> = {
   L: ['ENG', 'CRO', 'GHA', 'PAN'],
 };
 
+export interface UpcomingFixture {
+  id: string;
+  utcDate: string; // ISO, esim. "2026-06-15T22:00:00Z"
+  homeId: string;
+  awayId: string;
+}
+
 interface AutoResults {
   results: Record<string, MatchResult>;
   preliminaryIds: string[];
+  upcoming?: UpcomingFixture[];
 }
 const auto = autoData as AutoResults;
+
+// Tulevat veikatut ottelut (automaatin hakemat, aikajärjestyksessä).
+export const upcomingFixtures: UpcomingFixture[] = auto.upcoming ?? [];
 
 // Käsin tehdyt korjaukset/ohitukset. Voittavat automaatin samalla id:llä.
 // Esim. 'C-BRA-MAR': { homeGoals: 1, awayGoals: 1 },

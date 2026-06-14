@@ -20,6 +20,20 @@ export function App() {
   const anyPoints = data.bettors.some((b) => b.total > 0);
   const commentary = buildCommentary(data);
 
+  // Seuraavat 3 veikattua ottelua, joiden aloitus on vielä edessä.
+  const now = Date.now();
+  const nextMatches = data.upcoming
+    .filter((u) => new Date(u.utcDate).getTime() > now)
+    .slice(0, 3);
+  const fmt = new Intl.DateTimeFormat('fi-FI', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'Europe/Helsinki',
+  });
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 sm:py-10">
       {/* Konfetti kärjelle kun pisteitä on jo kertynyt */}
@@ -84,6 +98,34 @@ export function App() {
         <p className="mb-8 text-center text-xs font-semibold text-red-500">
           🔴 Sisältää alustavan tuloksen (peli kesken) — pisteet voivat vielä muuttua.
         </p>
+      )}
+
+      {/* Seuraavaksi — veikattujen joukkueiden tulevat ottelut */}
+      {nextMatches.length > 0 && (
+        <section className="mb-8">
+          <h2 className="mb-2 flex items-center gap-2 font-display text-base font-bold text-[--color-grass-deep]">
+            <span>⏭️</span> Seuraavaksi
+          </h2>
+          <div className="space-y-2">
+            {nextMatches.map((u) => (
+              <div
+                key={u.id}
+                className="flex items-center gap-2 rounded-2xl bg-[--color-card] px-3 py-2 text-sm shadow-sm ring-1 ring-black/5"
+              >
+                <span className="flex flex-1 items-center justify-end gap-1.5 font-bold text-[--color-ink]">
+                  {u.homeName} <span>{u.homeFlag}</span>
+                </span>
+                <span className="num shrink-0 text-[--color-muted]">–</span>
+                <span className="flex flex-1 items-center gap-1.5 font-bold text-[--color-ink]">
+                  <span>{u.awayFlag}</span> {u.awayName}
+                </span>
+                <span className="num ml-2 shrink-0 text-xs text-[--color-muted]">
+                  {fmt.format(new Date(u.utcDate))}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
       )}
 
       <main className="space-y-10">
