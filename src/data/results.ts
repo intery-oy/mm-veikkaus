@@ -56,7 +56,16 @@ function groupMatches(): Match[] {
   return out;
 }
 
-export const matches: Match[] = groupMatches();
+// === PUDOTUSPELIT (R32 → finaali, 32 ottelua) ===
+// Lisätään kun lohkovaihe on ratkennut (27.6.2026) ja parit ovat tiedossa.
+// Täytä id:llä `${kierros}-${kotiId}-${vierasId}` (esim. 'R32-BRA-URU') ja
+// aseta tulos RESULTS-objektiin samalla id:llä, kuten lohko-otteluissa.
+// Kierroskoodit: R32, R16, QF, SF, BRONZE, FINAL.
+const KNOCKOUT_MATCHES: Match[] = [
+  // esim. { id: 'R32-BRA-...', homeTeamId: 'BRA', awayTeamId: '...', result: null },
+];
+
+export const matches: Match[] = [...groupMatches(), ...KNOCKOUT_MATCHES];
 
 export const outcome: TournamentOutcome = {
   championTeamId: null,
