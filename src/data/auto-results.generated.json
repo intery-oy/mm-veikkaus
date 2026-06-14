@@ -11,16 +11,16 @@
     "E-GER-CUW": {
       "homeGoals": 7,
       "awayGoals": 1
+    },
+    "F-NED-JPN": {
+      "homeGoals": 0,
+      "awayGoals": 0
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "F-NED-JPN"
+  ],
   "upcoming": [
-    {
-      "id": "F-NED-JPN",
-      "utcDate": "2026-06-14T20:00:00Z",
-      "homeId": "NED",
-      "awayId": "JPN"
-    },
     {
       "id": "F-SWE-TUN",
       "utcDate": "2026-06-15T02:00:00Z",
@@ -86,6 +86,12 @@
       "utcDate": "2026-06-20T00:30:00Z",
       "homeId": "BRA",
       "awayId": "HAI"
+    },
+    {
+      "id": "D-PAR-TUR",
+      "utcDate": "2026-06-20T03:00:00Z",
+      "homeId": "TUR",
+      "awayId": "PAR"
     }
   ]
 }
