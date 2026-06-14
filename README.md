@@ -79,6 +79,31 @@ Varakeino (CLI, jos tarvitset manuaalisen deployn):
 npx vercel --prod
 ```
 
+## Automaattinen tuloshaku (malli A)
+
+GitHub Action hakee tulokset **football-data.org**:sta ja commitoi muutokset →
+Vercel deplottaa itse. Ei tietokantaa, ei Supabasea.
+
+**Käyttöönotto (kerran):**
+1. Rekisteröidy ilmaiseksi: https://www.football-data.org/client/register → kopioi API-token.
+2. GitHub-repossa: **Settings → Secrets and variables → Actions → New repository secret**
+   - Name: `FOOTBALL_DATA_TOKEN`
+   - Secret: (liitä token)
+3. Valmis. Action ajaa kesä/heinäkuussa 10 min välein. Manuaalisesti:
+   **Actions → Sync results → Run workflow**.
+
+**Miten se toimii:**
+- `scripts/sync-results.ts` hakee API:sta, mäppää joukkueet FIFA-koodeihin, ottaa
+  mukaan vain veikattuja joukkueita sisältävät ottelut, ja kirjoittaa
+  `src/data/auto-results.generated.json`:n. **Älä muokkaa tuota tiedostoa käsin.**
+- Kesken olevat ottelut merkitään alustaviksi (UI: 🔴 LIVE).
+- **Käsin korjaus:** lisää rivi `OVERRIDES`-objektiin `src/data/results.ts`:ssä —
+  se voittaa automaatin (hyvä jos API on väärässä/jäljessä).
+- Turvaa: jos API epäonnistuu tai ei tunnista otteluita, tiedostoa **ei**
+  ylikirjoiteta (vanha data säilyy).
+
+Paikallinen ajo: `FOOTBALL_DATA_TOKEN=xxx npm run sync:results`
+
 ## Pisteytyssäännöt (lyhyesti)
 
 - **Ottelupisteet:** jokaisesta omistetusta joukkueesta per pelattu ottelu —
