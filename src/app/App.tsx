@@ -147,7 +147,7 @@ export function App() {
       {/* Veikkaajat-kuva */}
       <div className="mb-8 overflow-hidden rounded-3xl shadow-sm ring-1 ring-black/5">
         <img
-          src="/bettors.webp"
+          src="/bettors.jpg"
           alt="MM-veikkaus 2026 — veikkaajat"
           className="w-full object-cover"
         />
