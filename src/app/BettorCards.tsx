@@ -6,13 +6,6 @@ const RANK_RING: Record<number, string> = {
   2: 'ring-[--color-silver]',
   3: 'ring-[--color-bronze]',
 };
-// Badge: pohja + tekstiväri parilla niin kontrasti pysyy hyvänä.
-const RANK_BADGE: Record<number, string> = {
-  1: 'bg-[--color-gold] text-[--color-ink]',
-  2: 'bg-[--color-silver] text-white',
-  3: 'bg-[--color-bronze] text-white',
-};
-const DEFAULT_BADGE = 'bg-[--color-ink] text-white';
 const MEDAL: Record<number, string> = { 1: '🥇', 2: '🥈', 3: '🥉' };
 
 function BonusRow({ slot }: { slot: BonusSlot }) {
@@ -43,7 +36,6 @@ function BonusRow({ slot }: { slot: BonusSlot }) {
 
 function Card({ b }: { b: BettorView }) {
   const ring = RANK_RING[b.rank] ?? 'ring-[--color-grass]/40';
-  const badge = RANK_BADGE[b.rank] ?? DEFAULT_BADGE;
   return (
     <article className={`pop rounded-3xl bg-[--color-card] p-4 shadow-md ring-2 ${ring}`}>
       <header className="mb-3 flex items-center gap-3">
