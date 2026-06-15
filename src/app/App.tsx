@@ -107,10 +107,13 @@ export function App() {
             <span>⏭️</span> Seuraavaksi
           </h2>
           <div className="space-y-2">
-            {nextMatches.map((u) => (
+            {nextMatches.map((u, idx) => (
               <div
                 key={u.id}
-                className="rounded-2xl bg-[--color-card] px-3 py-2 shadow-sm ring-1 ring-black/5"
+                className={[
+                  'rounded-2xl bg-[--color-card] px-3 py-2 shadow-sm ring-1',
+                  idx === 0 ? 'glow-leader ring-2 ring-[--color-gold]' : 'ring-black/5',
+                ].join(' ')}
               >
                 <div className="flex items-center gap-2 text-sm">
                   <span className="flex flex-1 items-center justify-end gap-1.5 font-bold text-[--color-ink]">
