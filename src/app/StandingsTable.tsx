@@ -55,12 +55,11 @@ export function StandingsTable({ bettors }: { bettors: BettorView[] }) {
 
               {/* Kokonaispisteet */}
               <div
-                className={[
-                  'num grid h-12 w-14 shrink-0 place-items-center rounded-2xl text-2xl font-bold',
-                  leader
-                    ? 'bg-[--color-gold] text-[--color-ink]'
-                    : 'bg-[--color-ink] text-white',
-                ].join(' ')}
+                className="num grid h-12 w-14 shrink-0 place-items-center rounded-2xl text-2xl font-bold"
+                style={{
+                  backgroundColor: leader ? 'var(--color-gold)' : 'var(--color-ink)',
+                  color: leader ? 'var(--color-ink)' : '#ffffff',
+                }}
               >
                 {b.total}
               </div>

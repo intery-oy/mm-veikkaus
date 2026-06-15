@@ -59,7 +59,15 @@ function Card({ b }: { b: BettorView }) {
           </div>
         </div>
         <div
-          className={`num grid h-14 w-14 shrink-0 place-items-center rounded-2xl text-2xl font-bold ${badge}`}
+          className="num grid h-14 w-14 shrink-0 place-items-center rounded-2xl text-2xl font-bold"
+          style={{
+            backgroundColor:
+              b.rank === 1 ? 'var(--color-gold)' :
+              b.rank === 2 ? 'var(--color-silver)' :
+              b.rank === 3 ? 'var(--color-bronze)' :
+              'var(--color-ink)',
+            color: b.rank === 1 ? 'var(--color-ink)' : '#ffffff',
+          }}
         >
           {b.total}
         </div>
