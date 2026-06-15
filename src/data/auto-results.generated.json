@@ -20,21 +20,19 @@
       "homeGoals": 5,
       "awayGoals": 1
     },
+    "G-BEL-EGY": {
+      "homeGoals": 0,
+      "awayGoals": 1
+    },
     "H-ESP-CPV": {
       "homeGoals": 0,
       "awayGoals": 0
     }
   },
   "preliminaryIds": [
-    "H-ESP-CPV"
+    "G-BEL-EGY"
   ],
   "upcoming": [
-    {
-      "id": "G-BEL-EGY",
-      "utcDate": "2026-06-15T19:00:00Z",
-      "homeId": "BEL",
-      "awayId": "EGY"
-    },
     {
       "id": "H-KSA-URU",
       "utcDate": "2026-06-15T22:00:00Z",
@@ -100,6 +98,12 @@
       "utcDate": "2026-06-20T20:00:00Z",
       "homeId": "GER",
       "awayId": "CIV"
+    },
+    {
+      "id": "H-ESP-KSA",
+      "utcDate": "2026-06-21T16:00:00Z",
+      "homeId": "ESP",
+      "awayId": "KSA"
     }
   ]
 }
