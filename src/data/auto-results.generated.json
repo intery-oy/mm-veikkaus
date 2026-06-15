@@ -19,16 +19,16 @@
     "F-SWE-TUN": {
       "homeGoals": 5,
       "awayGoals": 1
+    },
+    "H-ESP-CPV": {
+      "homeGoals": 0,
+      "awayGoals": 0
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "H-ESP-CPV"
+  ],
   "upcoming": [
-    {
-      "id": "H-ESP-CPV",
-      "utcDate": "2026-06-15T16:00:00Z",
-      "homeId": "ESP",
-      "awayId": "CPV"
-    },
     {
       "id": "G-BEL-EGY",
       "utcDate": "2026-06-15T19:00:00Z",
@@ -94,6 +94,12 @@
       "utcDate": "2026-06-20T17:00:00Z",
       "homeId": "NED",
       "awayId": "SWE"
+    },
+    {
+      "id": "E-GER-CIV",
+      "utcDate": "2026-06-20T20:00:00Z",
+      "homeId": "GER",
+      "awayId": "CIV"
     }
   ]
 }
