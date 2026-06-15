@@ -144,6 +144,15 @@ export function App() {
         </section>
       )}
 
+      {/* Veikkaajat-kuva */}
+      <div className="mb-8 overflow-hidden rounded-3xl shadow-sm ring-1 ring-black/5">
+        <img
+          src="/bettors.webp"
+          alt="MM-veikkaus 2026 — veikkaajat"
+          className="w-full object-cover"
+        />
+      </div>
+
       <main className="space-y-10">
         {!anyPoints && (
           <p className="rounded-3xl bg-[--color-card] p-6 text-center font-display text-lg font-semibold text-[--color-muted] shadow-sm ring-1 ring-black/5">
