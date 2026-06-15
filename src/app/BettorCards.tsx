@@ -9,10 +9,10 @@ const RANK_RING: Record<number, string> = {
 // Badge: pohja + tekstiväri parilla niin kontrasti pysyy hyvänä.
 const RANK_BADGE: Record<number, string> = {
   1: 'bg-[--color-gold] text-[--color-ink]',
-  2: 'bg-[--color-silver] text-[--color-ink]',
+  2: 'bg-[--color-silver] text-white',
   3: 'bg-[--color-bronze] text-white',
 };
-const DEFAULT_BADGE = 'bg-[--color-grass-deep] text-white';
+const DEFAULT_BADGE = 'bg-[--color-ink] text-white';
 const MEDAL: Record<number, string> = { 1: '🥇', 2: '🥈', 3: '🥉' };
 
 function BonusRow({ slot }: { slot: BonusSlot }) {
@@ -59,7 +59,7 @@ function Card({ b }: { b: BettorView }) {
           </div>
         </div>
         <div
-          className={`num grid h-14 w-14 shrink-0 place-items-center rounded-2xl text-2xl font-bold shadow-inner ${badge}`}
+          className={`num grid h-14 w-14 shrink-0 place-items-center rounded-2xl text-2xl font-bold ${badge}`}
         >
           {b.total}
         </div>
