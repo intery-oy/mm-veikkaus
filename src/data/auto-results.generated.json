@@ -29,13 +29,11 @@
       "awayGoals": 0
     },
     "H-KSA-URU": {
-      "homeGoals": 0,
-      "awayGoals": 0
+      "homeGoals": 1,
+      "awayGoals": 1
     }
   },
-  "preliminaryIds": [
-    "H-KSA-URU"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "I-FRA-SEN",
