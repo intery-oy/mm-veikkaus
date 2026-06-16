@@ -31,16 +31,16 @@
     "H-KSA-URU": {
       "homeGoals": 1,
       "awayGoals": 1
+    },
+    "I-FRA-SEN": {
+      "homeGoals": 0,
+      "awayGoals": 0
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "I-FRA-SEN"
+  ],
   "upcoming": [
-    {
-      "id": "I-FRA-SEN",
-      "utcDate": "2026-06-16T19:00:00Z",
-      "homeId": "FRA",
-      "awayId": "SEN"
-    },
     {
       "id": "J-ARG-ALG",
       "utcDate": "2026-06-17T01:00:00Z",
@@ -106,6 +106,12 @@
       "utcDate": "2026-06-21T19:00:00Z",
       "homeId": "BEL",
       "awayId": "IRN"
+    },
+    {
+      "id": "H-CPV-URU",
+      "utcDate": "2026-06-21T22:00:00Z",
+      "homeId": "URU",
+      "awayId": "CPV"
     }
   ]
 }
