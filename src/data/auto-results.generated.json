@@ -39,16 +39,16 @@
     "J-ARG-ALG": {
       "homeGoals": 3,
       "awayGoals": 0
+    },
+    "K-POR-COD": {
+      "homeGoals": 0,
+      "awayGoals": 0
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "K-POR-COD"
+  ],
   "upcoming": [
-    {
-      "id": "K-POR-COD",
-      "utcDate": "2026-06-17T17:00:00Z",
-      "homeId": "POR",
-      "awayId": "COD"
-    },
     {
       "id": "L-ENG-CRO",
       "utcDate": "2026-06-17T20:00:00Z",
@@ -114,6 +114,12 @@
       "utcDate": "2026-06-22T17:00:00Z",
       "homeId": "ARG",
       "awayId": "AUT"
+    },
+    {
+      "id": "I-FRA-IRQ",
+      "utcDate": "2026-06-22T21:00:00Z",
+      "homeId": "FRA",
+      "awayId": "IRQ"
     }
   ]
 }
