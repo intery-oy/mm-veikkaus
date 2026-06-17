@@ -35,16 +35,14 @@
     "I-FRA-SEN": {
       "homeGoals": 3,
       "awayGoals": 1
+    },
+    "J-ARG-ALG": {
+      "homeGoals": 3,
+      "awayGoals": 0
     }
   },
   "preliminaryIds": [],
   "upcoming": [
-    {
-      "id": "J-ARG-ALG",
-      "utcDate": "2026-06-17T01:00:00Z",
-      "homeId": "ARG",
-      "awayId": "ALG"
-    },
     {
       "id": "K-POR-COD",
       "utcDate": "2026-06-17T17:00:00Z",
@@ -110,6 +108,12 @@
       "utcDate": "2026-06-21T22:00:00Z",
       "homeId": "URU",
       "awayId": "CPV"
+    },
+    {
+      "id": "J-ARG-AUT",
+      "utcDate": "2026-06-22T17:00:00Z",
+      "homeId": "ARG",
+      "awayId": "AUT"
     }
   ]
 }
