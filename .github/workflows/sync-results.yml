@@ -4,11 +4,11 @@ name: Sync results
 # Push laukaisee Vercelin auto-deployn -> sivu päivittyy itsestään.
 
 on:
-  schedule:
-    # Joka 10. minuutti kesä- ja heinäkuussa (MM-kisojen aika).
-    # Huom: GitHubin ajastus voi viivästyä muutaman minuutin.
-    - cron: '*/10 * * 6,7 *'
-  workflow_dispatch: {} # manuaalinen ajo "Run workflow" -napista
+  # Ajastus poistettu 17.6.2026 — paikallinen Mac-cron (scripts/sync-local.sh)
+  # hoitaa tuloshaun ainoana lähteenä. Tämä workflow jää manuaaliseksi varalähteeksi.
+  # schedule:
+  #   - cron: '*/10 * * 6,7 *'
+  workflow_dispatch: {} # manuaalinen ajo "Run workflow" -napista (varalähde)
 
 permissions:
   contents: write
