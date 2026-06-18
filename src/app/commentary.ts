@@ -76,23 +76,10 @@ export function buildCommentary(data: PortalData): string {
           seed,
         );
 
-  // 3) Mauste — pohjasija, tuore tulos tai pisteero.
-  const last = bettors[bettors.length - 1]!;
-  const trailers = bettors.filter((b) => b.total === last.total);
+  // 3) Mauste — tuore tulos. (Pohjasijan korostus poistettu — ei nostella viimeistä.)
   const latest = results[results.length - 1];
 
   const spices: string[] = [];
-  if (last.total < topScore) {
-    spices.push(
-      pick(
-        [
-          `Pohjalla ${nameList(trailers)} (${last.total} p) — mutta matka on pitkä, ei luovuteta! 🐢`,
-          `${nameList(trailers)} aloittaa altavastaajana (${last.total} p). Comeback latautuu? 🔋`,
-        ],
-        seed,
-      ),
-    );
-  }
   if (latest) {
     spices.push(
       `Viimeksi maaliverkko heilui: ${latest.homeFlag} ${latest.homeGoals}–${latest.awayGoals} ${latest.awayFlag}. ⚽`,
