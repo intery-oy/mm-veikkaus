@@ -46,16 +46,14 @@
     },
     "K-UZB-COL": {
       "homeGoals": 1,
-      "awayGoals": 2
+      "awayGoals": 3
     },
     "L-ENG-CRO": {
       "homeGoals": 4,
       "awayGoals": 2
     }
   },
-  "preliminaryIds": [
-    "K-UZB-COL"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "C-MAR-SCO",
