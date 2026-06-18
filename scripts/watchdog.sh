@@ -81,5 +81,25 @@ else
   problems=1
 fi
 
-(( problems == 0 )) && wlog "OK (ahead=${ahead:-0})."
+# --- 3. Live-sivu vastaa uusinta dataa (END-TO-END, tärkein) ------------------
+# Push voi onnistua mutta Vercel-build kaatua -> git näyttää vihreää, sivu vanha.
+# Verrataan elävän sivun /version.json:ia siihen mitä origin/main:in pitäisi tarjota.
+# Hälytetään vain jos viimeisin commit on >10 min vanha (deploy ehtinyt valmistua).
+LIVE_URL="https://mm-veikkaus-six.vercel.app/version.json"
+expected="$(git show origin/main:public/version.json 2>/dev/null | sed -n 's/.*"resultsHash":"\([a-f0-9]*\)".*/\1/p')"
+if [[ -n "$expected" ]]; then
+  live="$(curl -s --max-time 20 "$LIVE_URL" | sed -n 's/.*"resultsHash":"\([a-f0-9]*\)".*/\1/p')"
+  head_age=$(( $(date +%s) - $(git show -s --format=%ct origin/main 2>/dev/null || date +%s) ))
+  if [[ "$live" != "$expected" && $head_age -gt 600 ]]; then
+    livedesc="${live:0:8}"; [[ -z "$live" ]] && livedesc="(ei vastausta)"
+    alert "live" "Live-sivu ei vastaa uusinta dataa — Vercel-deploy todennäköisesti epäonnistui. live=$livedesc odotettu=${expected:0:8}. Tarkista Vercel."
+    problems=1
+  else
+    clear_alert "live"
+  fi
+else
+  wlog "VAROITUS: origin/main:public/version.json puuttuu — live-tarkistus ohitettu (bootstrap kesken)."
+fi
+
+(( problems == 0 )) && wlog "OK (ahead=${ahead:-0}, live=match)."
 exit 0

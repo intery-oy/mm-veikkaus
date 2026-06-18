@@ -52,7 +52,13 @@ log "$output"
 # Pushataan myös kun ollaan origin/main:ia edellä (aiemmin kasaantuneet commitit).
 need_push=false
 if [[ -n "$(git status --porcelain src/data/auto-results.generated.json)" ]]; then
-  git add src/data/auto-results.generated.json
+  # Julkaise versiotunniste (tulosten sha256) -> public/version.json -> live-sivu
+  # tarjoaa sen osoitteessa /version.json. Vahti vertaa elävän sivun tunnistetta
+  # odotettuun = aito end-to-end-tarkistus (todistaa että deploy meni perille).
+  rhash="$(shasum -a 256 src/data/auto-results.generated.json | cut -d' ' -f1)"
+  printf '{"resultsHash":"%s","generatedAt":"%s"}\n' \
+    "$rhash" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > public/version.json
+  git add src/data/auto-results.generated.json public/version.json
   git commit -m "Auto: päivitä tulokset (paikallinen cron)"
   need_push=true
 fi
