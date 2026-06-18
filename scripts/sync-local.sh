@@ -1,7 +1,8 @@
 #!/bin/bash
 # Paikallinen tuloshaku — luotettavampi kuin GitHub Actions cron.
-# Aja Mac-crontabista: */5 * * 6,7 * /Users/harrikiviniemi/projects/mm-veikkaus/scripts/sync-local.sh
+# Aja Mac-crontabista: */10 * * 6,7 * /Users/harrikiviniemi/projects/mm-veikkaus/scripts/sync-local.sh
 # Vaatii: FOOTBALL_DATA_TOKEN tiedostossa ~/.mm-veikkaus-token
+#         GitHub-token tiedostossa ~/.mm-veikkaus-gh-token (push cronista)
 
 set -euo pipefail
 
@@ -17,6 +18,15 @@ mkdir -p "$(dirname "$LOG")"
 
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >> "$LOG"; }
 
+# Hälytä Telegramiin VAIN aidoista hiljaisista virheistä (push/token), ei
+# ohimenevistä API-katkoista (ECONNRESET korjaantuu itsestään). Vahti
+# (watchdog.sh) nappaa pysyvät ongelmat. openclaw-CLI hoitaa reitityksen.
+alert() {
+  log "HÄLYTYS: $*"
+  openclaw message send --channel telegram --target 8785835313 \
+    --message "🔴 mm-veikkaus: $*" >/dev/null 2>&1 || log "VIRHE: hälytyksen lähetys epäonnistui."
+}
+
 if [[ ! -f "$TOKEN_FILE" ]]; then
   log "VIRHE: Token-tiedosto puuttuu: $TOKEN_FILE"
   exit 1
@@ -27,7 +37,7 @@ export FOOTBALL_DATA_TOKEN
 
 cd "$REPO"
 
-# Hae tulokset
+# Hae tulokset. Ohimenevä API-katko (ECONNRESET) ei hälytä — korjaantuu itse.
 if ! output=$(npm run sync:results 2>&1); then
   log "VIRHE: sync:results epäonnistui: $output"
   exit 1
@@ -52,7 +62,7 @@ fi
 
 if [[ "$need_push" == true ]]; then
   if [[ ! -f "$GH_TOKEN_FILE" ]]; then
-    log "VIRHE: GitHub-token puuttuu: $GH_TOKEN_FILE — push ohitettu."
+    alert "GitHub-token puuttuu ($GH_TOKEN_FILE) — tulokset eivät päivity sivulle. Korjaa: gh auth token > $GH_TOKEN_FILE"
     exit 1
   fi
   if git -c credential.helper= \
@@ -60,7 +70,8 @@ if [[ "$need_push" == true ]]; then
        push origin main 2>>"$LOG"; then
     log "Pushattu."
   else
-    log "VIRHE: git push epäonnistui."
+    ahead="$(git log origin/main..HEAD --oneline 2>/dev/null | wc -l | tr -d ' ')"
+    alert "git push epäonnistui — $ahead committia jumissa, tulokset eivät päivity sivulle. Tarkista GitHub-token."
     exit 1
   fi
 else
