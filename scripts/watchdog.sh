@@ -101,5 +101,26 @@ else
   wlog "VAROITUS: origin/main:public/version.json puuttuu — live-tarkistus ohitettu (bootstrap kesken)."
 fi
 
-(( problems == 0 )) && wlog "OK (ahead=${ahead:-0}, live=match)."
+# --- 4. GitHub-tokenin vanheneminen ------------------------------------------
+# Fine-grained PAT vanhenee jonakin päivänä -> push lakkaa toimimasta. Varoita
+# 7 vrk ennen, jotta ehtii uusia. GitHub palauttaa vanhenemispäivän headerina.
+if [[ -f "$GH_TOKEN_FILE" ]]; then
+  tok="$(cat "$GH_TOKEN_FILE")"
+  exp="$(curl -s -I -H "Authorization: Bearer $tok" https://api.github.com/user 2>/dev/null \
+         | sed -n 's/[Gg]it[Hh]ub-[Aa]uthentication-[Tt]oken-[Ee]xpiration: //Ip' | tr -d '\r')"
+  if [[ -n "$exp" ]]; then
+    exp_epoch="$(date -j -f "%Y-%m-%d %H:%M:%S %Z" "$exp" +%s 2>/dev/null || echo 0)"
+    if [[ "$exp_epoch" -gt 0 ]]; then
+      days_left=$(( (exp_epoch - $(date +%s)) / 86400 ))
+      if (( days_left < 7 )); then
+        alert "tokenexp" "GitHub-token vanhenee ${days_left} vrk päästä ($exp) — uusi PAT ja: gh:n sijaan luo uusi fine-grained token (Contents: write), tallenna $GH_TOKEN_FILE."
+        problems=1
+      else
+        clear_alert "tokenexp"
+      fi
+    fi
+  fi
+fi
+
+(( problems == 0 )) && wlog "OK (ahead=${ahead:-0}, live=match, token ok)."
 exit 0
