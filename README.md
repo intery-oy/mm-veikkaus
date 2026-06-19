@@ -97,7 +97,8 @@ itse. Ei tietokantaa, ei Supabasea.
 
 **Miten se toimii:**
 - `scripts/sync-results.ts` hakee API:sta, mäppää joukkueet FIFA-koodeihin, ottaa
-  mukaan vain veikattuja joukkueita sisältävät ottelut, ja kirjoittaa
+  tuloksiin mukaan vain veikattuja joukkueita sisältävät ottelut, mutta tuleviin
+  otteluihin myös pelit ilman veikkaajia. Se kirjoittaa
   `src/data/auto-results.generated.json`:n. **Älä muokkaa tuota tiedostoa käsin.**
 - `scripts/sync-local.sh` ajaa haun, luo `public/version.json`:n tuloshashilla,
   commitoi ja pushaa muutokset. Yksittäiset API-katkot jäävät lokiin; toistuvat

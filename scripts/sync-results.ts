@@ -2,7 +2,9 @@
 // src/data/auto-results.generated.json (malli A). GitHub Action ajaa tämän.
 //
 // Periaatteet:
-//  - Vain ottelut, joissa on perheen veikkaama joukkue (sama rajaus kuin UI).
+//  - Tulokset rajataan otteluihin, joissa on perheen veikkaama joukkue.
+//  - Tulevat ottelut tuodaan laajemmin, jotta Seuraavaksi-osio näyttää myös
+//    pelit, joissa ei ole veikkaajia.
 //  - Tulos orientoidaan meidän ottelun id:n koti–vieras-suuntaan.
 //  - Ei koskaan ylikirjoita tiedostoa virhetilanteessa (säilyttää viimeisen hyvän).
 //  - Tuntemattomat joukkueet/ottelut vain varoituksena, ei kaadu.
@@ -106,7 +108,7 @@ for (const m of matches) {
   fixtureByPair.set(key, { id: m.id, home: m.homeTeamId, away: m.awayTeamId });
 }
 
-// Veikatut joukkueet (vain näitä sisältävät ottelut otetaan mukaan).
+// Veikatut joukkueet (tulokset rajataan näihin; tulevat näytetään laajemmin).
 const BETTED = new Set(picks.flatMap((p) => p.teams.map((t) => t.teamId)));
 
 interface ApiMatch {
@@ -164,8 +166,6 @@ async function main() {
       }
       continue;
     }
-    if (!BETTED.has(homeId) && !BETTED.has(awayId)) continue; // ei veikattu
-
     const fx = fixtureByPair.get([homeId, awayId].sort().join('|'));
     if (!fx) {
       warnings.push(`Ei kanonista ottelua parille: ${homeId} vs ${awayId}`);
@@ -173,6 +173,7 @@ async function main() {
     }
 
     if (finished || live) {
+      if (!BETTED.has(homeId) && !BETTED.has(awayId)) continue; // ei vaikuta pisteisiin
       const ft = m.score?.fullTime;
       if (!ft || ft.home == null || ft.away == null) continue;
       // Orientoi tulos meidän ottelun koti–vieras-suuntaan.

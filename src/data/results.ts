@@ -45,7 +45,7 @@ interface AutoResults {
 }
 const auto = autoData as AutoResults;
 
-// Tulevat veikatut ottelut (automaatin hakemat, aikajärjestyksessä).
+// Tulevat ottelut (automaatin hakemat, aikajärjestyksessä).
 export const upcomingFixtures: UpcomingFixture[] = auto.upcoming ?? [];
 
 // Käsin tehdyt korjaukset/ohitukset. Voittavat automaatin samalla id:llä.

@@ -22,11 +22,12 @@ export function App() {
   const anyPoints = data.bettors.some((b) => b.total > 0);
   const commentary = buildCommentary(data);
 
-  // Seuraavat 3 veikattua ottelua, joiden aloitus on vielä edessä.
+  // Seuraavat ottelut, joiden aloitus on vielä edessä. Korosta ensimmäinen,
+  // jossa on mukana vähintään yksi veikattu joukkue.
   const now = Date.now();
-  const nextMatches = data.upcoming
-    .filter((u) => new Date(u.utcDate).getTime() > now)
-    .slice(0, 3);
+  const futureMatches = data.upcoming.filter((u) => new Date(u.utcDate).getTime() > now);
+  const highlightedMatchId = futureMatches.find((u) => u.backers.length > 0)?.id;
+  const nextMatches = futureMatches.slice(0, 6);
   const fmt = new Intl.DateTimeFormat('fi-FI', {
     weekday: 'short',
     day: 'numeric',
@@ -103,19 +104,21 @@ export function App() {
         </p>
       )}
 
-      {/* Seuraavaksi — veikattujen joukkueiden tulevat ottelut */}
+      {/* Seuraavaksi — tulevat ottelut, veikkaajat erikseen merkittynä */}
       {nextMatches.length > 0 && (
         <section className="mb-8 next-matches">
           <h2 className="mb-2 flex items-center gap-2 font-display text-base font-bold text-[--color-grass-deep]">
             <span>⏭️</span> Seuraavaksi
           </h2>
           <div className="space-y-2">
-            {nextMatches.map((u, idx) => (
+            {nextMatches.map((u) => (
               <div
                 key={u.id}
                 className={[
                   'rounded-2xl bg-[--color-card] px-3 py-2 shadow-sm ring-1',
-                  idx === 0 ? 'glow-leader ring-2 ring-[--color-gold]' : 'ring-black/5',
+                  u.id === highlightedMatchId
+                    ? 'glow-leader ring-2 ring-[--color-gold]'
+                    : 'ring-black/5',
                 ].join(' ')}
               >
                 <div className="flex items-center gap-2 text-sm">
@@ -130,7 +133,7 @@ export function App() {
                     {fmt.format(new Date(u.utcDate))}
                   </span>
                 </div>
-                {u.backers.length > 0 && (
+                {u.backers.length > 0 ? (
                   <div className="mt-2 flex flex-wrap gap-1 border-t border-[--color-line] pt-2">
                     {u.backers.map((b, i) => (
                       <span
@@ -142,6 +145,10 @@ export function App() {
                         {b.name}
                       </span>
                     ))}
+                  </div>
+                ) : (
+                  <div className="mt-2 border-t border-[--color-line] pt-2 text-xs font-bold text-[--color-muted]">
+                    Ei veikkaajia tässä ottelussa
                   </div>
                 )}
               </div>

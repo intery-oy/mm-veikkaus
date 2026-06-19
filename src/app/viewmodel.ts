@@ -139,7 +139,7 @@ export interface PortalData {
   results: PlayedResult[];
   /** Onko mukana vähintään yksi alustava (kesken oleva) tulos. */
   hasPreliminary: boolean;
-  /** Tulevat veikatut ottelut aikajärjestyksessä (App suodattaa "nyt"-hetken). */
+  /** Tulevat ottelut aikajärjestyksessä (App suodattaa "nyt"-hetken). */
   upcoming: UpcomingMatch[];
   /** Viimeisimmän pelatun tuloksen vaikutus. */
   changeStory: ChangeStory | null;
