@@ -66,6 +66,9 @@ export function App() {
             Selostaja
           </div>
           <p className="font-semibold text-[--color-ink]">{commentary}</p>
+          <p className="mt-2 font-display text-lg font-bold text-[--color-grass-deep]">
+            🥳 Hyvää juhannusta!! 🇫🇮
+          </p>
         </div>
       </div>
 
