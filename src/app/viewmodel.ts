@@ -147,8 +147,6 @@ export interface PortalData {
   insights: InsightCard[];
   /** Joukkuekohtainen omistusnäkymä. */
   teamOwnership: TeamOwnershipView[];
-  /** Sääntöpohjainen laini kärjessä olevalle. */
-  leaderQuote: string | null;
 }
 
 function teamName(id: string): string {
@@ -170,17 +168,6 @@ function resultToView(match: (typeof matches)[number], prelim: Set<string>): Pla
     awayGoals: match.result!.awayGoals,
     preliminary: prelim.has(match.id),
   };
-}
-
-function leaderQuoteFor(leader: BettorView | undefined, anyPoints: boolean): string | null {
-  if (!leader || !anyPoints) return null;
-  const quotes = [
-    `${leader.name} johtaa. Valta on noussut päähän jo ennen pudotuspelejä.`,
-    `${leader.name} on kärjessä ja käyttäytyy varmasti täysin sietämättömästi.`,
-    `${leader.name} pitää kärkipaikkaa. Muut voivat vielä kutsua tätä strategiseksi odotteluksi.`,
-    `${leader.name} näyttää vaarallisen pätevältä. Tarkistetaan pisteet kahdesti.`,
-  ];
-  return quotes[leader.bettorId.length % quotes.length]!;
 }
 
 function formatRankDelta(delta: number): string {
@@ -331,8 +318,6 @@ export function buildPortalData(): PortalData {
     .sort((a, b) => b.movement.pointsDelta - a.movement.pointsDelta || a.name.localeCompare(b.name))[0];
   const leader = bettorViews[0];
   const chaser = bettorViews.find((b) => b.rank !== leader?.rank);
-  const crowdedTeam = [...ownerIdsByTeam.entries()]
-    .sort((a, b) => b[1].size - a[1].size || teamName(a[0]).localeCompare(teamName(b[0])))[0];
 
   const insights: InsightCard[] = [
     leader
@@ -369,15 +354,6 @@ export function buildPortalData(): PortalData {
           value: `${bestLatestPoints.avatar} ${bestLatestPoints.name}`,
           detail: `+${bestLatestPoints.movement.pointsDelta} pistettä`,
           icon: '⚡',
-        }
-      : null,
-    crowdedTeam
-      ? {
-          id: 'popular-team',
-          label: 'Ruuhkajoukkue',
-          value: `${flagEmoji(crowdedTeam[0])} ${teamName(crowdedTeam[0])}`,
-          detail: `${crowdedTeam[1].size} omistajaa`,
-          icon: '👥',
         }
       : null,
   ].filter((card): card is InsightCard => card !== null);
@@ -437,6 +413,5 @@ export function buildPortalData(): PortalData {
     changeStory,
     insights,
     teamOwnership,
-    leaderQuote: leaderQuoteFor(bettorViews[0], bettorViews.some((b) => b.total > 0)),
   };
 }

@@ -38,34 +38,24 @@ export function App() {
 
   return (
     <div className={shareMode ? 'share-mode' : undefined}>
-    <div className="mx-auto max-w-5xl px-4 py-6 sm:py-10">
-      {/* Konfetti kärjelle kun pisteitä on jo kertynyt */}
-      {anyPoints && <Confetti />}
+      <div className="mx-auto max-w-5xl px-4 py-6 sm:py-10">
+        {/* Konfetti kärjelle kun pisteitä on jo kertynyt */}
+        {anyPoints && <Confetti />}
 
-      <header className="mb-6 text-center">
-        <h1 className="font-display text-4xl font-bold tracking-tight text-[--color-grass-deep] sm:text-5xl">
-          ☀️ MM-veikkaus <span className="text-[--color-sun]">2026</span> ⚽
-        </h1>
-        <div className="mt-3 flex flex-wrap justify-center gap-2">
-          <Pill>⚽ {data.playedMatches}/{data.totalMatches} ottelua</Pill>
-          {leader && anyPoints && (
-            <Pill>
-              👑 {leader.avatar} {leader.name} johtaa
-            </Pill>
-          )}
-          {data.outcomePending && <Pill>🏅 mitalit & palkinnot kesken</Pill>}
-        </div>
-        <div className="mt-4 flex justify-center">
-          <button
-            type="button"
-            onClick={() => setShareMode((v) => !v)}
-            className="pop rounded-full bg-[--color-ink] px-4 py-2 text-sm font-black text-white shadow-sm"
-            title="Tiivistä näkymä screenshotia varten"
-          >
-            {shareMode ? '📸 Normaali näkymä' : '📸 Screenshot-näkymä'}
-          </button>
-        </div>
-      </header>
+        <header className="mb-6 text-center">
+          <h1 className="font-display text-4xl font-bold tracking-tight text-[--color-grass-deep] sm:text-5xl">
+            ☀️ MM-veikkaus <span className="text-[--color-sun]">2026</span> ⚽
+          </h1>
+          <div className="mt-3 flex flex-wrap justify-center gap-2">
+            <Pill>⚽ {data.playedMatches}/{data.totalMatches} ottelua</Pill>
+            {leader && anyPoints && (
+              <Pill>
+                👑 {leader.avatar} {leader.name} johtaa
+              </Pill>
+            )}
+            {data.outcomePending && <Pill>🏅 mitalit & palkinnot kesken</Pill>}
+          </div>
+        </header>
 
       {/* Selostaja — hauska kommentaari tilanteesta */}
       <div className="mb-6 flex items-start gap-3 rounded-3xl bg-[--color-card] p-4 shadow-sm ring-1 ring-black/5">
@@ -79,12 +69,6 @@ export function App() {
           <p className="font-semibold text-[--color-ink]">{commentary}</p>
         </div>
       </div>
-
-      {data.leaderQuote && (
-        <div className="mb-6 rounded-3xl bg-[--color-sun]/25 p-4 text-center font-display text-lg font-bold text-[--color-ink] shadow-sm ring-1 ring-[--color-sun]/40">
-          “{data.leaderQuote}”
-        </div>
-      )}
 
       {/* Tulosfiidi */}
       {data.results.length > 0 && (
@@ -118,11 +102,6 @@ export function App() {
           🔴 Sisältää alustavan tuloksen (peli kesken) — pisteet voivat vielä muuttua.
         </p>
       )}
-
-      <section className="mb-8 space-y-4">
-        <InsightCards cards={data.insights} />
-        <ChangePanel story={data.changeStory} />
-      </section>
 
       {/* Seuraavaksi — veikattujen joukkueiden tulevat ottelut */}
       {nextMatches.length > 0 && (
@@ -179,6 +158,23 @@ export function App() {
           </p>
         )}
         <StandingsTable bettors={data.bettors} />
+        <section className="space-y-4">
+          <div className="flex justify-center">
+            <button
+              type="button"
+              onClick={() => setShareMode((v) => !v)}
+              className="pop rounded-full bg-[--color-ink] px-4 py-2 text-sm font-black text-white shadow-sm"
+              title="Tiivistä näkymä screenshotia varten"
+            >
+              {shareMode ? '📸 Normaali näkymä' : '📸 Screenshot-näkymä'}
+            </button>
+          </div>
+          <InsightCards cards={data.insights} />
+          <ChangePanel story={data.changeStory} />
+          <div className="ownership-panel">
+            <TeamOwnership teams={data.teamOwnership} />
+          </div>
+        </section>
         <div className="overflow-hidden rounded-3xl shadow-sm ring-1 ring-black/5">
           <img
             src="/bettors.jpg"
@@ -187,15 +183,12 @@ export function App() {
           />
         </div>
         <BettorCards bettors={data.bettors} />
-        <div className="ownership-panel">
-          <TeamOwnership teams={data.teamOwnership} />
-        </div>
       </main>
 
       <footer className="mt-12 text-center text-xs font-semibold text-[--color-muted]">
         Pisteet committoidusta datasta · sama total = jaettu sija 🤝
       </footer>
-    </div>
+      </div>
     </div>
   );
 }
