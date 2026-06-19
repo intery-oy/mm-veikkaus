@@ -50,10 +50,28 @@ export function StandingsTable({ bettors }: { bettors: BettorView[] }) {
                   <span>⚽ {b.matchPoints}</span>
                   <span>🏅 {b.medalBonusTotal}</span>
                   <span>⭐ {b.prizeBonusTotal}</span>
+                  {b.movement.pointsDelta > 0 && (
+                    <span className="text-[--color-grass-deep]">
+                      +{b.movement.pointsDelta} viimeksi
+                    </span>
+                  )}
                 </div>
               </div>
 
               {/* Kokonaispisteet */}
+              {b.movement.rankDelta !== 0 && (
+                <div
+                  className={[
+                    'num hidden shrink-0 rounded-full px-2 py-1 text-xs font-black sm:block',
+                    b.movement.rankDelta > 0
+                      ? 'bg-[--color-grass]/15 text-[--color-grass-deep]'
+                      : 'bg-red-50 text-red-500',
+                  ].join(' ')}
+                  title="Sijamuutos viimeisimmän tuloksen jälkeen"
+                >
+                  {b.movement.rankDelta > 0 ? '↑' : '↓'} {Math.abs(b.movement.rankDelta)}
+                </div>
+              )}
               <div
                 className="num grid h-12 w-14 shrink-0 place-items-center rounded-2xl text-2xl font-bold"
                 style={{

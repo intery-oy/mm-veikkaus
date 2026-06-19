@@ -22,6 +22,7 @@ export const ROLE_LABEL: Record<PickRole, string> = {
 const ROLE_ORDER: PickRole[] = ['champion', 'silver', 'bronze', 'dark_horse', 'wild_card'];
 
 export interface TeamPickView {
+  teamId: string;
   role: PickRole;
   roleLabel: string;
   teamName: string;
@@ -52,6 +53,11 @@ export interface BettorView {
   topScorerName: string;
   /** Mitali- ja palkintoruudut kortteja varten; points=null => "kesken". */
   bonusSlots: BonusSlot[];
+  /** Muutos viimeisimmän tuloksen jälkeen: positiivinen rankDelta = nousi. */
+  movement: {
+    rankDelta: number;
+    pointsDelta: number;
+  };
 }
 
 export interface PlayedResult {
@@ -84,6 +90,44 @@ export interface UpcomingMatch {
   backers: UpcomingBacker[];
 }
 
+export interface ResultImpact {
+  bettorId: string;
+  name: string;
+  avatar: string;
+  pointsDelta: number;
+  rankDelta: number;
+  total: number;
+}
+
+export interface ChangeStory {
+  match: PlayedResult;
+  impact: ResultImpact[];
+}
+
+export interface InsightCard {
+  id: string;
+  label: string;
+  value: string;
+  detail: string;
+  icon: string;
+}
+
+export interface TeamOwnerView {
+  bettorId: string;
+  name: string;
+  avatar: string;
+  role: PickRole;
+  roleLabel: string;
+  total: number;
+}
+
+export interface TeamOwnershipView {
+  teamId: string;
+  teamName: string;
+  flag: string;
+  owners: TeamOwnerView[];
+}
+
 export interface PortalData {
   bettors: BettorView[];
   /** Montako ottelua on pelattu (tuloksellisia). */
@@ -97,6 +141,14 @@ export interface PortalData {
   hasPreliminary: boolean;
   /** Tulevat veikatut ottelut aikajärjestyksessä (App suodattaa "nyt"-hetken). */
   upcoming: UpcomingMatch[];
+  /** Viimeisimmän pelatun tuloksen vaikutus. */
+  changeStory: ChangeStory | null;
+  /** Pienet nostot leaderboardin ympärille. */
+  insights: InsightCard[];
+  /** Joukkuekohtainen omistusnäkymä. */
+  teamOwnership: TeamOwnershipView[];
+  /** Sääntöpohjainen laini kärjessä olevalle. */
+  leaderQuote: string | null;
 }
 
 function teamName(id: string): string {
@@ -107,8 +159,49 @@ function playerName(id: string): string {
   return playerById.get(id)?.name ?? id;
 }
 
+function resultToView(match: (typeof matches)[number], prelim: Set<string>): PlayedResult {
+  return {
+    id: match.id,
+    homeName: teamName(match.homeTeamId),
+    awayName: teamName(match.awayTeamId),
+    homeFlag: flagEmoji(match.homeTeamId),
+    awayFlag: flagEmoji(match.awayTeamId),
+    homeGoals: match.result!.homeGoals,
+    awayGoals: match.result!.awayGoals,
+    preliminary: prelim.has(match.id),
+  };
+}
+
+function leaderQuoteFor(leader: BettorView | undefined, anyPoints: boolean): string | null {
+  if (!leader || !anyPoints) return null;
+  const quotes = [
+    `${leader.name} johtaa. Valta on noussut päähän jo ennen pudotuspelejä.`,
+    `${leader.name} on kärjessä ja käyttäytyy varmasti täysin sietämättömästi.`,
+    `${leader.name} pitää kärkipaikkaa. Muut voivat vielä kutsua tätä strategiseksi odotteluksi.`,
+    `${leader.name} näyttää vaarallisen pätevältä. Tarkistetaan pisteet kahdesti.`,
+  ];
+  return quotes[leader.bettorId.length % quotes.length]!;
+}
+
+function formatRankDelta(delta: number): string {
+  if (delta > 0) return `+${delta} sijaa`;
+  if (delta < 0) return `${delta} sijaa`;
+  return 'ei sijamuutosta';
+}
+
 export function buildPortalData(): PortalData {
   const standings = computeStandings({ bettors, picks, matches, outcome });
+  const latestPlayedMatch = [...matches].reverse().find((m) => m.result !== null) ?? null;
+  const previousMatches = latestPlayedMatch
+    ? matches.map((m) => (m.id === latestPlayedMatch.id ? { ...m, result: null } : m))
+    : matches;
+  const previousStandings = computeStandings({
+    bettors,
+    picks,
+    matches: previousMatches,
+    outcome,
+  });
+  const previousById = new Map(previousStandings.map((s) => [s.bettorId, s]));
   const nameById = new Map(bettors.map((b) => [b.id, b.name]));
   const picksById = new Map(picks.map((p) => [p.bettorId, p]));
 
@@ -133,6 +226,7 @@ export function buildPortalData(): PortalData {
     const byRole = new Map((p?.teams ?? []).map((t) => [t.role, t.teamId]));
 
     const teams: TeamPickView[] = ROLE_ORDER.filter((r) => byRole.has(r)).map((role) => ({
+      teamId: byRole.get(role)!,
       role,
       roleLabel: ROLE_LABEL[role],
       teamName: teamName(byRole.get(role)!),
@@ -188,22 +282,17 @@ export function buildPortalData(): PortalData {
       bestPlayerName: p ? playerName(p.bestPlayerId) : '—',
       topScorerName: p ? playerName(p.topScorerId) : '—',
       bonusSlots,
+      movement: {
+        rankDelta: (previousById.get(s.bettorId)?.rank ?? s.rank) - s.rank,
+        pointsDelta: s.total - (previousById.get(s.bettorId)?.total ?? s.total),
+      },
     };
   });
 
   const prelim = new Set(preliminaryIds);
   const results: PlayedResult[] = matches
     .filter((m) => m.result !== null)
-    .map((m) => ({
-      id: m.id,
-      homeName: teamName(m.homeTeamId),
-      awayName: teamName(m.awayTeamId),
-      homeFlag: flagEmoji(m.homeTeamId),
-      awayFlag: flagEmoji(m.awayTeamId),
-      homeGoals: m.result!.homeGoals,
-      awayGoals: m.result!.awayGoals,
-      preliminary: prelim.has(m.id),
-    }));
+    .map((m) => resultToView(m, prelim));
 
   const playedMatches = results.length;
   const outcomePending =
@@ -212,6 +301,112 @@ export function buildPortalData(): PortalData {
     outcome.bronzeTeamId === null &&
     outcome.bestPlayerId === null &&
     outcome.topScorerId === null;
+
+  const impact: ResultImpact[] = bettorViews
+    .map((b) => ({
+      bettorId: b.bettorId,
+      name: b.name,
+      avatar: b.avatar,
+      pointsDelta: b.movement.pointsDelta,
+      rankDelta: b.movement.rankDelta,
+      total: b.total,
+    }))
+    .filter((i) => i.pointsDelta !== 0 || i.rankDelta !== 0)
+    .sort((a, b) => {
+      if (b.pointsDelta !== a.pointsDelta) return b.pointsDelta - a.pointsDelta;
+      if (b.rankDelta !== a.rankDelta) return b.rankDelta - a.rankDelta;
+      return a.name.localeCompare(b.name);
+    });
+
+  const changeStory =
+    latestPlayedMatch && latestPlayedMatch.result
+      ? { match: resultToView(latestPlayedMatch, prelim), impact }
+      : null;
+
+  const biggestRiser = [...bettorViews]
+    .filter((b) => b.movement.rankDelta > 0)
+    .sort((a, b) => b.movement.rankDelta - a.movement.rankDelta || a.name.localeCompare(b.name))[0];
+  const bestLatestPoints = [...bettorViews]
+    .filter((b) => b.movement.pointsDelta > 0)
+    .sort((a, b) => b.movement.pointsDelta - a.movement.pointsDelta || a.name.localeCompare(b.name))[0];
+  const leader = bettorViews[0];
+  const chaser = bettorViews.find((b) => b.rank !== leader?.rank);
+  const crowdedTeam = [...ownerIdsByTeam.entries()]
+    .sort((a, b) => b[1].size - a[1].size || teamName(a[0]).localeCompare(teamName(b[0])))[0];
+
+  const insights: InsightCard[] = [
+    leader
+      ? {
+          id: 'leader',
+          label: 'Kärjessä',
+          value: `${leader.avatar} ${leader.name}`,
+          detail: `${leader.total} pistettä`,
+          icon: '👑',
+        }
+      : null,
+    chaser && leader
+      ? {
+          id: 'chase',
+          label: 'Lähin uhka',
+          value: `${chaser.avatar} ${chaser.name}`,
+          detail: `${leader.total - chaser.total} pistettä kärjestä`,
+          icon: '🎯',
+        }
+      : null,
+    biggestRiser
+      ? {
+          id: 'riser',
+          label: 'Nousija',
+          value: `${biggestRiser.avatar} ${biggestRiser.name}`,
+          detail: formatRankDelta(biggestRiser.movement.rankDelta),
+          icon: '🚀',
+        }
+      : null,
+    bestLatestPoints
+      ? {
+          id: 'latest-points',
+          label: 'Viime tuloksen voittaja',
+          value: `${bestLatestPoints.avatar} ${bestLatestPoints.name}`,
+          detail: `+${bestLatestPoints.movement.pointsDelta} pistettä`,
+          icon: '⚡',
+        }
+      : null,
+    crowdedTeam
+      ? {
+          id: 'popular-team',
+          label: 'Ruuhkajoukkue',
+          value: `${flagEmoji(crowdedTeam[0])} ${teamName(crowdedTeam[0])}`,
+          detail: `${crowdedTeam[1].size} omistajaa`,
+          icon: '👥',
+        }
+      : null,
+  ].filter((card): card is InsightCard => card !== null);
+
+  const standingById = new Map(bettorViews.map((b) => [b.bettorId, b]));
+  const teamOwnership: TeamOwnershipView[] = [...ownerIdsByTeam.keys()]
+    .map((teamId) => {
+      const owners = picks
+        .flatMap((p) =>
+          p.teams
+            .filter((t) => t.teamId === teamId)
+            .map((t) => ({
+              bettorId: p.bettorId,
+              name: nameById.get(p.bettorId) ?? p.bettorId,
+              avatar: bettorAvatar(p.bettorId),
+              role: t.role,
+              roleLabel: ROLE_LABEL[t.role],
+              total: standingById.get(p.bettorId)?.total ?? 0,
+            })),
+        )
+        .sort((a, b) => b.total - a.total || a.name.localeCompare(b.name));
+      return {
+        teamId,
+        teamName: teamName(teamId),
+        flag: flagEmoji(teamId),
+        owners,
+      };
+    })
+    .sort((a, b) => b.owners.length - a.owners.length || a.teamName.localeCompare(b.teamName));
 
   return {
     bettors: bettorViews,
@@ -239,5 +434,9 @@ export function buildPortalData(): PortalData {
         };
       })
       .sort((a, b) => a.utcDate.localeCompare(b.utcDate)),
+    changeStory,
+    insights,
+    teamOwnership,
+    leaderQuote: leaderQuoteFor(bettorViews[0], bettorViews.some((b) => b.total > 0)),
   };
 }

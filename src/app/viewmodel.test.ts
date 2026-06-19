@@ -50,4 +50,11 @@ describe('buildPortalData', () => {
       expect(b.total).toBe(b.matchPoints + b.medalBonusTotal + b.prizeBonusTotal);
     }
   });
+
+  it('rakentaa hauskat johdannaiset ilman erillistä backend-tilaa', () => {
+    expect(data.insights.length).toBeGreaterThan(0);
+    expect(data.changeStory?.match.id).toBeTruthy();
+    expect(data.teamOwnership.length).toBeGreaterThan(0);
+    expect(data.teamOwnership.every((t) => t.owners.length > 0)).toBe(true);
+  });
 });

@@ -1,9 +1,10 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { buildPortalData } from './viewmodel.js';
 import { buildCommentary } from './commentary.js';
 import { StandingsTable } from './StandingsTable.js';
 import { BettorCards } from './BettorCards.js';
 import { Confetti } from './Confetti.js';
+import { ChangePanel, InsightCards, TeamOwnership } from './FunPanels.js';
 
 function Pill({ children }: { children: ReactNode }) {
   return (
@@ -14,6 +15,7 @@ function Pill({ children }: { children: ReactNode }) {
 }
 
 export function App() {
+  const [shareMode, setShareMode] = useState(false);
   // Data on committoitua (seed + results.ts) — laske kerran renderissä.
   const data = buildPortalData();
   const leader = data.bettors[0];
@@ -35,6 +37,7 @@ export function App() {
   });
 
   return (
+    <div className={shareMode ? 'share-mode' : undefined}>
     <div className="mx-auto max-w-5xl px-4 py-6 sm:py-10">
       {/* Konfetti kärjelle kun pisteitä on jo kertynyt */}
       {anyPoints && <Confetti />}
@@ -52,6 +55,16 @@ export function App() {
           )}
           {data.outcomePending && <Pill>🏅 mitalit & palkinnot kesken</Pill>}
         </div>
+        <div className="mt-4 flex justify-center">
+          <button
+            type="button"
+            onClick={() => setShareMode((v) => !v)}
+            className="pop rounded-full bg-[--color-ink] px-4 py-2 text-sm font-black text-white shadow-sm"
+            title="Tiivistä näkymä screenshotia varten"
+          >
+            {shareMode ? '📸 Normaali näkymä' : '📸 Screenshot-näkymä'}
+          </button>
+        </div>
       </header>
 
       {/* Selostaja — hauska kommentaari tilanteesta */}
@@ -66,6 +79,12 @@ export function App() {
           <p className="font-semibold text-[--color-ink]">{commentary}</p>
         </div>
       </div>
+
+      {data.leaderQuote && (
+        <div className="mb-6 rounded-3xl bg-[--color-sun]/25 p-4 text-center font-display text-lg font-bold text-[--color-ink] shadow-sm ring-1 ring-[--color-sun]/40">
+          “{data.leaderQuote}”
+        </div>
+      )}
 
       {/* Tulosfiidi */}
       {data.results.length > 0 && (
@@ -100,9 +119,14 @@ export function App() {
         </p>
       )}
 
+      <section className="mb-8 space-y-4">
+        <InsightCards cards={data.insights} />
+        <ChangePanel story={data.changeStory} />
+      </section>
+
       {/* Seuraavaksi — veikattujen joukkueiden tulevat ottelut */}
       {nextMatches.length > 0 && (
-        <section className="mb-8">
+        <section className="mb-8 next-matches">
           <h2 className="mb-2 flex items-center gap-2 font-display text-base font-bold text-[--color-grass-deep]">
             <span>⏭️</span> Seuraavaksi
           </h2>
@@ -163,11 +187,15 @@ export function App() {
           />
         </div>
         <BettorCards bettors={data.bettors} />
+        <div className="ownership-panel">
+          <TeamOwnership teams={data.teamOwnership} />
+        </div>
       </main>
 
       <footer className="mt-12 text-center text-xs font-semibold text-[--color-muted]">
         Pisteet committoidusta datasta · sama total = jaettu sija 🤝
       </footer>
+    </div>
     </div>
   );
 }
