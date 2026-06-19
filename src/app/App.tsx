@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { buildPortalData } from './viewmodel.js';
 import { buildCommentary } from './commentary.js';
 import { StandingsTable } from './StandingsTable.js';
@@ -15,7 +15,6 @@ function Pill({ children }: { children: ReactNode }) {
 }
 
 export function App() {
-  const [shareMode, setShareMode] = useState(false);
   // Data on committoitua (seed + results.ts) — laske kerran renderissä.
   const data = buildPortalData();
   const leader = data.bettors[0];
@@ -38,10 +37,9 @@ export function App() {
   });
 
   return (
-    <div className={shareMode ? 'share-mode' : undefined}>
-      <div className="mx-auto max-w-5xl px-4 py-6 sm:py-10">
-        {/* Konfetti kärjelle kun pisteitä on jo kertynyt */}
-        {anyPoints && <Confetti />}
+    <div className="mx-auto max-w-5xl px-4 py-6 sm:py-10">
+      {/* Konfetti kärjelle kun pisteitä on jo kertynyt */}
+      {anyPoints && <Confetti />}
 
         <header className="mb-6 text-center">
           <h1 className="font-display text-4xl font-bold tracking-tight text-[--color-grass-deep] sm:text-5xl">
@@ -166,16 +164,6 @@ export function App() {
         )}
         <StandingsTable bettors={data.bettors} />
         <section className="space-y-4">
-          <div className="flex justify-center">
-            <button
-              type="button"
-              onClick={() => setShareMode((v) => !v)}
-              className="pop rounded-full bg-[--color-ink] px-4 py-2 text-sm font-black text-white shadow-sm"
-              title="Tiivistä näkymä screenshotia varten"
-            >
-              {shareMode ? '📸 Normaali näkymä' : '📸 Screenshot-näkymä'}
-            </button>
-          </div>
           <InsightCards cards={data.insights} />
           <ChangePanel story={data.changeStory} />
           <div className="ownership-panel">
@@ -191,8 +179,6 @@ export function App() {
         </div>
         <BettorCards bettors={data.bettors} />
       </main>
-
-      </div>
     </div>
   );
 }

@@ -120,16 +120,3 @@ body {
     transition: none !important;
   }
 }
-
-/* Screenshot-näkymä: tiivistää sivun niin leaderboard + hauskat nostot mahtuvat
-   nätisti yhteen puhelinkuvaan. */
-.share-mode .next-matches,
-.share-mode .ownership-panel,
-.share-mode footer {
-  display: none;
-}
-
-.share-mode .glow-leader,
-.share-mode .confetti-piece {
-  animation: none !important;
-}
