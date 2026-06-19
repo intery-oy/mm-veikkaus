@@ -56,12 +56,6 @@
   "preliminaryIds": [],
   "upcoming": [
     {
-      "id": "D-USA-AUS",
-      "utcDate": "2026-06-19T19:00:00Z",
-      "homeId": "USA",
-      "awayId": "AUS"
-    },
-    {
       "id": "C-MAR-SCO",
       "utcDate": "2026-06-19T22:00:00Z",
       "homeId": "SCO",
@@ -126,6 +120,12 @@
       "utcDate": "2026-06-22T01:00:00Z",
       "homeId": "NZL",
       "awayId": "EGY"
+    },
+    {
+      "id": "J-ARG-AUT",
+      "utcDate": "2026-06-22T17:00:00Z",
+      "homeId": "ARG",
+      "awayId": "AUT"
     }
   ]
 }
