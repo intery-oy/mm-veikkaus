@@ -13,14 +13,18 @@ REPO="/Users/harrikiviniemi/projects/mm-veikkaus"
 TOKEN_FILE="$HOME/.mm-veikkaus-token"
 GH_TOKEN_FILE="$HOME/.mm-veikkaus-gh-token"
 LOG="$HOME/.openclaw/logs/mm-veikkaus-sync.log"
+STATE_DIR="$HOME/.openclaw/state"
+FAIL_STATE="$STATE_DIR/mm-veikkaus-sync.failures"
+FAIL_ALERT_THRESHOLD=3
+FAIL_ALERT_REPEAT=6
 
-mkdir -p "$(dirname "$LOG")"
+mkdir -p "$(dirname "$LOG")" "$STATE_DIR"
 
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >> "$LOG"; }
 
-# Hälytä Telegramiin VAIN aidoista hiljaisista virheistä (push/token), ei
-# ohimenevistä API-katkoista (ECONNRESET korjaantuu itsestään). Vahti
-# (watchdog.sh) nappaa pysyvät ongelmat. openclaw-CLI hoitaa reitityksen.
+# Hälytä Telegramiin aidoista hiljaisista virheistä. Yksittäiset API-katkot
+# saavat mennä lokiin, mutta peräkkäisistä epäonnistumisista nostetaan häly.
+# openclaw-CLI hoitaa reitityksen.
 alert() {
   log "HÄLYTYS: $*"
   openclaw message send --channel telegram --target 8785835313 \
@@ -37,13 +41,24 @@ export FOOTBALL_DATA_TOKEN
 
 cd "$REPO"
 
-# Hae tulokset. Ohimenevä API-katko (ECONNRESET) ei hälytä — korjaantuu itse.
+# Hae tulokset. Yksittäinen API-katko (esim. ECONNRESET) ei hälytä, mutta
+# peräkkäiset epäonnistumiset eivät saa jäädä hiljaisiksi.
 if ! output=$(npm run sync:results 2>&1); then
   log "VIRHE: sync:results epäonnistui: $output"
+  failures=1
+  if [[ -f "$FAIL_STATE" ]]; then
+    prev="$(cat "$FAIL_STATE" 2>/dev/null || echo 0)"
+    [[ "$prev" =~ ^[0-9]+$ ]] && failures=$((prev + 1))
+  fi
+  echo "$failures" > "$FAIL_STATE"
+  if (( failures == FAIL_ALERT_THRESHOLD || (failures > FAIL_ALERT_THRESHOLD && failures % FAIL_ALERT_REPEAT == 0) )); then
+    alert "sync:results epäonnistunut $failures kertaa peräkkäin — tuloshaku/API ei ehkä palaudu itsestään. Viimeisin virhe: $(echo "$output" | tail -20)"
+  fi
   exit 1
 fi
 
 log "$output"
+rm -f "$FAIL_STATE"
 
 # Commitoi ja pushaa jos muuttui.
 # HUOM: cronilla ei pääsyä macOS-avainnippuun (osxkeychain) -> HTTPS-push

@@ -34,16 +34,20 @@ npm test           # pisteytys + view-model -testit (oltava vihreä)
 npm run build      # tsc --noEmit && vite build -> dist/
 ```
 
-## Miten lisään ottelutuloksen
+## Miten lisään ottelutuloksen käsin
+
+Automaatti hakee tulokset football-data.orgista. Käsin kosket tähän vain jos
+API on väärässä, jäljessä tai tarvitset väliaikaisen korjauksen. Käsin tehty
+korjaus voittaa automaatin.
 
 Koko lohkovaiheen ohjelma (72 ottelua) on jo `src/data/results.ts`:ssä,
-generoituna virallisesta arvonnasta. Tuloksia varten lisäät vain rivin:
+generoituna virallisesta arvonnasta. Tuloksia varten lisäät vain override-rivin:
 
-1. Avaa **`src/data/results.ts`** ja etsi `RESULTS`-objekti.
+1. Avaa **`src/data/results.ts`** ja etsi `OVERRIDES`-objekti.
 2. Lisää rivi: ottelun id → tulos. Id on muotoa `${lohko}-${kotiId}-${vierasId}`
    (FIFA-koodit `src/data/teams.ts`:stä), esim:
    ```ts
-   const RESULTS: Record<string, MatchResult> = {
+   const OVERRIDES: Record<string, MatchResult> = {
      'C-BRA-MAR': { homeGoals: 2, awayGoals: 0 },
      'H-ESP-URU': { homeGoals: 1, awayGoals: 1 },
    };
@@ -81,28 +85,41 @@ npx vercel --prod
 
 ## Automaattinen tuloshaku (malli A)
 
-GitHub Action hakee tulokset **football-data.org**:sta ja commitoi muutokset →
-Vercel deplottaa itse. Ei tietokantaa, ei Supabasea.
+Tuotannon tuloshaku ajetaan Macin crontabista. Cron hakee
+**football-data.org**:sta, kirjoittaa generoidun tulostiedoston ja
+`public/version.json`:n, commitoi, pushaa `main`-haaraan ja Vercel deplottaa
+itse. Ei tietokantaa, ei Supabasea.
 
-**Käyttöönotto (kerran):**
-1. Rekisteröidy ilmaiseksi: https://www.football-data.org/client/register → kopioi API-token.
-2. GitHub-repossa: **Settings → Secrets and variables → Actions → New repository secret**
-   - Name: `FOOTBALL_DATA_TOKEN`
-   - Secret: (liitä token)
-3. Valmis. Action ajaa kesä/heinäkuussa 10 min välein. Manuaalisesti:
-   **Actions → Sync results → Run workflow**.
+```cron
+*/10 * * 6,7 * /Users/harrikiviniemi/projects/mm-veikkaus/scripts/sync-local.sh >> ~/.openclaw/logs/mm-veikkaus-sync.log 2>&1
+*/30 * * 6,7 * /Users/harrikiviniemi/projects/mm-veikkaus/scripts/watchdog.sh >> ~/.openclaw/logs/mm-veikkaus-watchdog.log 2>&1
+```
 
 **Miten se toimii:**
 - `scripts/sync-results.ts` hakee API:sta, mäppää joukkueet FIFA-koodeihin, ottaa
   mukaan vain veikattuja joukkueita sisältävät ottelut, ja kirjoittaa
   `src/data/auto-results.generated.json`:n. **Älä muokkaa tuota tiedostoa käsin.**
+- `scripts/sync-local.sh` ajaa haun, luo `public/version.json`:n tuloshashilla,
+  commitoi ja pushaa muutokset. Yksittäiset API-katkot jäävät lokiin; toistuvat
+  epäonnistumiset hälyttävät Telegramiin.
+- `scripts/watchdog.sh` tarkistaa, ettei paikallisia committeja ole jumissa,
+  sync-loki ole vanhentunut, live-sivun `/version.json` vastaa odotettua hashia
+  ja GitHub-token ole vanhenemassa.
 - Kesken olevat ottelut merkitään alustaviksi (UI: 🔴 LIVE).
 - **Käsin korjaus:** lisää rivi `OVERRIDES`-objektiin `src/data/results.ts`:ssä —
   se voittaa automaatin (hyvä jos API on väärässä/jäljessä).
 - Turvaa: jos API epäonnistuu tai ei tunnista otteluita, tiedostoa **ei**
   ylikirjoiteta (vanha data säilyy).
 
-Paikallinen ajo: `FOOTBALL_DATA_TOKEN=xxx npm run sync:results`
+GitHub Action `Sync results` on manuaalinen varalähde (**Actions → Sync results
+→ Run workflow**). Se päivittää sekä `src/data/auto-results.generated.json`:n
+että `public/version.json`:n, jotta watchdogin live-hash pysyy vertailukelpoisena.
+
+Paikallinen ajo ilman committia:
+
+```bash
+FOOTBALL_DATA_TOKEN="$(cat ~/.mm-veikkaus-token)" npm run sync:results
+```
 
 ## Pisteytyssäännöt (lyhyesti)
 

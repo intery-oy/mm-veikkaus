@@ -1,6 +1,6 @@
 # MM-veikkaus — tilannekatsaus
 
-> Päivitetty 14.6.2026. Pikakatsaus: mikä on valmista, mikä on tietoisesti
+> Päivitetty 19.6.2026. Pikakatsaus: mikä on valmista, mikä on tietoisesti
 > kesken, ja mistä jatkaa. Tekninen kuvaus on [README.md](./README.md):ssä.
 
 ## 🔗 Tärkeät linkit
@@ -20,8 +20,9 @@
 - **Bright & playful -teema** — vaalea kaikilla laitteilla, lippuemojit, avatarit.
 - **Seed-data** — 48 joukkuetta, 72 lohko-ottelua, 12 perheenjäsentä valintoineen.
 - **Auto-deploy** — `git push main` → Vercel deplottaa itse.
-- **Automaattinen tuloshaku (malli A)** — GitHub Action hakee football-data.orgista
-  ~10 min välein (kesä/heinäkuu), kirjoittaa tulokset, commitoi → deploy.
+- **Automaattinen tuloshaku (malli A)** — Mac-cron hakee football-data.orgista
+  10 min välein (kesä/heinäkuu), kirjoittaa tulokset, commitoi, pushaa → Vercel
+  deploy. GitHub Action on manuaalinen varalähde.
 - **Alustava/LIVE-merkintä** — kesken olevat ottelut näkyvät 🔴, merkki katoaa kun peli päättyy.
 
 ## 🟡 Tietoisesti kesken (odottaa tapahtumaa)
@@ -62,18 +63,23 @@ src/app/           # React-näkymät (read-only)
   App / StandingsTable / BettorCards / Confetti / commentary / flags
 scripts/
   sync-results.ts  # football-data.org -> auto-results.generated.json
+  sync-local.sh    # Mac-cron: fetch -> commit -> push
+  watchdog.sh      # riippumaton vahti: push, cron, live hash, token expiry
 .github/workflows/
-  sync-results.yml # ajastettu tuloshaku (10 min, kesä/heinäkuu)
+  sync-results.yml # manuaalinen varalähde (Run workflow), ei ajastusta
 ```
 
 ## 📋 Operatiivinen muistilista
 
 - **Tulos käsin (korjaus tai jos API jäljessä):** lisää rivi `OVERRIDES`-objektiin
   `src/data/results.ts`:ssä → `git commit` → `git push`. Käsin voittaa automaatin.
-- **Tuloshaku heti:** GitHub → Actions → "Sync results" → **Run workflow**.
+- **Tuloshaku heti paikallisesti:** `cd ~/projects/mm-veikkaus && FOOTBALL_DATA_TOKEN=$(cat ~/.mm-veikkaus-token) npm run sync:results`
+- **Tuloshaku heti varalähteestä:** GitHub → Actions → "Sync results" → **Run workflow**.
 - **Tarkista, ettei rikkoudu:** `npm test` (oltava vihreä) ja `npm run build`.
-- **API-avain:** GitHub Secret `FOOTBALL_DATA_TOKEN` (asetettu). Vaihto: repo →
-  Settings → Secrets → Actions.
+- **API-avain:** Macilla `~/.mm-veikkaus-token`; GitHub Action -varalähteessä myös
+  GitHub Secret `FOOTBALL_DATA_TOKEN`.
+- **GitHub-push-token:** Macilla `~/.mm-veikkaus-gh-token`; watchdog varoittaa
+  vanhenemisesta.
 - **Deploy:** automaattinen pushista. Käsin tarvittaessa: `npx vercel --prod`.
 
 ## ⚠️ Periaatteet (säilytä nämä)

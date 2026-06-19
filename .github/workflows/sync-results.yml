@@ -41,7 +41,10 @@ jobs:
           if [[ -n "$(git status --porcelain src/data/auto-results.generated.json)" ]]; then
             git config user.name "mm-veikkaus-bot"
             git config user.email "actions@users.noreply.github.com"
-            git add src/data/auto-results.generated.json
+            rhash="$(sha256sum src/data/auto-results.generated.json | cut -d' ' -f1)"
+            printf '{"resultsHash":"%s","generatedAt":"%s"}\n' \
+              "$rhash" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > public/version.json
+            git add src/data/auto-results.generated.json public/version.json
             git commit -m "Auto: päivitä tulokset (football-data.org)"
             git push
             echo "Tulokset päivitetty ja pushattu."
