@@ -185,9 +185,6 @@ export function App() {
         <BettorCards bettors={data.bettors} />
       </main>
 
-      <footer className="mt-12 text-center text-xs font-semibold text-[--color-muted]">
-        Pisteet committoidusta datasta · sama total = jaettu sija 🤝
-      </footer>
       </div>
     </div>
   );
