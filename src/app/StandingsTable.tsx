@@ -10,7 +10,7 @@ export function StandingsTable({ bettors }: { bettors: BettorView[] }) {
   return (
     <section>
       <h2 className="mb-3 flex items-center gap-2 font-display text-2xl font-bold text-[--color-grass-deep]">
-        <span>📊</span> Sarjataulukko
+        <span>🏆</span> Sarjataulukko
       </h2>
 
       <div className="space-y-2">
