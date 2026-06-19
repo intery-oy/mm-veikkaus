@@ -56,6 +56,12 @@
   "preliminaryIds": [],
   "upcoming": [
     {
+      "id": "D-USA-AUS",
+      "utcDate": "2026-06-19T19:00:00Z",
+      "homeId": "USA",
+      "awayId": "AUS"
+    },
+    {
       "id": "C-MAR-SCO",
       "utcDate": "2026-06-19T22:00:00Z",
       "homeId": "SCO",
@@ -86,6 +92,18 @@
       "awayId": "CIV"
     },
     {
+      "id": "E-CUW-ECU",
+      "utcDate": "2026-06-21T00:00:00Z",
+      "homeId": "ECU",
+      "awayId": "CUW"
+    },
+    {
+      "id": "F-JPN-TUN",
+      "utcDate": "2026-06-21T04:00:00Z",
+      "homeId": "TUN",
+      "awayId": "JPN"
+    },
+    {
       "id": "H-ESP-KSA",
       "utcDate": "2026-06-21T16:00:00Z",
       "homeId": "ESP",
@@ -104,28 +122,10 @@
       "awayId": "CPV"
     },
     {
-      "id": "J-ARG-AUT",
-      "utcDate": "2026-06-22T17:00:00Z",
-      "homeId": "ARG",
-      "awayId": "AUT"
-    },
-    {
-      "id": "I-FRA-IRQ",
-      "utcDate": "2026-06-22T21:00:00Z",
-      "homeId": "FRA",
-      "awayId": "IRQ"
-    },
-    {
-      "id": "K-POR-UZB",
-      "utcDate": "2026-06-23T17:00:00Z",
-      "homeId": "POR",
-      "awayId": "UZB"
-    },
-    {
-      "id": "L-ENG-GHA",
-      "utcDate": "2026-06-23T20:00:00Z",
-      "homeId": "ENG",
-      "awayId": "GHA"
+      "id": "G-EGY-NZL",
+      "utcDate": "2026-06-22T01:00:00Z",
+      "homeId": "NZL",
+      "awayId": "EGY"
     }
   ]
 }
