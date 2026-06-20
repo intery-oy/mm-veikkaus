@@ -20,6 +20,10 @@
       "homeGoals": 1,
       "awayGoals": 0
     },
+    "E-GER-CIV": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "E-GER-CUW": {
       "homeGoals": 7,
       "awayGoals": 1
@@ -69,14 +73,10 @@
       "awayGoals": 2
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "E-GER-CIV"
+  ],
   "upcoming": [
-    {
-      "id": "E-GER-CIV",
-      "utcDate": "2026-06-20T20:00:00Z",
-      "homeId": "GER",
-      "awayId": "CIV"
-    },
     {
       "id": "E-CUW-ECU",
       "utcDate": "2026-06-21T00:00:00Z",
@@ -142,6 +142,12 @@
       "utcDate": "2026-06-23T17:00:00Z",
       "homeId": "POR",
       "awayId": "UZB"
+    },
+    {
+      "id": "L-ENG-GHA",
+      "utcDate": "2026-06-23T20:00:00Z",
+      "homeId": "ENG",
+      "awayId": "GHA"
     }
   ],
   "fixtureDates": {
