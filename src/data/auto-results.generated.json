@@ -1,5 +1,9 @@
 {
   "results": {
+    "C-BRA-HAI": {
+      "homeGoals": 1,
+      "awayGoals": 0
+    },
     "C-BRA-MAR": {
       "homeGoals": 1,
       "awayGoals": 1
@@ -57,14 +61,10 @@
       "awayGoals": 2
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "C-BRA-HAI"
+  ],
   "upcoming": [
-    {
-      "id": "C-BRA-HAI",
-      "utcDate": "2026-06-20T00:30:00Z",
-      "homeId": "BRA",
-      "awayId": "HAI"
-    },
     {
       "id": "D-PAR-TUR",
       "utcDate": "2026-06-20T03:00:00Z",
@@ -130,6 +130,12 @@
       "utcDate": "2026-06-22T21:00:00Z",
       "homeId": "FRA",
       "awayId": "IRQ"
+    },
+    {
+      "id": "I-SEN-NOR",
+      "utcDate": "2026-06-23T00:00:00Z",
+      "homeId": "NOR",
+      "awayId": "SEN"
     }
   ]
 }
