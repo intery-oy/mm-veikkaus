@@ -21,7 +21,7 @@
       "awayGoals": 0
     },
     "E-GER-CIV": {
-      "homeGoals": 1,
+      "homeGoals": 2,
       "awayGoals": 1
     },
     "E-GER-CUW": {
@@ -73,9 +73,7 @@
       "awayGoals": 2
     }
   },
-  "preliminaryIds": [
-    "E-GER-CIV"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "E-CUW-ECU",
