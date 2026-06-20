@@ -28,6 +28,10 @@
       "homeGoals": 2,
       "awayGoals": 2
     },
+    "F-NED-SWE": {
+      "homeGoals": 1,
+      "awayGoals": 0
+    },
     "F-SWE-TUN": {
       "homeGoals": 5,
       "awayGoals": 1
@@ -65,14 +69,10 @@
       "awayGoals": 2
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "F-NED-SWE"
+  ],
   "upcoming": [
-    {
-      "id": "F-NED-SWE",
-      "utcDate": "2026-06-20T17:00:00Z",
-      "homeId": "NED",
-      "awayId": "SWE"
-    },
     {
       "id": "E-GER-CIV",
       "utcDate": "2026-06-20T20:00:00Z",
@@ -138,6 +138,12 @@
       "utcDate": "2026-06-23T03:00:00Z",
       "homeId": "JOR",
       "awayId": "ALG"
+    },
+    {
+      "id": "K-POR-UZB",
+      "utcDate": "2026-06-23T17:00:00Z",
+      "homeId": "POR",
+      "awayId": "UZB"
     }
   ],
   "fixtureDates": {
