@@ -45,6 +45,20 @@ describe('buildPortalData', () => {
     expect(data.results.some((r) => r.id === 'C-BRA-MAR')).toBe(true);
   });
 
+  it('näyttää etusivulla vain 5 uusinta tulosta ja siirtää vanhemmat ottelulokiin', () => {
+    expect(data.latestResults).toHaveLength(Math.min(5, data.results.length));
+    expect(data.matchLog).toHaveLength(Math.max(0, data.results.length - 5));
+    expect(new Set([...data.latestResults, ...data.matchLog].map((r) => r.id)).size).toBe(
+      data.results.length,
+    );
+    expect(data.latestResults.map((r) => r.id)).toEqual(
+      [...data.results]
+        .reverse()
+        .slice(0, 5)
+        .map((r) => r.id),
+    );
+  });
+
   it('jokaisen total = ottelupisteet + mitalibonus + palkintobonus (riippumaton tuloksista)', () => {
     for (const b of data.bettors) {
       expect(b.total).toBe(b.matchPoints + b.medalBonusTotal + b.prizeBonusTotal);

@@ -73,9 +73,9 @@ export function App() {
       </div>
 
       {/* Tulosfiidi */}
-      {data.results.length > 0 && (
+      {data.latestResults.length > 0 && (
         <div className="mb-2 flex flex-wrap justify-center gap-2">
-          {data.results.map((r) => (
+          {data.latestResults.map((r) => (
             <div
               key={r.id}
               className={[
@@ -166,6 +166,31 @@ export function App() {
           </p>
         )}
         <StandingsTable bettors={data.bettors} />
+        {data.matchLog.length > 0 && (
+          <section className="match-log">
+            <h2 className="mb-2 flex items-center gap-2 font-display text-base font-bold text-[--color-grass-deep]">
+              <span>📜</span> Otteluloki
+            </h2>
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
+              {data.matchLog.map((r) => (
+                <div
+                  key={r.id}
+                  className={[
+                    'num flex items-center justify-center gap-2 rounded-2xl bg-[--color-card] px-3 py-1.5 text-sm font-bold shadow-sm ring-1',
+                    r.preliminary ? 'ring-2 ring-red-400' : 'ring-black/5',
+                  ].join(' ')}
+                  title={r.preliminary ? 'Alustava — peli kesken' : undefined}
+                >
+                  <span>{r.homeFlag}</span>
+                  <span className="text-[--color-grass-deep]">
+                    {r.homeGoals}–{r.awayGoals}
+                  </span>
+                  <span>{r.awayFlag}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
         <section className="space-y-4">
           <InsightCards cards={data.insights} />
           <ChangePanel story={data.changeStory} />

@@ -42,11 +42,13 @@ interface AutoResults {
   results: Record<string, MatchResult>;
   preliminaryIds: string[];
   upcoming?: UpcomingFixture[];
+  fixtureDates?: Record<string, string>;
 }
 const auto = autoData as AutoResults;
 
 // Tulevat ottelut (automaatin hakemat, aikajärjestyksessä).
 export const upcomingFixtures: UpcomingFixture[] = auto.upcoming ?? [];
+export const fixtureDates: Record<string, string> = auto.fixtureDates ?? {};
 
 // Käsin tehdyt korjaukset/ohitukset. Voittavat automaatin samalla id:llä.
 // Esim. 'C-BRA-MAR': { homeGoals: 1, awayGoals: 1 },

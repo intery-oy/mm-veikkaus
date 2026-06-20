@@ -5,7 +5,7 @@
 import { computeStandings } from '../domain/scoring.js';
 import type { PickRole } from '../domain/types.js';
 import { bettors, picks } from '../data/picks.js';
-import { matches, outcome, preliminaryIds, upcomingFixtures } from '../data/results.js';
+import { fixtureDates, matches, outcome, preliminaryIds, upcomingFixtures } from '../data/results.js';
 import { teamById } from '../data/teams.js';
 import { playerById } from '../data/players.js';
 import { bettorAvatar, flagEmoji } from './flags.js';
@@ -62,6 +62,7 @@ export interface BettorView {
 
 export interface PlayedResult {
   id: string;
+  utcDate: string | null;
   homeName: string;
   awayName: string;
   homeFlag: string;
@@ -137,6 +138,10 @@ export interface PortalData {
   outcomePending: boolean;
   /** Pelatut ottelut tuloksineen (tulosfiidiä varten). */
   results: PlayedResult[];
+  /** Etusivun tiivis tulosfiidi: aina vain 5 uusinta ottelua. */
+  latestResults: PlayedResult[];
+  /** Vanhemmat ottelut erillistä ottelulokia varten. */
+  matchLog: PlayedResult[];
   /** Onko mukana vähintään yksi alustava (kesken oleva) tulos. */
   hasPreliminary: boolean;
   /** Tulevat ottelut aikajärjestyksessä (App suodattaa "nyt"-hetken). */
@@ -160,6 +165,7 @@ function playerName(id: string): string {
 function resultToView(match: (typeof matches)[number], prelim: Set<string>): PlayedResult {
   return {
     id: match.id,
+    utcDate: fixtureDates[match.id] ?? null,
     homeName: teamName(match.homeTeamId),
     awayName: teamName(match.awayTeamId),
     homeFlag: flagEmoji(match.homeTeamId),
@@ -170,6 +176,27 @@ function resultToView(match: (typeof matches)[number], prelim: Set<string>): Pla
   };
 }
 
+function matchOrderIndex(id: string): number {
+  const idx = matches.findIndex((m) => m.id === id);
+  return idx === -1 ? Number.MAX_SAFE_INTEGER : idx;
+}
+
+function compareMatchAsc(a: (typeof matches)[number], b: (typeof matches)[number]): number {
+  const aDate = fixtureDates[a.id];
+  const bDate = fixtureDates[b.id];
+  if (aDate && bDate && aDate !== bDate) return aDate.localeCompare(bDate);
+  if (aDate && !bDate) return 1;
+  if (!aDate && bDate) return -1;
+  return matchOrderIndex(a.id) - matchOrderIndex(b.id);
+}
+
+function comparePlayedAsc(a: PlayedResult, b: PlayedResult): number {
+  if (a.utcDate && b.utcDate && a.utcDate !== b.utcDate) return a.utcDate.localeCompare(b.utcDate);
+  if (a.utcDate && !b.utcDate) return 1;
+  if (!a.utcDate && b.utcDate) return -1;
+  return matchOrderIndex(a.id) - matchOrderIndex(b.id);
+}
+
 function formatRankDelta(delta: number): string {
   if (delta > 0) return `+${delta} sijaa`;
   if (delta < 0) return `${delta} sijaa`;
@@ -178,7 +205,11 @@ function formatRankDelta(delta: number): string {
 
 export function buildPortalData(): PortalData {
   const standings = computeStandings({ bettors, picks, matches, outcome });
-  const latestPlayedMatch = [...matches].reverse().find((m) => m.result !== null) ?? null;
+  const latestPlayedMatch =
+    [...matches]
+      .filter((m) => m.result !== null)
+      .sort(compareMatchAsc)
+      .at(-1) ?? null;
   const previousMatches = latestPlayedMatch
     ? matches.map((m) => (m.id === latestPlayedMatch.id ? { ...m, result: null } : m))
     : matches;
@@ -279,7 +310,10 @@ export function buildPortalData(): PortalData {
   const prelim = new Set(preliminaryIds);
   const results: PlayedResult[] = matches
     .filter((m) => m.result !== null)
-    .map((m) => resultToView(m, prelim));
+    .map((m) => resultToView(m, prelim))
+    .sort(comparePlayedAsc);
+  const latestResults = [...results].reverse().slice(0, 5);
+  const matchLog = [...results].reverse().slice(5);
 
   const playedMatches = results.length;
   const outcomePending =
@@ -390,6 +424,8 @@ export function buildPortalData(): PortalData {
     totalMatches: matches.length,
     outcomePending,
     results,
+    latestResults,
+    matchLog,
     hasPreliminary: results.some((r) => r.preliminary),
     upcoming: upcomingFixtures
       .map((u) => {

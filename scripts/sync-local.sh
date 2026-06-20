@@ -15,6 +15,7 @@ GH_TOKEN_FILE="$HOME/.mm-veikkaus-gh-token"
 LOG="$HOME/.openclaw/logs/mm-veikkaus-sync.log"
 STATE_DIR="$HOME/.openclaw/state"
 FAIL_STATE="$STATE_DIR/mm-veikkaus-sync.failures"
+RECOVERY_STATE="$STATE_DIR/mm-veikkaus-sync.recovery-pending"
 FAIL_ALERT_THRESHOLD=3
 FAIL_ALERT_REPEAT=6
 
@@ -29,6 +30,12 @@ alert() {
   log "HÄLYTYS: $*"
   openclaw message send --channel telegram --target 8785835313 \
     --message "🔴 mm-veikkaus: $*" >/dev/null 2>&1 || log "VIRHE: hälytyksen lähetys epäonnistui."
+}
+
+notify_recovered() {
+  log "PALAUTUI: $*"
+  openclaw message send --channel telegram --target 8785835313 \
+    --message "🟢 mm-veikkaus: $*" >/dev/null 2>&1 || log "VIRHE: palautumisviestin lähetys epäonnistui."
 }
 
 if [[ ! -f "$TOKEN_FILE" ]]; then
@@ -53,12 +60,17 @@ if ! output=$(npm run sync:results 2>&1); then
   echo "$failures" > "$FAIL_STATE"
   if (( failures == FAIL_ALERT_THRESHOLD || (failures > FAIL_ALERT_THRESHOLD && failures % FAIL_ALERT_REPEAT == 0) )); then
     alert "sync:results epäonnistunut $failures kertaa peräkkäin — tuloshaku/API ei ehkä palaudu itsestään. Viimeisin virhe: $(echo "$output" | tail -20)"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') failures=$failures" > "$RECOVERY_STATE"
   fi
   exit 1
 fi
 
 log "$output"
+if [[ -f "$RECOVERY_STATE" ]]; then
+  notify_recovered "tuloshaku/API-yhteys palautui. Viimeisin ajo onnistui: $(echo "$output" | tail -1)"
+fi
 rm -f "$FAIL_STATE"
+rm -f "$RECOVERY_STATE"
 
 # Commitoi ja pushaa jos muuttui.
 # HUOM: cronilla ei pääsyä macOS-avainnippuun (osxkeychain) -> HTTPS-push

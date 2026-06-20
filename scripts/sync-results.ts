@@ -147,6 +147,7 @@ async function main() {
 
   const results: Record<string, MatchResult> = {};
   const preliminary: string[] = [];
+  const fixtureDates: Record<string, string> = {};
   let upcoming: UpcomingFixture[] = [];
   let mappedResults = 0;
   const warnings: string[] = [];
@@ -171,6 +172,7 @@ async function main() {
       warnings.push(`Ei kanonista ottelua parille: ${homeId} vs ${awayId}`);
       continue;
     }
+    if (m.utcDate) fixtureDates[fx.id] = m.utcDate;
 
     if (finished || live) {
       if (!BETTED.has(homeId) && !BETTED.has(awayId)) continue; // ei vaikuta pisteisiin
@@ -202,7 +204,14 @@ async function main() {
   // Vakaa, lajiteltu ulostulo -> siistit diffit.
   const sortedResults: Record<string, MatchResult> = {};
   for (const id of Object.keys(results).sort()) sortedResults[id] = results[id]!;
-  const payload = { results: sortedResults, preliminaryIds: preliminary.sort(), upcoming };
+  const sortedFixtureDates: Record<string, string> = {};
+  for (const id of Object.keys(fixtureDates).sort()) sortedFixtureDates[id] = fixtureDates[id]!;
+  const payload = {
+    results: sortedResults,
+    preliminaryIds: preliminary.sort(),
+    upcoming,
+    fixtureDates: sortedFixtureDates,
+  };
   const json = JSON.stringify(payload, null, 2) + '\n';
 
   const prev = (() => {
