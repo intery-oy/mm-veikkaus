@@ -76,12 +76,6 @@
   "preliminaryIds": [],
   "upcoming": [
     {
-      "id": "E-CUW-ECU",
-      "utcDate": "2026-06-21T00:00:00Z",
-      "homeId": "ECU",
-      "awayId": "CUW"
-    },
-    {
       "id": "F-JPN-TUN",
       "utcDate": "2026-06-21T04:00:00Z",
       "homeId": "TUN",
@@ -146,6 +140,12 @@
       "utcDate": "2026-06-23T20:00:00Z",
       "homeId": "ENG",
       "awayId": "GHA"
+    },
+    {
+      "id": "L-CRO-PAN",
+      "utcDate": "2026-06-23T23:00:00Z",
+      "homeId": "PAN",
+      "awayId": "CRO"
     }
   ],
   "fixtureDates": {
