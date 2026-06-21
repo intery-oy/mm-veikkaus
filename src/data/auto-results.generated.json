@@ -48,6 +48,10 @@
       "homeGoals": 0,
       "awayGoals": 0
     },
+    "H-CPV-URU": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "H-ESP-CPV": {
       "homeGoals": 0,
       "awayGoals": 0
@@ -81,14 +85,10 @@
       "awayGoals": 2
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "H-CPV-URU"
+  ],
   "upcoming": [
-    {
-      "id": "H-CPV-URU",
-      "utcDate": "2026-06-21T22:00:00Z",
-      "homeId": "URU",
-      "awayId": "CPV"
-    },
     {
       "id": "G-EGY-NZL",
       "utcDate": "2026-06-22T01:00:00Z",
@@ -154,6 +154,12 @@
       "utcDate": "2026-06-24T19:00:00Z",
       "homeId": "BIH",
       "awayId": "QAT"
+    },
+    {
+      "id": "C-MAR-HAI",
+      "utcDate": "2026-06-24T22:00:00Z",
+      "homeId": "MAR",
+      "awayId": "HAI"
     }
   ],
   "fixtureDates": {
