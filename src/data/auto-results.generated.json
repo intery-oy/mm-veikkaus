@@ -76,12 +76,6 @@
   "preliminaryIds": [],
   "upcoming": [
     {
-      "id": "F-JPN-TUN",
-      "utcDate": "2026-06-21T04:00:00Z",
-      "homeId": "TUN",
-      "awayId": "JPN"
-    },
-    {
       "id": "H-ESP-KSA",
       "utcDate": "2026-06-21T16:00:00Z",
       "homeId": "ESP",
@@ -146,6 +140,12 @@
       "utcDate": "2026-06-23T23:00:00Z",
       "homeId": "PAN",
       "awayId": "CRO"
+    },
+    {
+      "id": "K-COD-COL",
+      "utcDate": "2026-06-24T02:00:00Z",
+      "homeId": "COL",
+      "awayId": "COD"
     }
   ],
   "fixtureDates": {
