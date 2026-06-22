@@ -65,6 +65,14 @@ describe('buildPortalData', () => {
     }
   });
 
+  it('laskee montako pelattua ottelua sisältää veikkaajan joukkueen', () => {
+    for (const b of data.bettors) {
+      expect(b.playedPickMatches).toBeGreaterThanOrEqual(0);
+      expect(b.playedPickMatches).toBeLessThanOrEqual(data.playedMatches);
+    }
+    expect(data.bettors.some((b) => b.playedPickMatches > 0)).toBe(true);
+  });
+
   it('rakentaa hauskat johdannaiset ilman erillistä backend-tilaa', () => {
     expect(data.insights.length).toBeGreaterThan(0);
     expect(data.changeStory?.match.id).toBeTruthy();

@@ -45,6 +45,7 @@ export interface BettorView {
   avatar: string;
   rank: number;
   total: number;
+  playedPickMatches: number;
   matchPoints: number;
   medalBonusTotal: number;
   prizeBonusTotal: number;
@@ -242,6 +243,12 @@ export function buildPortalData(): PortalData {
   const bettorViews: BettorView[] = standings.map((s) => {
     const p = picksById.get(s.bettorId);
     const byRole = new Map((p?.teams ?? []).map((t) => [t.role, t.teamId]));
+    const pickedTeamIds = new Set(p?.teams.map((t) => t.teamId) ?? []);
+    const playedPickMatches = matches.filter(
+      (m) =>
+        m.result !== null &&
+        (pickedTeamIds.has(m.homeTeamId) || pickedTeamIds.has(m.awayTeamId)),
+    ).length;
 
     const teams: TeamPickView[] = ROLE_ORDER.filter((r) => byRole.has(r)).map((role) => ({
       teamId: byRole.get(role)!,
@@ -293,6 +300,7 @@ export function buildPortalData(): PortalData {
       avatar: bettorAvatar(s.bettorId),
       rank: s.rank,
       total: s.total,
+      playedPickMatches,
       matchPoints: s.matchPoints,
       medalBonusTotal: s.medalBonus.total,
       prizeBonusTotal: s.prizeBonus.total,

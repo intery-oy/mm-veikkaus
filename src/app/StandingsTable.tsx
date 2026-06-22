@@ -47,6 +47,9 @@ export function StandingsTable({ bettors }: { bettors: BettorView[] }) {
                   {leader && <span title="Kärjessä">👑</span>}
                 </div>
                 <div className="num mt-0.5 flex flex-wrap gap-x-2 text-xs text-[--color-muted]">
+                  <span title="Pelatut ottelut, joissa mukana jokin veikkaajan joukkue">
+                    🎟️ {b.playedPickMatches}
+                  </span>
                   <span>⚽ {b.matchPoints}</span>
                   <span>🏅 {b.medalBonusTotal}</span>
                   <span>⭐ {b.prizeBonusTotal}</span>
