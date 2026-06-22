@@ -88,6 +88,12 @@
   "preliminaryIds": [],
   "upcoming": [
     {
+      "id": "G-EGY-NZL",
+      "utcDate": "2026-06-22T01:00:00Z",
+      "homeId": "NZL",
+      "awayId": "EGY"
+    },
+    {
       "id": "J-ARG-AUT",
       "utcDate": "2026-06-22T17:00:00Z",
       "homeId": "ARG",
@@ -152,12 +158,6 @@
       "utcDate": "2026-06-24T22:00:00Z",
       "homeId": "MAR",
       "awayId": "HAI"
-    },
-    {
-      "id": "C-BRA-SCO",
-      "utcDate": "2026-06-24T22:00:00Z",
-      "homeId": "SCO",
-      "awayId": "BRA"
     }
   ],
   "fixtureDates": {
