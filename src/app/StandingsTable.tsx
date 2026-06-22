@@ -51,8 +51,6 @@ export function StandingsTable({ bettors }: { bettors: BettorView[] }) {
                     🎟️ {b.playedPickMatches}
                   </span>
                   <span>⚽ {b.matchPoints}</span>
-                  <span>🏅 {b.medalBonusTotal}</span>
-                  <span>⭐ {b.prizeBonusTotal}</span>
                   {b.movement.pointsDelta > 0 && (
                     <span className="text-[--color-grass-deep]">
                       +{b.movement.pointsDelta} viimeksi
