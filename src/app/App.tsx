@@ -43,7 +43,7 @@ export function App() {
     timeZone: 'Europe/Helsinki',
   });
   const matchCommentary = highlightedMatch
-    ? `Seuraava perheen painepeli: ${highlightedMatch.homeFlag} ${highlightedMatch.homeName} – ${highlightedMatch.awayFlag} ${highlightedMatch.awayName}. Mukana tulessa ${bettorList(
+    ? `Seuraava veikkaajien matsi: ${highlightedMatch.homeFlag} ${highlightedMatch.homeName} – ${highlightedMatch.awayFlag} ${highlightedMatch.awayName}. Mukana tulessa ${bettorList(
         highlightedMatch.backers.map((b) => `${b.avatar} ${b.name}`),
       )}.`
     : 'Seuraavissa otteluissa ei vielä ole veikkaajien joukkueita tulessa — nautitaan neutraalisti.';
