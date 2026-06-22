@@ -64,6 +64,10 @@
       "homeGoals": 1,
       "awayGoals": 1
     },
+    "I-FRA-IRQ": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "I-FRA-SEN": {
       "homeGoals": 3,
       "awayGoals": 1
@@ -89,14 +93,10 @@
       "awayGoals": 2
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "I-FRA-IRQ"
+  ],
   "upcoming": [
-    {
-      "id": "I-FRA-IRQ",
-      "utcDate": "2026-06-22T21:00:00Z",
-      "homeId": "FRA",
-      "awayId": "IRQ"
-    },
     {
       "id": "I-SEN-NOR",
       "utcDate": "2026-06-23T00:00:00Z",
@@ -162,6 +162,12 @@
       "utcDate": "2026-06-25T01:00:00Z",
       "homeId": "CZE",
       "awayId": "MEX"
+    },
+    {
+      "id": "A-RSA-KOR",
+      "utcDate": "2026-06-25T01:00:00Z",
+      "homeId": "RSA",
+      "awayId": "KOR"
     }
   ],
   "fixtureDates": {
