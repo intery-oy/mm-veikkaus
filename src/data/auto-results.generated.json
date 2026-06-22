@@ -73,7 +73,7 @@
       "awayGoals": 0
     },
     "J-ARG-AUT": {
-      "homeGoals": 1,
+      "homeGoals": 2,
       "awayGoals": 0
     },
     "K-POR-COD": {
@@ -89,9 +89,7 @@
       "awayGoals": 2
     }
   },
-  "preliminaryIds": [
-    "J-ARG-AUT"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "I-FRA-IRQ",
