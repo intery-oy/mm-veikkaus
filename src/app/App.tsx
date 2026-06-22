@@ -14,6 +14,12 @@ function Pill({ children }: { children: ReactNode }) {
   );
 }
 
+function bettorList(names: string[]): string {
+  if (names.length === 1) return names[0]!;
+  if (names.length === 2) return `${names[0]} ja ${names[1]}`;
+  return `${names.slice(0, -1).join(', ')} ja ${names[names.length - 1]}`;
+}
+
 export function App() {
   // Data on committoitua (seed + results.ts) — laske kerran renderissä.
   const data = buildPortalData();
@@ -25,7 +31,8 @@ export function App() {
   // jossa on mukana vähintään yksi veikattu joukkue.
   const now = Date.now();
   const futureMatches = data.upcoming.filter((u) => new Date(u.utcDate).getTime() > now);
-  const highlightedMatchId = futureMatches.find((u) => u.backers.length > 0)?.id;
+  const highlightedMatch = futureMatches.find((u) => u.backers.length > 0);
+  const highlightedMatchId = highlightedMatch?.id;
   const nextMatches = futureMatches.slice(0, 6);
   const fmt = new Intl.DateTimeFormat('fi-FI', {
     weekday: 'short',
@@ -35,6 +42,11 @@ export function App() {
     minute: '2-digit',
     timeZone: 'Europe/Helsinki',
   });
+  const matchCommentary = highlightedMatch
+    ? `Seuraava perheen painepeli: ${highlightedMatch.homeFlag} ${highlightedMatch.homeName} – ${highlightedMatch.awayFlag} ${highlightedMatch.awayName}. Mukana tulessa ${bettorList(
+        highlightedMatch.backers.map((b) => `${b.avatar} ${b.name}`),
+      )}.`
+    : 'Seuraavissa otteluissa ei vielä ole veikkaajien joukkueita tulessa — nautitaan neutraalisti.';
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 sm:py-10">
@@ -67,7 +79,7 @@ export function App() {
           </div>
           <p className="font-semibold text-[--color-ink]">{commentary}</p>
           <p className="mt-2 font-display text-lg font-bold text-[--color-grass-deep]">
-            🥳 Hyvää juhannusta!! 🇫🇮
+            {matchCommentary}
           </p>
         </div>
       </div>
