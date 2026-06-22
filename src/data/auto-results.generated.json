@@ -72,6 +72,10 @@
       "homeGoals": 3,
       "awayGoals": 0
     },
+    "J-ARG-AUT": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "K-POR-COD": {
       "homeGoals": 1,
       "awayGoals": 1
@@ -85,14 +89,10 @@
       "awayGoals": 2
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "J-ARG-AUT"
+  ],
   "upcoming": [
-    {
-      "id": "J-ARG-AUT",
-      "utcDate": "2026-06-22T17:00:00Z",
-      "homeId": "ARG",
-      "awayId": "AUT"
-    },
     {
       "id": "I-FRA-IRQ",
       "utcDate": "2026-06-22T21:00:00Z",
@@ -158,6 +158,12 @@
       "utcDate": "2026-06-24T22:00:00Z",
       "homeId": "SCO",
       "awayId": "BRA"
+    },
+    {
+      "id": "A-MEX-CZE",
+      "utcDate": "2026-06-25T01:00:00Z",
+      "homeId": "CZE",
+      "awayId": "MEX"
     }
   ],
   "fixtureDates": {
