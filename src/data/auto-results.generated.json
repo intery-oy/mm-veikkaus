@@ -98,12 +98,6 @@
   ],
   "upcoming": [
     {
-      "id": "I-SEN-NOR",
-      "utcDate": "2026-06-23T00:00:00Z",
-      "homeId": "NOR",
-      "awayId": "SEN"
-    },
-    {
       "id": "J-ALG-JOR",
       "utcDate": "2026-06-23T03:00:00Z",
       "homeId": "JOR",
@@ -168,6 +162,12 @@
       "utcDate": "2026-06-25T01:00:00Z",
       "homeId": "RSA",
       "awayId": "KOR"
+    },
+    {
+      "id": "E-GER-ECU",
+      "utcDate": "2026-06-25T20:00:00Z",
+      "homeId": "ECU",
+      "awayId": "GER"
     }
   ],
   "fixtureDates": {
