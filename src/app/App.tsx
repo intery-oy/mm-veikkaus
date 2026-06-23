@@ -27,13 +27,15 @@ export function App() {
   const anyPoints = data.bettors.some((b) => b.total > 0);
   const commentary = buildCommentary(data);
 
-  // Seuraavat ottelut, joiden aloitus on vielä edessä. Korosta ensimmäinen,
-  // jossa on mukana vähintään yksi veikattu joukkue.
+  // Seuraavat ottelut. Pidä juuri alkaneet pelit näkyvissä hetken, jotta ottelu
+  // ei katoa, jos tuloshaku päivittyy muutaman minuutin myöhässä.
   const now = Date.now();
-  const futureMatches = data.upcoming.filter((u) => new Date(u.utcDate).getTime() > now);
-  const highlightedMatch = futureMatches.find((u) => u.backers.length > 0);
+  const liveGraceMs = 3 * 60 * 60 * 1000;
+  const visibleUpcoming = data.upcoming.filter((u) => new Date(u.utcDate).getTime() > now - liveGraceMs);
+  const isStarted = (utcDate: string) => new Date(utcDate).getTime() <= now;
+  const highlightedMatch = visibleUpcoming.find((u) => u.backers.length > 0);
   const highlightedMatchId = highlightedMatch?.id;
-  const nextMatches = futureMatches.slice(0, 6);
+  const nextMatches = visibleUpcoming.slice(0, 6);
   const fmt = new Intl.DateTimeFormat('fi-FI', {
     weekday: 'short',
     day: 'numeric',
@@ -42,8 +44,12 @@ export function App() {
     minute: '2-digit',
     timeZone: 'Europe/Helsinki',
   });
+  const matchLabel =
+    highlightedMatch && isStarted(highlightedMatch.utcDate)
+      ? 'Käynnissä oleva veikkaajien matsi'
+      : 'Seuraava veikkaajien matsi';
   const matchCommentary = highlightedMatch
-    ? `Seuraava veikkaajien matsi: ${highlightedMatch.homeFlag} ${highlightedMatch.homeName} – ${highlightedMatch.awayFlag} ${highlightedMatch.awayName}. Mukana tulessa ${bettorList(
+    ? `${matchLabel}: ${highlightedMatch.homeFlag} ${highlightedMatch.homeName} – ${highlightedMatch.awayFlag} ${highlightedMatch.awayName}. Mukana tulessa ${bettorList(
         highlightedMatch.backers.map((b) => `${b.avatar} ${b.name}`),
       )}.`
     : 'Seuraavissa otteluissa ei vielä ole veikkaajien joukkueita tulessa — nautitaan neutraalisti.';
@@ -143,6 +149,7 @@ export function App() {
                     <span>{u.awayFlag}</span> {u.awayName}
                   </span>
                   <span className="num ml-2 shrink-0 text-xs text-[--color-muted]">
+                    {isStarted(u.utcDate) ? 'käynnissä · ' : ''}
                     {fmt.format(new Date(u.utcDate))}
                   </span>
                 </div>

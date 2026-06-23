@@ -84,6 +84,10 @@
       "homeGoals": 1,
       "awayGoals": 1
     },
+    "K-POR-UZB": {
+      "homeGoals": 3,
+      "awayGoals": 0
+    },
     "K-UZB-COL": {
       "homeGoals": 1,
       "awayGoals": 3
@@ -93,14 +97,10 @@
       "awayGoals": 2
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "K-POR-UZB"
+  ],
   "upcoming": [
-    {
-      "id": "K-POR-UZB",
-      "utcDate": "2026-06-23T17:00:00Z",
-      "homeId": "POR",
-      "awayId": "UZB"
-    },
     {
       "id": "L-ENG-GHA",
       "utcDate": "2026-06-23T20:00:00Z",
@@ -166,6 +166,12 @@
       "utcDate": "2026-06-25T20:00:00Z",
       "homeId": "CUW",
       "awayId": "CIV"
+    },
+    {
+      "id": "F-NED-TUN",
+      "utcDate": "2026-06-25T23:00:00Z",
+      "homeId": "TUN",
+      "awayId": "NED"
     }
   ],
   "fixtureDates": {
