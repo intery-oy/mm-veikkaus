@@ -85,7 +85,7 @@
       "awayGoals": 1
     },
     "K-POR-UZB": {
-      "homeGoals": 4,
+      "homeGoals": 5,
       "awayGoals": 0
     },
     "K-UZB-COL": {
@@ -97,9 +97,7 @@
       "awayGoals": 2
     }
   },
-  "preliminaryIds": [
-    "K-POR-UZB"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "L-ENG-GHA",
