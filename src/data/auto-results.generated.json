@@ -96,12 +96,6 @@
   "preliminaryIds": [],
   "upcoming": [
     {
-      "id": "J-ALG-JOR",
-      "utcDate": "2026-06-23T03:00:00Z",
-      "homeId": "JOR",
-      "awayId": "ALG"
-    },
-    {
       "id": "K-POR-UZB",
       "utcDate": "2026-06-23T17:00:00Z",
       "homeId": "POR",
@@ -166,6 +160,12 @@
       "utcDate": "2026-06-25T20:00:00Z",
       "homeId": "ECU",
       "awayId": "GER"
+    },
+    {
+      "id": "E-CUW-CIV",
+      "utcDate": "2026-06-25T20:00:00Z",
+      "homeId": "CUW",
+      "awayId": "CIV"
     }
   ],
   "fixtureDates": {
