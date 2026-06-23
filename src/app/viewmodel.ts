@@ -72,6 +72,8 @@ export interface PlayedResult {
   awayGoals: number;
   /** Tulos vasta alustava (peli kesken). */
   preliminary: boolean;
+  /** Veikkaajat, joilla on jokin ottelun joukkue valinnoissaan. */
+  backers: UpcomingBacker[];
 }
 
 export interface UpcomingBacker {
@@ -163,17 +165,27 @@ function playerName(id: string): string {
   return playerById.get(id)?.name ?? id;
 }
 
-function resultToView(match: (typeof matches)[number], prelim: Set<string>): PlayedResult {
+function resultToView(
+  match: (typeof matches)[number],
+  prelim: Set<string>,
+  ownersByTeam: Map<string, Array<{ name: string; avatar: string }>>,
+): PlayedResult {
+  const homeFlag = flagEmoji(match.homeTeamId);
+  const awayFlag = flagEmoji(match.awayTeamId);
   return {
     id: match.id,
     utcDate: fixtureDates[match.id] ?? null,
     homeName: teamName(match.homeTeamId),
     awayName: teamName(match.awayTeamId),
-    homeFlag: flagEmoji(match.homeTeamId),
-    awayFlag: flagEmoji(match.awayTeamId),
+    homeFlag,
+    awayFlag,
     homeGoals: match.result!.homeGoals,
     awayGoals: match.result!.awayGoals,
     preliminary: prelim.has(match.id),
+    backers: [
+      ...(ownersByTeam.get(match.homeTeamId) ?? []).map((o) => ({ ...o, flag: homeFlag })),
+      ...(ownersByTeam.get(match.awayTeamId) ?? []).map((o) => ({ ...o, flag: awayFlag })),
+    ],
   };
 }
 
@@ -318,7 +330,7 @@ export function buildPortalData(): PortalData {
   const prelim = new Set(preliminaryIds);
   const results: PlayedResult[] = matches
     .filter((m) => m.result !== null)
-    .map((m) => resultToView(m, prelim))
+    .map((m) => resultToView(m, prelim, ownersByTeam))
     .sort(comparePlayedAsc);
   const latestResults = [...results].reverse().slice(0, 5);
   const matchLog = [...results].reverse().slice(5);
@@ -349,7 +361,7 @@ export function buildPortalData(): PortalData {
 
   const changeStory =
     latestPlayedMatch && latestPlayedMatch.result
-      ? { match: resultToView(latestPlayedMatch, prelim), impact }
+      ? { match: resultToView(latestPlayedMatch, prelim, ownersByTeam), impact }
       : null;
 
   const biggestRiser = [...bettorViews]

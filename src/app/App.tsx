@@ -97,22 +97,38 @@ export function App() {
             <div
               key={r.id}
               className={[
-                'num flex items-center gap-2 rounded-2xl bg-[--color-card] px-3 py-1.5 text-sm font-bold shadow-sm ring-1',
+                'num flex flex-col gap-1.5 rounded-2xl bg-[--color-card] px-3 py-2 text-sm font-bold shadow-sm ring-1',
                 r.preliminary ? 'ring-2 ring-red-400' : 'ring-black/5',
               ].join(' ')}
               title={r.preliminary ? 'Alustava — peli kesken' : undefined}
             >
-              {r.preliminary && (
-                <span className="flex items-center gap-1 text-[0.7rem] font-bold uppercase tracking-wider text-red-500">
-                  <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-red-500" />
-                  Live
+              <div className="flex items-center justify-center gap-2">
+                {r.preliminary && (
+                  <span className="flex items-center gap-1 text-[0.7rem] font-bold uppercase tracking-wider text-red-500">
+                    <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-red-500" />
+                    Live
+                  </span>
+                )}
+                <span>{r.homeFlag}</span>
+                <span className="text-[--color-grass-deep]">
+                  {r.homeGoals}–{r.awayGoals}
                 </span>
+                <span>{r.awayFlag}</span>
+              </div>
+              {r.backers.length > 0 && (
+                <div className="flex flex-wrap justify-center gap-1 border-t border-[--color-line] pt-1">
+                  {r.backers.map((b, i) => (
+                    <span
+                      key={i}
+                      className="flex items-center gap-1 rounded-full bg-[--color-grass]/10 px-2 py-0.5 text-xs font-bold text-[--color-ink]"
+                    >
+                      <span>{b.flag}</span>
+                      <span>{b.avatar}</span>
+                      {b.name}
+                    </span>
+                  ))}
+                </div>
               )}
-              <span>{r.homeFlag}</span>
-              <span className="text-[--color-grass-deep]">
-                {r.homeGoals}–{r.awayGoals}
-              </span>
-              <span>{r.awayFlag}</span>
             </div>
           ))}
         </div>
