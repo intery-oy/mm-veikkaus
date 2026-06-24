@@ -80,6 +80,10 @@
       "homeGoals": 2,
       "awayGoals": 0
     },
+    "K-COD-COL": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "K-POR-COD": {
       "homeGoals": 1,
       "awayGoals": 1
@@ -105,7 +109,9 @@
       "awayGoals": 0
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "K-COD-COL"
+  ],
   "upcoming": [
     {
       "id": "B-CAN-SUI",
@@ -241,6 +247,7 @@
     "J-ARG-AUT": "2026-06-22T17:00:00Z",
     "J-ARG-JOR": "2026-06-28T02:00:00Z",
     "J-AUT-JOR": "2026-06-17T04:00:00Z",
+    "K-COD-COL": "2026-06-24T02:00:00Z",
     "K-COD-UZB": "2026-06-27T23:30:00Z",
     "K-POR-COD": "2026-06-17T17:00:00Z",
     "K-POR-COL": "2026-06-27T23:30:00Z",
