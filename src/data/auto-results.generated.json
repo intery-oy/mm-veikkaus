@@ -112,18 +112,6 @@
   "preliminaryIds": [],
   "upcoming": [
     {
-      "id": "C-MAR-HAI",
-      "utcDate": "2026-06-24T22:00:00Z",
-      "homeId": "MAR",
-      "awayId": "HAI"
-    },
-    {
-      "id": "C-BRA-SCO",
-      "utcDate": "2026-06-24T22:00:00Z",
-      "homeId": "SCO",
-      "awayId": "BRA"
-    },
-    {
       "id": "A-MEX-CZE",
       "utcDate": "2026-06-25T01:00:00Z",
       "homeId": "CZE",
@@ -182,6 +170,18 @@
       "utcDate": "2026-06-26T19:00:00Z",
       "homeId": "SEN",
       "awayId": "IRQ"
+    },
+    {
+      "id": "H-ESP-URU",
+      "utcDate": "2026-06-27T00:00:00Z",
+      "homeId": "URU",
+      "awayId": "ESP"
+    },
+    {
+      "id": "H-CPV-KSA",
+      "utcDate": "2026-06-27T00:00:00Z",
+      "homeId": "CPV",
+      "awayId": "KSA"
     }
   ],
   "fixtureDates": {
@@ -199,9 +199,7 @@
     "B-QAT-SUI": "2026-06-13T19:00:00Z",
     "C-BRA-HAI": "2026-06-20T00:30:00Z",
     "C-BRA-MAR": "2026-06-13T22:00:00Z",
-    "C-BRA-SCO": "2026-06-24T22:00:00Z",
     "C-HAI-SCO": "2026-06-14T01:00:00Z",
-    "C-MAR-HAI": "2026-06-24T22:00:00Z",
     "C-MAR-SCO": "2026-06-19T22:00:00Z",
     "D-AUS-TUR": "2026-06-14T04:00:00Z",
     "D-PAR-AUS": "2026-06-26T02:00:00Z",
