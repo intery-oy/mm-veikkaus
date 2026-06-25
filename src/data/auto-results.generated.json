@@ -36,6 +36,10 @@
       "homeGoals": 7,
       "awayGoals": 1
     },
+    "E-GER-ECU": {
+      "homeGoals": 1,
+      "awayGoals": 1
+    },
     "F-NED-JPN": {
       "homeGoals": 2,
       "awayGoals": 2
@@ -117,7 +121,9 @@
       "awayGoals": 0
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "E-GER-ECU"
+  ],
   "upcoming": [
     {
       "id": "F-NED-TUN",
@@ -218,9 +224,11 @@
     "D-USA-PAR": "2026-06-13T01:00:00Z",
     "D-USA-TUR": "2026-06-26T02:00:00Z",
     "E-CIV-ECU": "2026-06-14T23:00:00Z",
+    "E-CUW-CIV": "2026-06-25T20:00:00Z",
     "E-CUW-ECU": "2026-06-21T00:00:00Z",
     "E-GER-CIV": "2026-06-20T20:00:00Z",
     "E-GER-CUW": "2026-06-14T17:00:00Z",
+    "E-GER-ECU": "2026-06-25T20:00:00Z",
     "F-JPN-SWE": "2026-06-25T23:00:00Z",
     "F-JPN-TUN": "2026-06-21T04:00:00Z",
     "F-NED-JPN": "2026-06-14T20:00:00Z",
