@@ -13,7 +13,7 @@
       "awayGoals": 0
     },
     "C-MAR-HAI": {
-      "homeGoals": 3,
+      "homeGoals": 4,
       "awayGoals": 2
     },
     "C-MAR-SCO": {
@@ -117,10 +117,7 @@
       "awayGoals": 0
     }
   },
-  "preliminaryIds": [
-    "C-BRA-SCO",
-    "C-MAR-HAI"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "A-MEX-CZE",
