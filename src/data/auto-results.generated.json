@@ -120,18 +120,6 @@
   "preliminaryIds": [],
   "upcoming": [
     {
-      "id": "E-GER-ECU",
-      "utcDate": "2026-06-25T20:00:00Z",
-      "homeId": "ECU",
-      "awayId": "GER"
-    },
-    {
-      "id": "E-CUW-CIV",
-      "utcDate": "2026-06-25T20:00:00Z",
-      "homeId": "CUW",
-      "awayId": "CIV"
-    },
-    {
       "id": "F-NED-TUN",
       "utcDate": "2026-06-25T23:00:00Z",
       "homeId": "TUN",
@@ -190,6 +178,18 @@
       "utcDate": "2026-06-27T03:00:00Z",
       "homeId": "EGY",
       "awayId": "IRN"
+    },
+    {
+      "id": "L-ENG-PAN",
+      "utcDate": "2026-06-27T21:00:00Z",
+      "homeId": "PAN",
+      "awayId": "ENG"
+    },
+    {
+      "id": "L-CRO-GHA",
+      "utcDate": "2026-06-27T21:00:00Z",
+      "homeId": "CRO",
+      "awayId": "GHA"
     }
   ],
   "fixtureDates": {
@@ -218,11 +218,9 @@
     "D-USA-PAR": "2026-06-13T01:00:00Z",
     "D-USA-TUR": "2026-06-26T02:00:00Z",
     "E-CIV-ECU": "2026-06-14T23:00:00Z",
-    "E-CUW-CIV": "2026-06-25T20:00:00Z",
     "E-CUW-ECU": "2026-06-21T00:00:00Z",
     "E-GER-CIV": "2026-06-20T20:00:00Z",
     "E-GER-CUW": "2026-06-14T17:00:00Z",
-    "E-GER-ECU": "2026-06-25T20:00:00Z",
     "F-JPN-SWE": "2026-06-25T23:00:00Z",
     "F-JPN-TUN": "2026-06-21T04:00:00Z",
     "F-NED-JPN": "2026-06-14T20:00:00Z",
