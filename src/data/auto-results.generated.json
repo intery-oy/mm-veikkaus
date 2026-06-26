@@ -30,7 +30,7 @@
     },
     "D-USA-TUR": {
       "homeGoals": 2,
-      "awayGoals": 2
+      "awayGoals": 3
     },
     "E-GER-CIV": {
       "homeGoals": 2,
@@ -133,9 +133,7 @@
       "awayGoals": 0
     }
   },
-  "preliminaryIds": [
-    "D-USA-TUR"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "I-FRA-NOR",
