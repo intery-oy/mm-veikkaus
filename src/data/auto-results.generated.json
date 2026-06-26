@@ -40,24 +40,12 @@
       "homeGoals": 7,
       "awayGoals": 1
     },
-    "E-GER-ECU": {
-      "homeGoals": 1,
-      "awayGoals": 2
-    },
-    "F-JPN-SWE": {
-      "homeGoals": 1,
-      "awayGoals": 1
-    },
     "F-NED-JPN": {
       "homeGoals": 2,
       "awayGoals": 2
     },
     "F-NED-SWE": {
       "homeGoals": 5,
-      "awayGoals": 1
-    },
-    "F-NED-TUN": {
-      "homeGoals": 3,
       "awayGoals": 1
     },
     "F-SWE-TUN": {
@@ -136,6 +124,42 @@
   "preliminaryIds": [],
   "upcoming": [
     {
+      "id": "A-MEX-CZE",
+      "utcDate": "2026-06-25T01:00:00Z",
+      "homeId": "CZE",
+      "awayId": "MEX"
+    },
+    {
+      "id": "A-RSA-KOR",
+      "utcDate": "2026-06-25T01:00:00Z",
+      "homeId": "RSA",
+      "awayId": "KOR"
+    },
+    {
+      "id": "E-GER-ECU",
+      "utcDate": "2026-06-25T20:00:00Z",
+      "homeId": "ECU",
+      "awayId": "GER"
+    },
+    {
+      "id": "E-CUW-CIV",
+      "utcDate": "2026-06-25T20:00:00Z",
+      "homeId": "CUW",
+      "awayId": "CIV"
+    },
+    {
+      "id": "F-NED-TUN",
+      "utcDate": "2026-06-25T23:00:00Z",
+      "homeId": "TUN",
+      "awayId": "NED"
+    },
+    {
+      "id": "F-JPN-SWE",
+      "utcDate": "2026-06-25T23:00:00Z",
+      "homeId": "JPN",
+      "awayId": "SWE"
+    },
+    {
       "id": "I-FRA-NOR",
       "utcDate": "2026-06-26T19:00:00Z",
       "homeId": "NOR",
@@ -170,42 +194,6 @@
       "utcDate": "2026-06-27T03:00:00Z",
       "homeId": "EGY",
       "awayId": "IRN"
-    },
-    {
-      "id": "L-ENG-PAN",
-      "utcDate": "2026-06-27T21:00:00Z",
-      "homeId": "PAN",
-      "awayId": "ENG"
-    },
-    {
-      "id": "L-CRO-GHA",
-      "utcDate": "2026-06-27T21:00:00Z",
-      "homeId": "CRO",
-      "awayId": "GHA"
-    },
-    {
-      "id": "K-POR-COL",
-      "utcDate": "2026-06-27T23:30:00Z",
-      "homeId": "COL",
-      "awayId": "POR"
-    },
-    {
-      "id": "K-COD-UZB",
-      "utcDate": "2026-06-27T23:30:00Z",
-      "homeId": "COD",
-      "awayId": "UZB"
-    },
-    {
-      "id": "J-ARG-JOR",
-      "utcDate": "2026-06-28T02:00:00Z",
-      "homeId": "JOR",
-      "awayId": "ARG"
-    },
-    {
-      "id": "J-ALG-AUT",
-      "utcDate": "2026-06-28T02:00:00Z",
-      "homeId": "ALG",
-      "awayId": "AUT"
     }
   ],
   "fixtureDates": {
