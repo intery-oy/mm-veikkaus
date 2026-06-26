@@ -93,7 +93,7 @@
       "awayGoals": 0
     },
     "I-FRA-NOR": {
-      "homeGoals": 3,
+      "homeGoals": 4,
       "awayGoals": 1
     },
     "I-FRA-SEN": {
@@ -137,9 +137,7 @@
       "awayGoals": 0
     }
   },
-  "preliminaryIds": [
-    "I-FRA-NOR"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "H-ESP-URU",
