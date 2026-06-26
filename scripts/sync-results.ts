@@ -153,7 +153,7 @@ async function main() {
   const warnings: string[] = [];
 
   for (const m of apiMatches) {
-    const live = m.status === 'IN_PLAY' || m.status === 'PAUSED';
+    const live = m.status === 'LIVE' || m.status === 'IN_PLAY' || m.status === 'PAUSED';
     const finished = m.status === 'FINISHED';
     const scheduled = m.status === 'SCHEDULED' || m.status === 'TIMED';
     if (!live && !finished && !scheduled) continue; // POSTPONED/CANCELLED yms.
