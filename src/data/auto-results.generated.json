@@ -73,7 +73,7 @@
       "awayGoals": 0
     },
     "G-BEL-NZL": {
-      "homeGoals": 1,
+      "homeGoals": 2,
       "awayGoals": 0
     },
     "H-CPV-URU": {
@@ -99,10 +99,6 @@
     "I-FRA-IRQ": {
       "homeGoals": 3,
       "awayGoals": 0
-    },
-    "I-FRA-NOR": {
-      "homeGoals": 4,
-      "awayGoals": 1
     },
     "I-FRA-SEN": {
       "homeGoals": 3,
@@ -149,6 +145,18 @@
     "G-BEL-NZL"
   ],
   "upcoming": [
+    {
+      "id": "I-FRA-NOR",
+      "utcDate": "2026-06-26T19:00:00Z",
+      "homeId": "NOR",
+      "awayId": "FRA"
+    },
+    {
+      "id": "I-SEN-IRQ",
+      "utcDate": "2026-06-26T19:00:00Z",
+      "homeId": "SEN",
+      "awayId": "IRQ"
+    },
     {
       "id": "L-ENG-PAN",
       "utcDate": "2026-06-27T21:00:00Z",
