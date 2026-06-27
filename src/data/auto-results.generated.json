@@ -100,10 +100,6 @@
       "homeGoals": 3,
       "awayGoals": 0
     },
-    "I-FRA-NOR": {
-      "homeGoals": 4,
-      "awayGoals": 1
-    },
     "I-FRA-SEN": {
       "homeGoals": 3,
       "awayGoals": 1
@@ -134,7 +130,7 @@
     },
     "L-CRO-GHA": {
       "homeGoals": 1,
-      "awayGoals": 0
+      "awayGoals": 1
     },
     "L-CRO-PAN": {
       "homeGoals": 1,
@@ -149,7 +145,7 @@
       "awayGoals": 0
     },
     "L-ENG-PAN": {
-      "homeGoals": 0,
+      "homeGoals": 2,
       "awayGoals": 0
     }
   },
@@ -158,6 +154,18 @@
     "L-ENG-PAN"
   ],
   "upcoming": [
+    {
+      "id": "I-FRA-NOR",
+      "utcDate": "2026-06-26T19:00:00Z",
+      "homeId": "NOR",
+      "awayId": "FRA"
+    },
+    {
+      "id": "I-SEN-IRQ",
+      "utcDate": "2026-06-26T19:00:00Z",
+      "homeId": "SEN",
+      "awayId": "IRQ"
+    },
     {
       "id": "K-POR-COL",
       "utcDate": "2026-06-27T23:30:00Z",
