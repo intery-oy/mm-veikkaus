@@ -73,8 +73,8 @@
       "awayGoals": 0
     },
     "G-BEL-NZL": {
-      "homeGoals": 3,
-      "awayGoals": 0
+      "homeGoals": 5,
+      "awayGoals": 1
     },
     "H-CPV-URU": {
       "homeGoals": 2,
@@ -145,9 +145,7 @@
       "awayGoals": 0
     }
   },
-  "preliminaryIds": [
-    "G-BEL-NZL"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "L-ENG-PAN",
