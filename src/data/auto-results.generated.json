@@ -72,6 +72,10 @@
       "homeGoals": 0,
       "awayGoals": 0
     },
+    "G-BEL-NZL": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "H-CPV-URU": {
       "homeGoals": 2,
       "awayGoals": 2
@@ -141,20 +145,10 @@
       "awayGoals": 0
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "G-BEL-NZL"
+  ],
   "upcoming": [
-    {
-      "id": "G-BEL-NZL",
-      "utcDate": "2026-06-27T03:00:00Z",
-      "homeId": "NZL",
-      "awayId": "BEL"
-    },
-    {
-      "id": "G-EGY-IRN",
-      "utcDate": "2026-06-27T03:00:00Z",
-      "homeId": "EGY",
-      "awayId": "IRN"
-    },
     {
       "id": "L-ENG-PAN",
       "utcDate": "2026-06-27T21:00:00Z",
