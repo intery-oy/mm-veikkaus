@@ -84,6 +84,10 @@
       "homeGoals": 4,
       "awayGoals": 0
     },
+    "H-ESP-URU": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "H-KSA-URU": {
       "homeGoals": 1,
       "awayGoals": 1
@@ -137,20 +141,10 @@
       "awayGoals": 0
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "H-ESP-URU"
+  ],
   "upcoming": [
-    {
-      "id": "H-ESP-URU",
-      "utcDate": "2026-06-27T00:00:00Z",
-      "homeId": "URU",
-      "awayId": "ESP"
-    },
-    {
-      "id": "H-CPV-KSA",
-      "utcDate": "2026-06-27T00:00:00Z",
-      "homeId": "CPV",
-      "awayId": "KSA"
-    },
     {
       "id": "G-BEL-NZL",
       "utcDate": "2026-06-27T03:00:00Z",
