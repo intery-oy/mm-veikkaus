@@ -65,12 +65,14 @@ describe('buildPortalData', () => {
     }
   });
 
-  it('laskee montako pelattua ottelua sisältää veikkaajan joukkueen', () => {
+  it('laskee pelatut joukkuepelit niin että omien joukkueiden keskinäinen peli lasketaan molemmille', () => {
     for (const b of data.bettors) {
-      expect(b.playedPickMatches).toBeGreaterThanOrEqual(0);
-      expect(b.playedPickMatches).toBeLessThanOrEqual(data.playedMatches);
+      expect(b.playedTeamGames).toBeGreaterThanOrEqual(0);
+      expect(b.playedTeamGames).toBeLessThanOrEqual(data.playedMatches);
     }
-    expect(data.bettors.some((b) => b.playedPickMatches > 0)).toBe(true);
+    expect(data.bettors.some((b) => b.playedTeamGames > 0)).toBe(true);
+    expect(data.bettors.find((b) => b.bettorId === 'kaarlo')?.playedTeamGames).toBe(15);
+    expect(data.bettors.find((b) => b.bettorId === 'alvar')?.playedTeamGames).toBe(15);
   });
 
   it('rakentaa hauskat johdannaiset ilman erillistä backend-tilaa', () => {
