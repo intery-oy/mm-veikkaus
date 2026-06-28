@@ -164,12 +164,6 @@
   "preliminaryIds": [],
   "upcoming": [
     {
-      "id": "R32-RSA-CAN",
-      "utcDate": "2026-06-28T19:00:00Z",
-      "homeId": "RSA",
-      "awayId": "CAN"
-    },
-    {
       "id": "R32-BRA-JPN",
       "utcDate": "2026-06-29T17:00:00Z",
       "homeId": "BRA",
@@ -234,6 +228,12 @@
       "utcDate": "2026-07-02T23:00:00Z",
       "homeId": "POR",
       "awayId": "CRO"
+    },
+    {
+      "id": "R32-SUI-ALG",
+      "utcDate": "2026-07-03T03:00:00Z",
+      "homeId": "SUI",
+      "awayId": "ALG"
     }
   ],
   "knockoutFixtures": [
