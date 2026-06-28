@@ -100,10 +100,6 @@
       "homeGoals": 3,
       "awayGoals": 0
     },
-    "I-FRA-NOR": {
-      "homeGoals": 4,
-      "awayGoals": 1
-    },
     "I-FRA-SEN": {
       "homeGoals": 3,
       "awayGoals": 1
@@ -123,6 +119,10 @@
     "K-POR-COD": {
       "homeGoals": 1,
       "awayGoals": 1
+    },
+    "K-POR-COL": {
+      "homeGoals": 0,
+      "awayGoals": 0
     },
     "K-POR-UZB": {
       "homeGoals": 5,
@@ -153,19 +153,21 @@
       "awayGoals": 0
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "K-POR-COL"
+  ],
   "upcoming": [
     {
-      "id": "K-POR-COL",
-      "utcDate": "2026-06-27T23:30:00Z",
-      "homeId": "COL",
-      "awayId": "POR"
+      "id": "I-FRA-NOR",
+      "utcDate": "2026-06-26T19:00:00Z",
+      "homeId": "NOR",
+      "awayId": "FRA"
     },
     {
-      "id": "K-COD-UZB",
-      "utcDate": "2026-06-27T23:30:00Z",
-      "homeId": "COD",
-      "awayId": "UZB"
+      "id": "I-SEN-IRQ",
+      "utcDate": "2026-06-26T19:00:00Z",
+      "homeId": "SEN",
+      "awayId": "IRQ"
     },
     {
       "id": "J-ARG-JOR",
