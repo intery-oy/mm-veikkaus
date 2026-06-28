@@ -112,6 +112,8 @@ for (const m of matches) {
 const BETTED = new Set(picks.flatMap((p) => p.teams.map((t) => t.teamId)));
 
 interface ApiMatch {
+  id?: number;
+  stage?: string;
   status: string;
   utcDate?: string;
   homeTeam: ApiTeam;
@@ -130,6 +132,7 @@ interface GeneratedResults {
   results?: Record<string, MatchResult>;
   preliminaryIds?: string[];
   upcoming?: UpcomingFixture[];
+  knockoutFixtures?: UpcomingFixture[];
   fixtureDates?: Record<string, string>;
 }
 
@@ -139,6 +142,38 @@ function readPreviousGenerated(): GeneratedResults {
   } catch {
     return {};
   }
+}
+
+function knockoutStageCode(stage: string | undefined): string {
+  switch (stage) {
+    case 'LAST_32':
+      return 'R32';
+    case 'LAST_16':
+      return 'R16';
+    case 'QUARTER_FINALS':
+      return 'QF';
+    case 'SEMI_FINALS':
+      return 'SF';
+    case 'THIRD_PLACE':
+      return 'BRONZE';
+    case 'FINAL':
+      return 'FINAL';
+    default:
+      return 'KO';
+  }
+}
+
+function dynamicFixtureFor(
+  m: ApiMatch,
+  homeId: string,
+  awayId: string,
+): { id: string; home: string; away: string } {
+  const code = knockoutStageCode(m.stage);
+  return {
+    id: `${code}-${homeId}-${awayId}`,
+    home: homeId,
+    away: awayId,
+  };
 }
 
 async function main() {
@@ -165,6 +200,10 @@ async function main() {
   const fixtureDates: Record<string, string> = {};
   const previous = readPreviousGenerated();
   const previousResults = previous.results ?? {};
+  const knockoutById = new Map<string, UpcomingFixture>();
+  for (const fixture of previous.knockoutFixtures ?? []) {
+    knockoutById.set(fixture.id, fixture);
+  }
   let upcoming: UpcomingFixture[] = [];
   let mappedResults = 0;
   const warnings: string[] = [];
@@ -184,10 +223,16 @@ async function main() {
       }
       continue;
     }
-    const fx = fixtureByPair.get([homeId, awayId].sort().join('|'));
+    let fx = fixtureByPair.get([homeId, awayId].sort().join('|'));
     if (!fx) {
-      warnings.push(`Ei kanonista ottelua parille: ${homeId} vs ${awayId}`);
-      continue;
+      if (!m.stage || m.stage === 'GROUP_STAGE') {
+        warnings.push(`Ei kanonista ottelua parille: ${homeId} vs ${awayId}`);
+        continue;
+      }
+      fx = dynamicFixtureFor(m, homeId, awayId);
+      if (m.utcDate) {
+        knockoutById.set(fx.id, { id: fx.id, utcDate: m.utcDate, homeId, awayId });
+      }
     }
     if (m.utcDate) fixtureDates[fx.id] = m.utcDate;
 
@@ -230,10 +275,14 @@ async function main() {
   for (const id of Object.keys(results).sort()) sortedResults[id] = results[id]!;
   const sortedFixtureDates: Record<string, string> = {};
   for (const id of Object.keys(fixtureDates).sort()) sortedFixtureDates[id] = fixtureDates[id]!;
+  const knockoutFixtures = [...knockoutById.values()].sort((a, b) =>
+    a.utcDate.localeCompare(b.utcDate),
+  );
   const payload = {
     results: sortedResults,
     preliminaryIds: preliminary.sort(),
     upcoming,
+    knockoutFixtures,
     fixtureDates: sortedFixtureDates,
   };
   const json = JSON.stringify(payload, null, 2) + '\n';

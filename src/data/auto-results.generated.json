@@ -162,7 +162,178 @@
     }
   },
   "preliminaryIds": [],
-  "upcoming": [],
+  "upcoming": [
+    {
+      "id": "R32-RSA-CAN",
+      "utcDate": "2026-06-28T19:00:00Z",
+      "homeId": "RSA",
+      "awayId": "CAN"
+    },
+    {
+      "id": "R32-BRA-JPN",
+      "utcDate": "2026-06-29T17:00:00Z",
+      "homeId": "BRA",
+      "awayId": "JPN"
+    },
+    {
+      "id": "R32-GER-PAR",
+      "utcDate": "2026-06-29T20:30:00Z",
+      "homeId": "GER",
+      "awayId": "PAR"
+    },
+    {
+      "id": "R32-NED-MAR",
+      "utcDate": "2026-06-30T01:00:00Z",
+      "homeId": "NED",
+      "awayId": "MAR"
+    },
+    {
+      "id": "R32-CIV-NOR",
+      "utcDate": "2026-06-30T17:00:00Z",
+      "homeId": "CIV",
+      "awayId": "NOR"
+    },
+    {
+      "id": "R32-FRA-SWE",
+      "utcDate": "2026-06-30T21:00:00Z",
+      "homeId": "FRA",
+      "awayId": "SWE"
+    },
+    {
+      "id": "R32-MEX-ECU",
+      "utcDate": "2026-07-01T01:00:00Z",
+      "homeId": "MEX",
+      "awayId": "ECU"
+    },
+    {
+      "id": "R32-ENG-COD",
+      "utcDate": "2026-07-01T16:00:00Z",
+      "homeId": "ENG",
+      "awayId": "COD"
+    },
+    {
+      "id": "R32-BEL-SEN",
+      "utcDate": "2026-07-01T20:00:00Z",
+      "homeId": "BEL",
+      "awayId": "SEN"
+    },
+    {
+      "id": "R32-USA-BIH",
+      "utcDate": "2026-07-02T00:00:00Z",
+      "homeId": "USA",
+      "awayId": "BIH"
+    },
+    {
+      "id": "R32-ESP-AUT",
+      "utcDate": "2026-07-02T19:00:00Z",
+      "homeId": "ESP",
+      "awayId": "AUT"
+    },
+    {
+      "id": "R32-POR-CRO",
+      "utcDate": "2026-07-02T23:00:00Z",
+      "homeId": "POR",
+      "awayId": "CRO"
+    }
+  ],
+  "knockoutFixtures": [
+    {
+      "id": "R32-RSA-CAN",
+      "utcDate": "2026-06-28T19:00:00Z",
+      "homeId": "RSA",
+      "awayId": "CAN"
+    },
+    {
+      "id": "R32-BRA-JPN",
+      "utcDate": "2026-06-29T17:00:00Z",
+      "homeId": "BRA",
+      "awayId": "JPN"
+    },
+    {
+      "id": "R32-GER-PAR",
+      "utcDate": "2026-06-29T20:30:00Z",
+      "homeId": "GER",
+      "awayId": "PAR"
+    },
+    {
+      "id": "R32-NED-MAR",
+      "utcDate": "2026-06-30T01:00:00Z",
+      "homeId": "NED",
+      "awayId": "MAR"
+    },
+    {
+      "id": "R32-CIV-NOR",
+      "utcDate": "2026-06-30T17:00:00Z",
+      "homeId": "CIV",
+      "awayId": "NOR"
+    },
+    {
+      "id": "R32-FRA-SWE",
+      "utcDate": "2026-06-30T21:00:00Z",
+      "homeId": "FRA",
+      "awayId": "SWE"
+    },
+    {
+      "id": "R32-MEX-ECU",
+      "utcDate": "2026-07-01T01:00:00Z",
+      "homeId": "MEX",
+      "awayId": "ECU"
+    },
+    {
+      "id": "R32-ENG-COD",
+      "utcDate": "2026-07-01T16:00:00Z",
+      "homeId": "ENG",
+      "awayId": "COD"
+    },
+    {
+      "id": "R32-BEL-SEN",
+      "utcDate": "2026-07-01T20:00:00Z",
+      "homeId": "BEL",
+      "awayId": "SEN"
+    },
+    {
+      "id": "R32-USA-BIH",
+      "utcDate": "2026-07-02T00:00:00Z",
+      "homeId": "USA",
+      "awayId": "BIH"
+    },
+    {
+      "id": "R32-ESP-AUT",
+      "utcDate": "2026-07-02T19:00:00Z",
+      "homeId": "ESP",
+      "awayId": "AUT"
+    },
+    {
+      "id": "R32-POR-CRO",
+      "utcDate": "2026-07-02T23:00:00Z",
+      "homeId": "POR",
+      "awayId": "CRO"
+    },
+    {
+      "id": "R32-SUI-ALG",
+      "utcDate": "2026-07-03T03:00:00Z",
+      "homeId": "SUI",
+      "awayId": "ALG"
+    },
+    {
+      "id": "R32-AUS-EGY",
+      "utcDate": "2026-07-03T18:00:00Z",
+      "homeId": "AUS",
+      "awayId": "EGY"
+    },
+    {
+      "id": "R32-ARG-CPV",
+      "utcDate": "2026-07-03T22:00:00Z",
+      "homeId": "ARG",
+      "awayId": "CPV"
+    },
+    {
+      "id": "R32-COL-GHA",
+      "utcDate": "2026-07-04T01:30:00Z",
+      "homeId": "COL",
+      "awayId": "GHA"
+    }
+  ],
   "fixtureDates": {
     "A-KOR-CZE": "2026-06-12T02:00:00Z",
     "A-MEX-CZE": "2026-06-25T01:00:00Z",
@@ -235,6 +406,22 @@
     "L-ENG-CRO": "2026-06-17T20:00:00Z",
     "L-ENG-GHA": "2026-06-23T20:00:00Z",
     "L-ENG-PAN": "2026-06-27T21:00:00Z",
-    "L-GHA-PAN": "2026-06-17T23:00:00Z"
+    "L-GHA-PAN": "2026-06-17T23:00:00Z",
+    "R32-ARG-CPV": "2026-07-03T22:00:00Z",
+    "R32-AUS-EGY": "2026-07-03T18:00:00Z",
+    "R32-BEL-SEN": "2026-07-01T20:00:00Z",
+    "R32-BRA-JPN": "2026-06-29T17:00:00Z",
+    "R32-CIV-NOR": "2026-06-30T17:00:00Z",
+    "R32-COL-GHA": "2026-07-04T01:30:00Z",
+    "R32-ENG-COD": "2026-07-01T16:00:00Z",
+    "R32-ESP-AUT": "2026-07-02T19:00:00Z",
+    "R32-FRA-SWE": "2026-06-30T21:00:00Z",
+    "R32-GER-PAR": "2026-06-29T20:30:00Z",
+    "R32-MEX-ECU": "2026-07-01T01:00:00Z",
+    "R32-NED-MAR": "2026-06-30T01:00:00Z",
+    "R32-POR-CRO": "2026-07-02T23:00:00Z",
+    "R32-RSA-CAN": "2026-06-28T19:00:00Z",
+    "R32-SUI-ALG": "2026-07-03T03:00:00Z",
+    "R32-USA-BIH": "2026-07-02T00:00:00Z"
   }
 }

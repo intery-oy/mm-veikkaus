@@ -42,6 +42,7 @@ interface AutoResults {
   results: Record<string, MatchResult>;
   preliminaryIds: string[];
   upcoming?: UpcomingFixture[];
+  knockoutFixtures?: UpcomingFixture[];
   fixtureDates?: Record<string, string>;
 }
 const auto = autoData as AutoResults;
@@ -84,14 +85,16 @@ function groupMatches(): Match[] {
   return out;
 }
 
-// === PUDOTUSPELIT (R32 → finaali, 32 ottelua) ===
-// Lisätään kun lohkovaihe on ratkennut (27.6.2026) ja parit ovat tiedossa.
-// Täytä id:llä `${kierros}-${kotiId}-${vierasId}` (esim. 'R32-BRA-URU') ja
-// aseta tulos RESULTS-objektiin samalla id:llä, kuten lohko-otteluissa.
-// Kierroskoodit: R32, R16, QF, SF, BRONZE, FINAL.
-const KNOCKOUT_MATCHES: Match[] = [
-  // esim. { id: 'R32-BRA-...', homeTeamId: 'BRA', awayTeamId: '...', result: null },
-];
+// === PUDOTUSPELIT (R32 → finaali) ===
+// Automaatti tuo ratkaistut pudotuspeliparit football-data.orgista sitä mukaa
+// kun joukkueet ovat tiedossa. TBD-parit jätetään pois, kunnes API palauttaa
+// oikeat joukkueet.
+const KNOCKOUT_MATCHES: Match[] = (auto.knockoutFixtures ?? []).map((fixture) => ({
+  id: fixture.id,
+  homeTeamId: fixture.homeId,
+  awayTeamId: fixture.awayId,
+  result: RESULTS[fixture.id] ?? null,
+}));
 
 export const matches: Match[] = [...groupMatches(), ...KNOCKOUT_MATCHES];
 
