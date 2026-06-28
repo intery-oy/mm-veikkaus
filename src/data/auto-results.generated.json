@@ -100,10 +100,6 @@
       "homeGoals": 3,
       "awayGoals": 0
     },
-    "I-FRA-NOR": {
-      "homeGoals": 4,
-      "awayGoals": 1
-    },
     "I-FRA-SEN": {
       "homeGoals": 3,
       "awayGoals": 1
@@ -161,6 +157,18 @@
     "K-POR-COL"
   ],
   "upcoming": [
+    {
+      "id": "I-FRA-NOR",
+      "utcDate": "2026-06-26T19:00:00Z",
+      "homeId": "NOR",
+      "awayId": "FRA"
+    },
+    {
+      "id": "I-SEN-IRQ",
+      "utcDate": "2026-06-26T19:00:00Z",
+      "homeId": "SEN",
+      "awayId": "IRQ"
+    },
     {
       "id": "J-ARG-JOR",
       "utcDate": "2026-06-28T02:00:00Z",
