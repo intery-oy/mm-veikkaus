@@ -3,6 +3,7 @@
 # Nappaa HILJAISET virheet, jotka sync-local.sh ei itse ehdi raportoida:
 #   1. Pushaamattomat commitit (tulokset jumissa lokaalisti — juuri tämä kaatui 18.6.).
 #   2. Cron ei aja lainkaan (sync-loki ei ole päivittynyt).
+#   3. Semanttisesti puuttuva käynnissä/pelattu veikkaajien ottelu.
 # Hälyttää Telegramiin, mutta debounce: sama ongelma korkeintaan kerran / 3 h.
 #
 # Aja Mac-crontabista (esim. */30 kisakuukausina):
@@ -101,7 +102,17 @@ else
   wlog "VAROITUS: origin/main:public/version.json puuttuu — live-tarkistus ohitettu (bootstrap kesken)."
 fi
 
-# --- 4. GitHub-tokenin vanheneminen ------------------------------------------
+# --- 4. Semanttinen tuoreus ----------------------------------------------------
+# Cron/deploy voi olla vihreä vaikka tulosdata on sisällöllisesti vajaa.
+# Tämä tarkistaa, ettei alkanut veikkaajien ottelu puutu näkyvästä datasta.
+if freshness_output="$(npm run check:freshness 2>&1)"; then
+  clear_alert "semantic"
+else
+  alert "semantic" "semantic freshness failed — started picked-team fixture missing from generated feed. $(echo "$freshness_output" | tail -5)"
+  problems=1
+fi
+
+# --- 5. GitHub-tokenin vanheneminen ------------------------------------------
 # Fine-grained PAT vanhenee jonakin päivänä -> push lakkaa toimimasta. Varoita
 # 7 vrk ennen, jotta ehtii uusia. GitHub palauttaa vanhenemispäivän headerina.
 if [[ -f "$GH_TOKEN_FILE" ]]; then

@@ -66,6 +66,14 @@ if ! output=$(npm run sync:results 2>&1); then
 fi
 
 log "$output"
+
+if ! freshness_output=$(npm run check:freshness 2>&1); then
+  log "VIRHE: semantic freshness epäonnistui: $freshness_output"
+  alert "semantic freshness failed — a started picked-team fixture is missing from the generated feed. $(echo "$freshness_output" | tail -5)"
+  exit 1
+fi
+log "$freshness_output"
+
 if [[ -f "$RECOVERY_STATE" ]]; then
   notify_recovered "tuloshaku/API-yhteys palautui. Viimeisin ajo onnistui: $(echo "$output" | tail -1)"
 fi

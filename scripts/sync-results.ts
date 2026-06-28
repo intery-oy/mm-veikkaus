@@ -126,6 +126,21 @@ interface UpcomingFixture {
   awayId: string;
 }
 
+interface GeneratedResults {
+  results?: Record<string, MatchResult>;
+  preliminaryIds?: string[];
+  upcoming?: UpcomingFixture[];
+  fixtureDates?: Record<string, string>;
+}
+
+function readPreviousGenerated(): GeneratedResults {
+  try {
+    return JSON.parse(readFileSync(OUT_PATH, 'utf8')) as GeneratedResults;
+  } catch {
+    return {};
+  }
+}
+
 async function main() {
   const token = process.env.FOOTBALL_DATA_TOKEN;
   if (!token) {
@@ -148,6 +163,8 @@ async function main() {
   const results: Record<string, MatchResult> = {};
   const preliminary: string[] = [];
   const fixtureDates: Record<string, string> = {};
+  const previous = readPreviousGenerated();
+  const previousResults = previous.results ?? {};
   let upcoming: UpcomingFixture[] = [];
   let mappedResults = 0;
   const warnings: string[] = [];
@@ -186,9 +203,16 @@ async function main() {
       if (live) preliminary.push(fx.id);
       mappedResults++;
     } else if (scheduled && m.utcDate) {
+      // football-data can briefly regress a finished match back to scheduled.
+      // Never let that erase already observed points.
+      if (previousResults[fx.id]) continue;
       // Tuleva ottelu: säilytä todellinen koti/vieras näyttöä varten.
       upcoming.push({ id: fx.id, utcDate: m.utcDate, homeId, awayId });
     }
+  }
+
+  for (const [id, result] of Object.entries(previousResults)) {
+    if (!(id in results)) results[id] = result;
   }
 
   if (warnings.length) console.warn('Varoitukset:\n  ' + warnings.join('\n  '));
