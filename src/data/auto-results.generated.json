@@ -116,6 +116,10 @@
       "homeGoals": 2,
       "awayGoals": 0
     },
+    "J-ARG-JOR": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "K-COD-COL": {
       "homeGoals": 0,
       "awayGoals": 1
@@ -157,21 +161,10 @@
       "awayGoals": 0
     }
   },
-  "preliminaryIds": [],
-  "upcoming": [
-    {
-      "id": "J-ARG-JOR",
-      "utcDate": "2026-06-28T02:00:00Z",
-      "homeId": "JOR",
-      "awayId": "ARG"
-    },
-    {
-      "id": "J-ALG-AUT",
-      "utcDate": "2026-06-28T02:00:00Z",
-      "homeId": "ALG",
-      "awayId": "AUT"
-    }
+  "preliminaryIds": [
+    "J-ARG-JOR"
   ],
+  "upcoming": [],
   "fixtureDates": {
     "A-KOR-CZE": "2026-06-12T02:00:00Z",
     "A-MEX-CZE": "2026-06-25T01:00:00Z",
