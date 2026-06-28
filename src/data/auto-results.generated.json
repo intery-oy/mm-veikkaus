@@ -140,10 +140,6 @@
       "homeGoals": 1,
       "awayGoals": 3
     },
-    "L-CRO-GHA": {
-      "homeGoals": 2,
-      "awayGoals": 1
-    },
     "L-CRO-PAN": {
       "homeGoals": 1,
       "awayGoals": 0
@@ -155,14 +151,23 @@
     "L-ENG-GHA": {
       "homeGoals": 0,
       "awayGoals": 0
-    },
-    "L-ENG-PAN": {
-      "homeGoals": 2,
-      "awayGoals": 0
     }
   },
   "preliminaryIds": [],
-  "upcoming": [],
+  "upcoming": [
+    {
+      "id": "L-ENG-PAN",
+      "utcDate": "2026-06-27T21:00:00Z",
+      "homeId": "PAN",
+      "awayId": "ENG"
+    },
+    {
+      "id": "L-CRO-GHA",
+      "utcDate": "2026-06-27T21:00:00Z",
+      "homeId": "CRO",
+      "awayId": "GHA"
+    }
+  ],
   "fixtureDates": {
     "A-KOR-CZE": "2026-06-12T02:00:00Z",
     "A-MEX-CZE": "2026-06-25T01:00:00Z",
