@@ -161,13 +161,11 @@
       "awayGoals": 0
     },
     "R32-BRA-JPN": {
-      "homeGoals": 1,
+      "homeGoals": 2,
       "awayGoals": 1
     }
   },
-  "preliminaryIds": [
-    "R32-BRA-JPN"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "R32-GER-PAR",
