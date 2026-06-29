@@ -159,16 +159,16 @@
     "L-ENG-PAN": {
       "homeGoals": 2,
       "awayGoals": 0
+    },
+    "R32-BRA-JPN": {
+      "homeGoals": 0,
+      "awayGoals": 0
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "R32-BRA-JPN"
+  ],
   "upcoming": [
-    {
-      "id": "R32-BRA-JPN",
-      "utcDate": "2026-06-29T17:00:00Z",
-      "homeId": "BRA",
-      "awayId": "JPN"
-    },
     {
       "id": "R32-GER-PAR",
       "utcDate": "2026-06-29T20:30:00Z",
@@ -234,6 +234,12 @@
       "utcDate": "2026-07-03T03:00:00Z",
       "homeId": "SUI",
       "awayId": "ALG"
+    },
+    {
+      "id": "R32-AUS-EGY",
+      "utcDate": "2026-07-03T18:00:00Z",
+      "homeId": "AUS",
+      "awayId": "EGY"
     }
   ],
   "knockoutFixtures": [
