@@ -165,13 +165,11 @@
       "awayGoals": 1
     },
     "R32-GER-PAR": {
-      "homeGoals": 4,
-      "awayGoals": 5
+      "homeGoals": 5,
+      "awayGoals": 6
     }
   },
-  "preliminaryIds": [
-    "R32-GER-PAR"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "R32-NED-MAR",
