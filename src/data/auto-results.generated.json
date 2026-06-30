@@ -167,16 +167,16 @@
     "R32-GER-PAR": {
       "homeGoals": 4,
       "awayGoals": 5
+    },
+    "R32-NED-MAR": {
+      "homeGoals": 0,
+      "awayGoals": 0
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "R32-NED-MAR"
+  ],
   "upcoming": [
-    {
-      "id": "R32-NED-MAR",
-      "utcDate": "2026-06-30T01:00:00Z",
-      "homeId": "NED",
-      "awayId": "MAR"
-    },
     {
       "id": "R32-CIV-NOR",
       "utcDate": "2026-06-30T17:00:00Z",
@@ -242,6 +242,12 @@
       "utcDate": "2026-07-03T22:00:00Z",
       "homeId": "ARG",
       "awayId": "CPV"
+    },
+    {
+      "id": "R32-COL-GHA",
+      "utcDate": "2026-07-04T01:30:00Z",
+      "homeId": "COL",
+      "awayId": "GHA"
     }
   ],
   "knockoutFixtures": [
