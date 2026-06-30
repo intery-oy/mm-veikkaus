@@ -176,12 +176,6 @@
   "preliminaryIds": [],
   "upcoming": [
     {
-      "id": "R32-CIV-NOR",
-      "utcDate": "2026-06-30T17:00:00Z",
-      "homeId": "CIV",
-      "awayId": "NOR"
-    },
-    {
       "id": "R32-FRA-SWE",
       "utcDate": "2026-06-30T21:00:00Z",
       "homeId": "FRA",
@@ -246,6 +240,12 @@
       "utcDate": "2026-07-04T01:30:00Z",
       "homeId": "COL",
       "awayId": "GHA"
+    },
+    {
+      "id": "R16-CAN-MAR",
+      "utcDate": "2026-07-04T17:00:00Z",
+      "homeId": "CAN",
+      "awayId": "MAR"
     }
   ],
   "knockoutFixtures": [
