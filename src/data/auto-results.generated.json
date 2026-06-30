@@ -344,6 +344,12 @@
       "utcDate": "2026-07-04T01:30:00Z",
       "homeId": "COL",
       "awayId": "GHA"
+    },
+    {
+      "id": "R16-CAN-MAR",
+      "utcDate": "2026-07-04T17:00:00Z",
+      "homeId": "CAN",
+      "awayId": "MAR"
     }
   ],
   "fixtureDates": {
@@ -419,6 +425,7 @@
     "L-ENG-GHA": "2026-06-23T20:00:00Z",
     "L-ENG-PAN": "2026-06-27T21:00:00Z",
     "L-GHA-PAN": "2026-06-17T23:00:00Z",
+    "R16-CAN-MAR": "2026-07-04T17:00:00Z",
     "R32-ARG-CPV": "2026-07-03T22:00:00Z",
     "R32-AUS-EGY": "2026-07-03T18:00:00Z",
     "R32-BEL-SEN": "2026-07-01T20:00:00Z",
