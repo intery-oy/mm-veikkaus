@@ -164,6 +164,10 @@
       "homeGoals": 2,
       "awayGoals": 1
     },
+    "R32-ENG-COD": {
+      "homeGoals": 0,
+      "awayGoals": 1
+    },
     "R32-FRA-SWE": {
       "homeGoals": 3,
       "awayGoals": 0
@@ -177,14 +181,10 @@
       "awayGoals": 4
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "R32-ENG-COD"
+  ],
   "upcoming": [
-    {
-      "id": "R32-ENG-COD",
-      "utcDate": "2026-07-01T16:00:00Z",
-      "homeId": "ENG",
-      "awayId": "COD"
-    },
     {
       "id": "R32-BEL-SEN",
       "utcDate": "2026-07-01T20:00:00Z",
