@@ -160,6 +160,10 @@
       "homeGoals": 2,
       "awayGoals": 0
     },
+    "R32-BEL-SEN": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "R32-BRA-JPN": {
       "homeGoals": 2,
       "awayGoals": 1
@@ -181,14 +185,10 @@
       "awayGoals": 4
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "R32-BEL-SEN"
+  ],
   "upcoming": [
-    {
-      "id": "R32-BEL-SEN",
-      "utcDate": "2026-07-01T20:00:00Z",
-      "homeId": "BEL",
-      "awayId": "SEN"
-    },
     {
       "id": "R32-USA-BIH",
       "utcDate": "2026-07-02T00:00:00Z",
