@@ -180,6 +180,12 @@
   "preliminaryIds": [],
   "upcoming": [
     {
+      "id": "R32-MEX-ECU",
+      "utcDate": "2026-07-01T01:00:00Z",
+      "homeId": "MEX",
+      "awayId": "ECU"
+    },
+    {
       "id": "R32-ENG-COD",
       "utcDate": "2026-07-01T16:00:00Z",
       "homeId": "ENG",
