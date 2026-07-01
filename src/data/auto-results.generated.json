@@ -165,7 +165,7 @@
       "awayGoals": 1
     },
     "R32-ENG-COD": {
-      "homeGoals": 1,
+      "homeGoals": 2,
       "awayGoals": 1
     },
     "R32-FRA-SWE": {
@@ -181,9 +181,7 @@
       "awayGoals": 4
     }
   },
-  "preliminaryIds": [
-    "R32-ENG-COD"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "R32-BEL-SEN",
