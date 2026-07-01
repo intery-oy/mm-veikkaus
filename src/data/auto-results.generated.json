@@ -161,7 +161,7 @@
       "awayGoals": 0
     },
     "R32-BEL-SEN": {
-      "homeGoals": 2,
+      "homeGoals": 3,
       "awayGoals": 2
     },
     "R32-BRA-JPN": {
@@ -185,9 +185,7 @@
       "awayGoals": 4
     }
   },
-  "preliminaryIds": [
-    "R32-BEL-SEN"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "R32-USA-BIH",
