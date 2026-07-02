@@ -187,16 +187,16 @@
     "R32-NED-MAR": {
       "homeGoals": 3,
       "awayGoals": 4
+    },
+    "R32-POR-CRO": {
+      "homeGoals": 0,
+      "awayGoals": 0
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "R32-POR-CRO"
+  ],
   "upcoming": [
-    {
-      "id": "R32-POR-CRO",
-      "utcDate": "2026-07-02T23:00:00Z",
-      "homeId": "POR",
-      "awayId": "CRO"
-    },
     {
       "id": "R32-SUI-ALG",
       "utcDate": "2026-07-03T03:00:00Z",
