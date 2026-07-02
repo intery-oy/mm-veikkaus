@@ -188,12 +188,6 @@
   "preliminaryIds": [],
   "upcoming": [
     {
-      "id": "R32-USA-BIH",
-      "utcDate": "2026-07-02T00:00:00Z",
-      "homeId": "USA",
-      "awayId": "BIH"
-    },
-    {
       "id": "R32-ESP-AUT",
       "utcDate": "2026-07-02T19:00:00Z",
       "homeId": "ESP",
