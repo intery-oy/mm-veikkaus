@@ -141,7 +141,7 @@ export interface PortalData {
   outcomePending: boolean;
   /** Pelatut ottelut tuloksineen (tulosfiidiä varten). */
   results: PlayedResult[];
-  /** Etusivun tiivis tulosfiidi: aina vain 5 uusinta ottelua. */
+  /** Etusivun tiivis tulosfiidi: aina vain 3 uusinta ottelua. */
   latestResults: PlayedResult[];
   /** Vanhemmat ottelut erillistä ottelulokia varten. */
   matchLog: PlayedResult[];
@@ -335,8 +335,8 @@ export function buildPortalData(): PortalData {
     .filter((m) => m.result !== null)
     .map((m) => resultToView(m, prelim, ownersByTeam))
     .sort(comparePlayedAsc);
-  const latestResults = [...results].reverse().slice(0, 5);
-  const matchLog = [...results].reverse().slice(5);
+  const latestResults = [...results].reverse().slice(0, 3);
+  const matchLog = [...results].reverse().slice(3);
 
   const playedMatches = results.length;
   const outcomePending =
