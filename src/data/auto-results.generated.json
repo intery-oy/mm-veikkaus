@@ -173,7 +173,7 @@
       "awayGoals": 1
     },
     "R32-COL-GHA": {
-      "homeGoals": 1,
+      "homeGoals": 2,
       "awayGoals": 0
     },
     "R32-ENG-COD": {
@@ -201,9 +201,7 @@
       "awayGoals": 1
     }
   },
-  "preliminaryIds": [
-    "R32-COL-GHA"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "R16-CAN-MAR",
