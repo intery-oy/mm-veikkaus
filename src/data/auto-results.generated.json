@@ -228,10 +228,28 @@
       "awayId": "ENG"
     },
     {
+      "id": "R16-POR-ESP",
+      "utcDate": "2026-07-06T19:00:00Z",
+      "homeId": "POR",
+      "awayId": "ESP"
+    },
+    {
       "id": "R16-USA-BEL",
       "utcDate": "2026-07-07T00:00:00Z",
       "homeId": "USA",
       "awayId": "BEL"
+    },
+    {
+      "id": "R16-ARG-EGY",
+      "utcDate": "2026-07-07T16:00:00Z",
+      "homeId": "ARG",
+      "awayId": "EGY"
+    },
+    {
+      "id": "R16-SUI-COL",
+      "utcDate": "2026-07-07T20:00:00Z",
+      "homeId": "SUI",
+      "awayId": "COL"
     }
   ],
   "knockoutFixtures": [
@@ -356,10 +374,28 @@
       "awayId": "ENG"
     },
     {
+      "id": "R16-POR-ESP",
+      "utcDate": "2026-07-06T19:00:00Z",
+      "homeId": "POR",
+      "awayId": "ESP"
+    },
+    {
       "id": "R16-USA-BEL",
       "utcDate": "2026-07-07T00:00:00Z",
       "homeId": "USA",
       "awayId": "BEL"
+    },
+    {
+      "id": "R16-ARG-EGY",
+      "utcDate": "2026-07-07T16:00:00Z",
+      "homeId": "ARG",
+      "awayId": "EGY"
+    },
+    {
+      "id": "R16-SUI-COL",
+      "utcDate": "2026-07-07T20:00:00Z",
+      "homeId": "SUI",
+      "awayId": "COL"
     }
   ],
   "fixtureDates": {
@@ -435,10 +471,13 @@
     "L-ENG-GHA": "2026-06-23T20:00:00Z",
     "L-ENG-PAN": "2026-06-27T21:00:00Z",
     "L-GHA-PAN": "2026-06-17T23:00:00Z",
+    "R16-ARG-EGY": "2026-07-07T16:00:00Z",
     "R16-BRA-NOR": "2026-07-05T20:00:00Z",
     "R16-CAN-MAR": "2026-07-04T17:00:00Z",
     "R16-MEX-ENG": "2026-07-06T00:00:00Z",
     "R16-PAR-FRA": "2026-07-04T21:00:00Z",
+    "R16-POR-ESP": "2026-07-06T19:00:00Z",
+    "R16-SUI-COL": "2026-07-07T20:00:00Z",
     "R16-USA-BEL": "2026-07-07T00:00:00Z",
     "R32-ARG-CPV": "2026-07-03T22:00:00Z",
     "R32-AUS-EGY": "2026-07-03T18:00:00Z",
