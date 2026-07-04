@@ -166,7 +166,7 @@
     },
     "R16-PAR-FRA": {
       "homeGoals": 0,
-      "awayGoals": 0
+      "awayGoals": 1
     },
     "R32-ARG-CPV": {
       "homeGoals": 3,
@@ -209,9 +209,7 @@
       "awayGoals": 1
     }
   },
-  "preliminaryIds": [
-    "R16-PAR-FRA"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "R16-BRA-NOR",
