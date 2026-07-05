@@ -3,7 +3,7 @@ import { buildPortalData } from './viewmodel.js';
 import { StandingsTable } from './StandingsTable.js';
 import { BettorCards } from './BettorCards.js';
 import { Confetti } from './Confetti.js';
-import { ChangePanel, InsightCards, TeamOwnership } from './FunPanels.js';
+import { TeamOwnership } from './FunPanels.js';
 
 function Pill({ children }: { children: ReactNode }) {
   return (
@@ -235,8 +235,6 @@ export function App() {
           </section>
         )}
         <section className="space-y-4">
-          <InsightCards cards={data.insights} />
-          <ChangePanel story={data.changeStory} />
           <div className="ownership-panel">
             <TeamOwnership teams={data.teamOwnership} />
           </div>
