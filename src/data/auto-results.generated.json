@@ -246,6 +246,12 @@
       "utcDate": "2026-07-07T20:00:00Z",
       "homeId": "SUI",
       "awayId": "COL"
+    },
+    {
+      "id": "QF-FRA-MAR",
+      "utcDate": "2026-07-09T20:00:00Z",
+      "homeId": "FRA",
+      "awayId": "MAR"
     }
   ],
   "knockoutFixtures": [
@@ -392,6 +398,12 @@
       "utcDate": "2026-07-07T20:00:00Z",
       "homeId": "SUI",
       "awayId": "COL"
+    },
+    {
+      "id": "QF-FRA-MAR",
+      "utcDate": "2026-07-09T20:00:00Z",
+      "homeId": "FRA",
+      "awayId": "MAR"
     }
   ],
   "fixtureDates": {
@@ -467,6 +479,7 @@
     "L-ENG-GHA": "2026-06-23T20:00:00Z",
     "L-ENG-PAN": "2026-06-27T21:00:00Z",
     "L-GHA-PAN": "2026-06-17T23:00:00Z",
+    "QF-FRA-MAR": "2026-07-09T20:00:00Z",
     "R16-ARG-EGY": "2026-07-07T16:00:00Z",
     "R16-BRA-NOR": "2026-07-05T20:00:00Z",
     "R16-CAN-MAR": "2026-07-04T17:00:00Z",
