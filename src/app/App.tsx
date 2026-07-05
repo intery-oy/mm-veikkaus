@@ -65,19 +65,34 @@ export function App() {
       {/* Konfetti kärjelle kun pisteitä on jo kertynyt */}
       {anyPoints && <Confetti />}
 
-        <header className="mb-6 text-center">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-white drop-shadow-sm sm:text-5xl">
-            ☀️ MM-veikkaus <span className="text-[--color-sun]">2026</span> ⚽
-          </h1>
-          <div className="mt-3 flex flex-wrap justify-center gap-2">
-            <Pill>⚽ {data.playedMatches}/{data.totalMatches} ottelua</Pill>
-            {leader && anyPoints && (
-              <Pill>
-                👑 {leader.avatar} {leader.name} johtaa
-              </Pill>
-            )}
+      <header className="mb-6 text-center">
+        <h1 className="font-display text-4xl font-bold tracking-tight text-white drop-shadow-sm sm:text-5xl">
+          ☀️ MM-veikkaus <span className="text-[--color-sun]">2026</span> ⚽
+        </h1>
+        <div className="mt-3 flex flex-wrap justify-center gap-2">
+          <Pill>⚽ {data.playedMatches}/{data.totalMatches} ottelua</Pill>
+        </div>
+      </header>
+
+      {leader && anyPoints && (
+        <section className="mb-6 flex items-center gap-4 rounded-3xl bg-white/90 p-4 shadow-md ring-1 ring-white/30 backdrop-blur">
+          <div className="relative grid h-16 w-16 shrink-0 place-items-center rounded-full bg-[--color-sun]/25 text-4xl ring-2 ring-[--color-gold]">
+            <span>{leader.avatar}</span>
+            <span className="absolute -right-2 -top-3 rotate-12 text-3xl drop-shadow-sm">👑</span>
           </div>
-        </header>
+          <div className="min-w-0">
+            <div className="font-display text-xs font-black uppercase tracking-wider text-[--color-muted]">
+              Kärjessä nyt
+            </div>
+            <div className="truncate font-display text-2xl font-black text-[--color-ink]">
+              {leader.name}
+            </div>
+            <div className="num mt-1 text-sm font-bold text-[--color-grass-deep]">
+              {leader.total} pistettä · {leader.playedTeamGames} joukkuepeliä
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Selostaja — hauska kommentaari tilanteesta */}
       <div className="mb-6 flex items-start gap-3 rounded-3xl bg-[--color-card] p-4 shadow-sm ring-1 ring-black/5">
