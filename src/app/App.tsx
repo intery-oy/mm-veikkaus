@@ -60,7 +60,7 @@ export function App() {
       {anyPoints && <Confetti />}
 
         <header className="mb-6 text-center">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-[--color-grass-deep] sm:text-5xl">
+          <h1 className="font-display text-4xl font-bold tracking-tight text-white drop-shadow-sm sm:text-5xl">
             ☀️ MM-veikkaus <span className="text-[--color-sun]">2026</span> ⚽
           </h1>
           <div className="mt-3 flex flex-wrap justify-center gap-2">
