@@ -20,6 +20,12 @@ function bettorList(names: string[]): string {
   return `${names.slice(0, -1).join(', ')} ja ${names[names.length - 1]}`;
 }
 
+function backerCountLabel(count: number): string {
+  if (count === 0) return 'Ei panosta';
+  if (count === 1) return '1 veikkaaja tulessa';
+  return `${count} veikkaajaa tulessa`;
+}
+
 export function App() {
   // Data on committoitua (seed + results.ts) — laske kerran renderissä.
   const data = buildPortalData();
@@ -141,52 +147,78 @@ export function App() {
       {/* Seuraavaksi — tulevat ottelut, veikkaajat erikseen merkittynä */}
       {nextMatches.length > 0 && (
         <section className="mb-8 next-matches">
-          <h2 className="mb-2 flex items-center gap-2 font-display text-base font-bold text-[--color-grass-deep]">
+          <h2 className="mb-3 flex items-center gap-2 font-display text-base font-bold text-white drop-shadow-sm">
             <span>⏭️</span> Seuraavaksi
           </h2>
-          <div className="space-y-2">
+          <div className="grid gap-3 sm:grid-cols-2">
             {nextMatches.map((u) => (
-              <div
+              <article
                 key={u.id}
                 className={[
-                  'rounded-2xl bg-[--color-card] px-3 py-2 shadow-sm ring-1',
+                  'pop overflow-hidden rounded-3xl bg-white/90 p-3 shadow-md ring-1 backdrop-blur',
                   u.id === highlightedMatchId
                     ? 'glow-leader ring-2 ring-[--color-gold]'
-                    : 'ring-black/5',
+                    : 'ring-white/30',
                 ].join(' ')}
               >
-                <div className="flex items-center gap-2 text-sm">
-                  <span className="flex flex-1 items-center justify-end gap-1.5 font-bold text-[--color-ink]">
-                    {u.homeName} <span>{u.homeFlag}</span>
+                <div className="mb-3 flex items-center justify-between gap-2">
+                  <span
+                    className={[
+                      'num rounded-full px-2 py-0.5 text-xs font-black uppercase',
+                      isStarted(u.utcDate)
+                        ? 'bg-red-500 text-white'
+                        : 'bg-[--color-sky]/15 text-[--color-sky]',
+                    ].join(' ')}
+                  >
+                    {isStarted(u.utcDate) ? 'Live' : fmt.format(new Date(u.utcDate))}
                   </span>
-                  <span className="num shrink-0 text-[--color-muted]">–</span>
-                  <span className="flex flex-1 items-center gap-1.5 font-bold text-[--color-ink]">
-                    <span>{u.awayFlag}</span> {u.awayName}
-                  </span>
-                  <span className="num ml-2 shrink-0 text-xs text-[--color-muted]">
-                    {isStarted(u.utcDate) ? 'käynnissä · ' : ''}
-                    {fmt.format(new Date(u.utcDate))}
+                  <span className="rounded-full bg-[--color-grass]/10 px-2 py-0.5 text-xs font-bold text-[--color-grass-deep]">
+                    {backerCountLabel(u.backers.length)}
                   </span>
                 </div>
+
+                <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                  <div className="min-w-0 rounded-2xl bg-[--color-grass]/5 p-2 text-right">
+                    <div className="text-3xl">{u.homeFlag}</div>
+                    <div className="mt-1 truncate text-sm font-black text-[--color-ink]">
+                      {u.homeName}
+                    </div>
+                  </div>
+                  <div className="num rounded-full bg-[--color-sun]/25 px-2 py-1 text-xs font-black uppercase text-[--color-ink]">
+                    vs
+                  </div>
+                  <div className="min-w-0 rounded-2xl bg-[--color-grass]/5 p-2">
+                    <div className="text-3xl">{u.awayFlag}</div>
+                    <div className="mt-1 truncate text-sm font-black text-[--color-ink]">
+                      {u.awayName}
+                    </div>
+                  </div>
+                </div>
+
                 {u.backers.length > 0 ? (
-                  <div className="mt-2 flex flex-wrap gap-1 border-t border-[--color-line] pt-2">
-                    {u.backers.map((b, i) => (
-                      <span
-                        key={i}
-                        className="flex items-center gap-1 rounded-full bg-[--color-grass]/10 px-2 py-0.5 text-xs font-bold text-[--color-ink]"
-                      >
-                        <span>{b.flag}</span>
-                        <span>{b.avatar}</span>
-                        {b.name}
-                      </span>
-                    ))}
+                  <div className="mt-3 border-t border-[--color-line] pt-2">
+                    <div className="mb-1 text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
+                      Panoksessa
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {u.backers.map((b, i) => (
+                        <span
+                          key={i}
+                          className="flex items-center gap-1 rounded-full bg-[--color-grass]/10 px-2 py-0.5 text-xs font-bold text-[--color-ink]"
+                        >
+                          <span>{b.flag}</span>
+                          <span>{b.avatar}</span>
+                          {b.name}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 ) : (
-                  <div className="mt-2 border-t border-[--color-line] pt-2 text-xs font-bold text-[--color-muted]">
+                  <div className="mt-3 border-t border-[--color-line] pt-2 text-xs font-bold text-[--color-muted]">
                     Ei veikkaajia tässä ottelussa
                   </div>
                 )}
-              </div>
+              </article>
             ))}
           </div>
         </section>
