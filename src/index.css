@@ -30,11 +30,11 @@ html {
   min-height: 100%;
   /* Kiinteä vaalea fallback-väri varmistaa vaalean taustan myös jos
      gradientti ei jostain syystä piirry (esim. iOS Safari). */
-  background-color: #eef6ff;
+  background-color: #eef2ff;
   background-image: radial-gradient(
     120% 80% at 50% -10%,
-    #dbeafe 0%,
-    #ecfdf5 42%,
+    #c7d2fe 0%,
+    #e0f2fe 38%,
     #f8fafc 100%
   );
   background-repeat: no-repeat;
