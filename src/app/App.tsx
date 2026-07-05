@@ -54,7 +54,7 @@ export function App() {
         </h1>
         <div className="mt-3 flex justify-center">
           <div
-            className="flex max-w-full justify-start gap-1.5 overflow-x-auto rounded-full bg-white/60 px-3 py-2 shadow-sm ring-1 ring-white/70 backdrop-blur"
+            className="grid grid-cols-6 gap-1.5 rounded-3xl bg-white/60 px-3 py-2 shadow-sm ring-1 ring-white/70 backdrop-blur"
             aria-label="Veikkaajat tanssivat jonossa"
           >
             {data.bettors.map((b, i) => (
