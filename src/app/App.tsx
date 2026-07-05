@@ -129,7 +129,7 @@ export function App() {
 
                 <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
                   <div className="min-w-0 rounded-2xl bg-[--color-grass]/5 p-2 text-right">
-                    <div className="text-3xl">{u.homeFlag}</div>
+                    <div className="leading-none text-5xl sm:text-6xl">{u.homeFlag}</div>
                     <div className="mt-1 truncate text-sm font-black text-[--color-ink]">
                       {u.homeName}
                     </div>
@@ -138,7 +138,7 @@ export function App() {
                     vs
                   </div>
                   <div className="min-w-0 rounded-2xl bg-[--color-grass]/5 p-2">
-                    <div className="text-3xl">{u.awayFlag}</div>
+                    <div className="leading-none text-5xl sm:text-6xl">{u.awayFlag}</div>
                     <div className="mt-1 truncate text-sm font-black text-[--color-ink]">
                       {u.awayName}
                     </div>
