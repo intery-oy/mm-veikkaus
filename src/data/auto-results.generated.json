@@ -161,8 +161,8 @@
       "awayGoals": 0
     },
     "R16-BRA-NOR": {
-      "homeGoals": 0,
-      "awayGoals": 0
+      "homeGoals": 1,
+      "awayGoals": 2
     },
     "R16-CAN-MAR": {
       "homeGoals": 0,
@@ -213,9 +213,7 @@
       "awayGoals": 1
     }
   },
-  "preliminaryIds": [
-    "R16-BRA-NOR"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "R16-MEX-ENG",
