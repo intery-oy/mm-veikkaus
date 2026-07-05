@@ -52,6 +52,23 @@ export function App() {
         <h1 className="font-display text-4xl font-bold tracking-tight text-[--color-grass-deep] sm:text-5xl">
           ☀️ MM-veikkaus <span className="text-[--color-sun]">2026</span> ⚽
         </h1>
+        <div className="mt-3 flex justify-center">
+          <div
+            className="flex max-w-full justify-start gap-1.5 overflow-x-auto rounded-full bg-white/60 px-3 py-2 shadow-sm ring-1 ring-white/70 backdrop-blur"
+            aria-label="Veikkaajat tanssivat jonossa"
+          >
+            {data.bettors.map((b, i) => (
+              <span
+                key={b.bettorId}
+                className="dance-avatar grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/70 text-2xl shadow-sm"
+                style={{ animationDelay: `${i * 0.11}s` }}
+                title={b.name}
+              >
+                {b.avatar}
+              </span>
+            ))}
+          </div>
+        </div>
         <div className="mt-3 flex flex-wrap justify-center gap-2">
           <Pill>⚽ {data.playedMatches}/{data.totalMatches} ottelua</Pill>
         </div>

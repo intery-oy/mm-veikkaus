@@ -88,6 +88,28 @@ body {
   animation: pulse-gold 2.2s ease-in-out infinite;
 }
 
+/* Veikkaaja-avatarien kevyt tanssirivi otsikon alla. */
+@keyframes dance-line {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg) scale(1);
+  }
+  25% {
+    transform: translateY(-5px) rotate(4deg) scale(1.08);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  75% {
+    transform: translateY(-3px) rotate(-4deg) scale(1.04);
+  }
+}
+.dance-avatar {
+  animation: dance-line 1.35s ease-in-out infinite;
+  transform-origin: 50% 80%;
+  will-change: transform;
+}
+
 /* Konfetti: emoji-palat putoavat ylhäältä kerran. */
 @keyframes confetti-fall {
   0% {
@@ -115,6 +137,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .pop,
   .glow-leader,
+  .dance-avatar,
   .confetti-piece {
     animation: none !important;
     transition: none !important;
