@@ -160,6 +160,10 @@
       "homeGoals": 2,
       "awayGoals": 0
     },
+    "R16-BRA-NOR": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "R16-CAN-MAR": {
       "homeGoals": 0,
       "awayGoals": 3
@@ -209,14 +213,10 @@
       "awayGoals": 1
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "R16-BRA-NOR"
+  ],
   "upcoming": [
-    {
-      "id": "R16-BRA-NOR",
-      "utcDate": "2026-07-05T20:00:00Z",
-      "homeId": "BRA",
-      "awayId": "NOR"
-    },
     {
       "id": "R16-MEX-ENG",
       "utcDate": "2026-07-06T00:00:00Z",
