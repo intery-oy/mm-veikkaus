@@ -70,7 +70,6 @@ export function App() {
                 👑 {leader.avatar} {leader.name} johtaa
               </Pill>
             )}
-            {data.outcomePending && <Pill>🏅 mitalit & palkinnot kesken</Pill>}
           </div>
         </header>
 
