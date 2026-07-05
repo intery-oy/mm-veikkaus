@@ -15,8 +15,8 @@ function Pill({ children }: { children: ReactNode }) {
 
 function backerCountLabel(count: number): string {
   if (count === 0) return 'Ei panosta';
-  if (count === 1) return '1 veikkaaja tulessa';
-  return `${count} veikkaajaa tulessa`;
+  if (count === 1) return '1 veikkaaja kentällä';
+  return `${count} veikkaajaa kentällä`;
 }
 
 export function App() {
