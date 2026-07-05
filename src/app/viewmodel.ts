@@ -52,7 +52,7 @@ export interface BettorView {
   teams: TeamPickView[];
   bestPlayerName: string;
   topScorerName: string;
-  /** Mitali- ja palkintoruudut kortteja varten; points=null => "kesken". */
+  /** Pelaajabonukset kortteja varten; points=null => "kesken". */
   bonusSlots: BonusSlot[];
   /** Muutos viimeisimmän tuloksen jälkeen: positiivinen rankDelta = nousi. */
   movement: {
@@ -273,28 +273,7 @@ export function buildPortalData(): PortalData {
       flag: flagEmoji(byRole.get(role)!),
     }));
 
-    const medalIcon = (role: PickRole, fallback: string) =>
-      byRole.has(role) ? flagEmoji(byRole.get(role)!) : fallback;
-
     const bonusSlots: BonusSlot[] = [
-      {
-        label: 'Mestari',
-        icon: medalIcon('champion', '🥇'),
-        points: outcome.championTeamId === null ? null : s.medalBonus.champion,
-        pick: byRole.has('champion') ? teamName(byRole.get('champion')!) : '—',
-      },
-      {
-        label: 'Hopea',
-        icon: medalIcon('silver', '🥈'),
-        points: outcome.silverTeamId === null ? null : s.medalBonus.silver,
-        pick: byRole.has('silver') ? teamName(byRole.get('silver')!) : '—',
-      },
-      {
-        label: 'Pronssi',
-        icon: medalIcon('bronze', '🥉'),
-        points: outcome.bronzeTeamId === null ? null : s.medalBonus.bronze,
-        pick: byRole.has('bronze') ? teamName(byRole.get('bronze')!) : '—',
-      },
       {
         label: 'Paras pelaaja',
         icon: '⭐',

@@ -78,7 +78,7 @@ function Card({ b }: { b: BettorView }) {
         ))}
       </div>
 
-      {/* Mitali- ja palkintobonukset */}
+      {/* Pelaajabonukset */}
       <div className="rounded-2xl bg-[--color-grass]/5 p-2 text-sm">
         {b.bonusSlots.map((s) => (
           <BonusRow key={s.label} slot={s} />
