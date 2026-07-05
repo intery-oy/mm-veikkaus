@@ -25,28 +25,18 @@
 }
 
 html {
-  /* Kortit pysyvät vaaleina, tausta tuo iltapelin stadionfiiliksen. */
+  /* Tämä on tarkoituksella vaalea design — älä auto-tummenna dark modessa. */
   color-scheme: light;
   min-height: 100%;
-  /* Kiinteä fallback-väri varmistaa hallitun taustan myös jos
+  /* Kiinteä vaalea fallback-väri varmistaa vaalean taustan myös jos
      gradientti ei jostain syystä piirry (esim. iOS Safari). */
-  background-color: #07130d;
-  background-image:
-    radial-gradient(
-      36% 28% at 18% 0%,
-      rgba(255, 255, 255, 0.64) 0%,
-      rgba(191, 219, 254, 0.28) 24%,
-      rgba(96, 165, 250, 0.12) 44%,
-      transparent 72%
-    ),
-    radial-gradient(
-      36% 28% at 82% 0%,
-      rgba(255, 255, 255, 0.56) 0%,
-      rgba(253, 224, 71, 0.18) 26%,
-      rgba(34, 197, 94, 0.1) 48%,
-      transparent 72%
-    ),
-    linear-gradient(180deg, #0b1020 0%, #10233a 36%, #0f2f24 72%, #07130d 100%);
+  background-color: #eef2ff;
+  background-image: radial-gradient(
+    120% 80% at 50% -10%,
+    #c7d2fe 0%,
+    #e0f2fe 38%,
+    #f8fafc 100%
+  );
   background-repeat: no-repeat;
   /* EI background-attachment: fixed — rikkoutuu iOS Safarissa. */
 }
