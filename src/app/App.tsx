@@ -148,7 +148,7 @@ export function App() {
                 {u.backers.length > 0 ? (
                   <div className="mt-3 border-t border-[--color-line] pt-2">
                     <div className="mb-1 text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
-                      Panoksessa
+                      Kentällä
                     </div>
                     <div className="flex flex-wrap gap-1">
                       {u.backers.map((b, i) => (
