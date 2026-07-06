@@ -178,7 +178,7 @@
     },
     "R16-POR-ESP": {
       "homeGoals": 0,
-      "awayGoals": 0
+      "awayGoals": 1
     },
     "R32-ARG-CPV": {
       "homeGoals": 3,
@@ -221,9 +221,7 @@
       "awayGoals": 1
     }
   },
-  "preliminaryIds": [
-    "R16-POR-ESP"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "R16-USA-BEL",
