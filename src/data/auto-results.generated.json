@@ -168,6 +168,10 @@
       "homeGoals": 0,
       "awayGoals": 3
     },
+    "R16-MEX-ENG": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "R16-PAR-FRA": {
       "homeGoals": 0,
       "awayGoals": 1
@@ -213,14 +217,10 @@
       "awayGoals": 1
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "R16-MEX-ENG"
+  ],
   "upcoming": [
-    {
-      "id": "R16-MEX-ENG",
-      "utcDate": "2026-07-06T01:00:00Z",
-      "homeId": "MEX",
-      "awayId": "ENG"
-    },
     {
       "id": "R16-POR-ESP",
       "utcDate": "2026-07-06T19:00:00Z",
