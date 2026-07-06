@@ -176,6 +176,10 @@
       "homeGoals": 0,
       "awayGoals": 1
     },
+    "R16-POR-ESP": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "R32-ARG-CPV": {
       "homeGoals": 3,
       "awayGoals": 2
@@ -217,14 +221,10 @@
       "awayGoals": 1
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "R16-POR-ESP"
+  ],
   "upcoming": [
-    {
-      "id": "R16-POR-ESP",
-      "utcDate": "2026-07-06T19:00:00Z",
-      "homeId": "POR",
-      "awayId": "ESP"
-    },
     {
       "id": "R16-USA-BEL",
       "utcDate": "2026-07-07T00:00:00Z",
