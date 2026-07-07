@@ -184,6 +184,10 @@
       "homeGoals": 0,
       "awayGoals": 1
     },
+    "R16-SUI-COL": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "R16-USA-BEL": {
       "homeGoals": 1,
       "awayGoals": 4
@@ -229,14 +233,10 @@
       "awayGoals": 1
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "R16-SUI-COL"
+  ],
   "upcoming": [
-    {
-      "id": "R16-SUI-COL",
-      "utcDate": "2026-07-07T20:00:00Z",
-      "homeId": "SUI",
-      "awayId": "COL"
-    },
     {
       "id": "QF-FRA-MAR",
       "utcDate": "2026-07-09T20:00:00Z",
