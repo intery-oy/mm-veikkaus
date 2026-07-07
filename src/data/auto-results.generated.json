@@ -160,6 +160,10 @@
       "homeGoals": 2,
       "awayGoals": 0
     },
+    "R16-ARG-EGY": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "R16-BRA-NOR": {
       "homeGoals": 1,
       "awayGoals": 2
@@ -225,14 +229,10 @@
       "awayGoals": 1
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "R16-ARG-EGY"
+  ],
   "upcoming": [
-    {
-      "id": "R16-ARG-EGY",
-      "utcDate": "2026-07-07T16:00:00Z",
-      "homeId": "ARG",
-      "awayId": "EGY"
-    },
     {
       "id": "R16-SUI-COL",
       "utcDate": "2026-07-07T20:00:00Z",
