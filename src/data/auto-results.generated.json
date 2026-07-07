@@ -182,7 +182,7 @@
     },
     "R16-USA-BEL": {
       "homeGoals": 1,
-      "awayGoals": 3
+      "awayGoals": 4
     },
     "R32-ARG-CPV": {
       "homeGoals": 3,
@@ -225,9 +225,7 @@
       "awayGoals": 1
     }
   },
-  "preliminaryIds": [
-    "R16-USA-BEL"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "R16-ARG-EGY",
