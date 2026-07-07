@@ -161,8 +161,8 @@
       "awayGoals": 0
     },
     "R16-ARG-EGY": {
-      "homeGoals": 0,
-      "awayGoals": 1
+      "homeGoals": 3,
+      "awayGoals": 2
     },
     "R16-BRA-NOR": {
       "homeGoals": 1,
@@ -229,9 +229,7 @@
       "awayGoals": 1
     }
   },
-  "preliminaryIds": [
-    "R16-ARG-EGY"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "R16-SUI-COL",
