@@ -234,6 +234,65 @@ export function App() {
             )}
           </section>
         )}
+        {data.topScorers.length > 0 && (
+          <section className="space-y-3">
+            <div className="flex flex-wrap items-end justify-between gap-2">
+              <h2 className="flex items-center gap-2 font-display text-2xl font-bold text-[--color-grass-deep]">
+                <span>👟</span> Maalipörssi
+              </h2>
+              <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-black uppercase tracking-wider text-[--color-muted] shadow-sm">
+                Live · bonus ei vielä mukana
+              </span>
+            </div>
+            <div className="overflow-hidden rounded-3xl bg-white/90 shadow-md ring-1 ring-white/30 backdrop-blur">
+              <div className="grid grid-cols-[auto_1fr_auto_auto] gap-2 border-b border-[--color-line] px-3 py-2 text-[0.7rem] font-black uppercase tracking-wider text-[--color-muted] sm:grid-cols-[auto_1fr_auto_auto_1fr]">
+                <span>#</span>
+                <span>Pelaaja</span>
+                <span className="text-right">M</span>
+                <span className="hidden text-right sm:block">O</span>
+                <span className="hidden sm:block">Veikannut</span>
+              </div>
+              {data.topScorers.map((s, i) => (
+                <div
+                  key={`${s.playerName}-${s.teamName}`}
+                  className="grid grid-cols-[auto_1fr_auto_auto] items-center gap-2 border-b border-[--color-line] px-3 py-2 last:border-b-0 sm:grid-cols-[auto_1fr_auto_auto_1fr]"
+                >
+                  <span className="num w-5 text-sm font-black text-[--color-grass-deep]">
+                    {i + 1}
+                  </span>
+                  <div className="min-w-0">
+                    <div className="truncate text-sm font-black text-[--color-ink]">
+                      {s.teamFlag} {s.playerName}
+                    </div>
+                    <div className="truncate text-xs font-bold text-[--color-muted]">
+                      {s.teamName}
+                    </div>
+                  </div>
+                  <span className="num rounded-full bg-[--color-sun]/25 px-2 py-0.5 text-sm font-black text-[--color-ink]">
+                    {s.goals}
+                  </span>
+                  <span className="num hidden text-right text-xs font-bold text-[--color-muted] sm:block">
+                    {s.playedMatches}
+                  </span>
+                  <div className="hidden min-w-0 flex-wrap gap-1 sm:flex">
+                    {s.pickedBy.length > 0 ? (
+                      s.pickedBy.map((p) => (
+                        <span
+                          key={p.name}
+                          className="rounded-full bg-[--color-grass]/10 px-2 py-0.5 text-xs font-bold text-[--color-ink]"
+                        >
+                          {p.avatar} {p.name}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="text-xs font-bold text-[--color-faint]">Ei veikkauksia</span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
         <section className="space-y-4">
           <div className="ownership-panel">
             <TeamOwnership teams={data.teamOwnership} />

@@ -16,10 +16,15 @@ import { fileURLToPath } from 'node:url';
 import type { MatchResult } from '../src/domain/types.js';
 import { matches } from '../src/data/results.js';
 import { picks } from '../src/data/picks.js';
+import { normalizePlayerId } from '../src/data/players.js';
 import { teams } from '../src/data/teams.js';
 
 const OUT_PATH = fileURLToPath(new URL('../src/data/auto-results.generated.json', import.meta.url));
-const API_URL = 'https://api.football-data.org/v4/competitions/WC/matches';
+const SCORERS_OUT_PATH = fileURLToPath(
+  new URL('../src/data/auto-scorers.generated.json', import.meta.url),
+);
+const MATCHES_API_URL = 'https://api.football-data.org/v4/competitions/WC/matches';
+const SCORERS_API_URL = 'https://api.football-data.org/v4/competitions/WC/scorers?limit=50';
 
 // --- Joukkueiden tunnistus: football-data (name/tla) -> meidän FIFA-id ---
 const OUR_IDS = new Set(teams.map((t) => t.id));
@@ -136,6 +141,26 @@ interface GeneratedResults {
   fixtureDates?: Record<string, string>;
 }
 
+interface ApiScorer {
+  player?: { name?: string };
+  team?: ApiTeam;
+  playedMatches?: number;
+  goals?: number;
+  assists?: number | null;
+  penalties?: number | null;
+}
+
+interface GeneratedScorer {
+  playerId: string | null;
+  playerName: string;
+  teamId: string | null;
+  teamName: string;
+  goals: number;
+  assists: number | null;
+  penalties: number | null;
+  playedMatches: number;
+}
+
 function readPreviousGenerated(): GeneratedResults {
   try {
     return JSON.parse(readFileSync(OUT_PATH, 'utf8')) as GeneratedResults;
@@ -183,12 +208,20 @@ async function main() {
     process.exit(1);
   }
 
-  const res = await fetch(API_URL, { headers: { 'X-Auth-Token': token } });
-  if (!res.ok) {
-    console.error(`VIRHE: football-data API ${res.status} ${res.statusText}`);
+  const [matchesRes, scorersRes] = await Promise.all([
+    fetch(MATCHES_API_URL, { headers: { 'X-Auth-Token': token } }),
+    fetch(SCORERS_API_URL, { headers: { 'X-Auth-Token': token } }),
+  ]);
+  if (!matchesRes.ok) {
+    console.error(`VIRHE: football-data matches API ${matchesRes.status} ${matchesRes.statusText}`);
     process.exit(1);
   }
-  const data = (await res.json()) as { matches?: ApiMatch[] };
+  if (!scorersRes.ok) {
+    console.error(`VIRHE: football-data scorers API ${scorersRes.status} ${scorersRes.statusText}`);
+    process.exit(1);
+  }
+  const data = (await matchesRes.json()) as { matches?: ApiMatch[] };
+  const scorersData = (await scorersRes.json()) as { scorers?: ApiScorer[] };
   const apiMatches = data.matches ?? [];
   if (apiMatches.length === 0) {
     console.error('VIRHE: API palautti 0 ottelua — ei kirjoiteta (säilytetään vanha).');
@@ -286,6 +319,27 @@ async function main() {
     fixtureDates: sortedFixtureDates,
   };
   const json = JSON.stringify(payload, null, 2) + '\n';
+  const scorers: GeneratedScorer[] = (scorersData.scorers ?? [])
+    .filter((s) => s.player?.name && typeof s.goals === 'number')
+    .map((s) => {
+      const teamId = s.team ? resolveId(s.team) : null;
+      return {
+        playerId: normalizePlayerId(s.player!.name!) ?? null,
+        playerName: s.player!.name!,
+        teamId,
+        teamName: s.team?.name ?? teamId ?? 'Tuntematon',
+        goals: s.goals!,
+        assists: s.assists ?? null,
+        penalties: s.penalties ?? null,
+        playedMatches: s.playedMatches ?? 0,
+      };
+    })
+    .sort((a, b) => {
+      if (b.goals !== a.goals) return b.goals - a.goals;
+      if ((b.assists ?? -1) !== (a.assists ?? -1)) return (b.assists ?? -1) - (a.assists ?? -1);
+      return a.playerName.localeCompare(b.playerName);
+    });
+  const scorersJson = JSON.stringify({ scorers }, null, 2) + '\n';
 
   const prev = (() => {
     try {
@@ -294,14 +348,24 @@ async function main() {
       return '';
     }
   })();
+  const prevScorers = (() => {
+    try {
+      return readFileSync(SCORERS_OUT_PATH, 'utf8');
+    } catch {
+      return '';
+    }
+  })();
 
-  if (prev === json) {
-    console.log(`Ei muutoksia (${mappedResults} tulosta, ${upcoming.length} tulevaa).`);
+  if (prev === json && prevScorers === scorersJson) {
+    console.log(
+      `Ei muutoksia (${mappedResults} tulosta, ${upcoming.length} tulevaa, ${scorers.length} maalintekijää).`,
+    );
     return;
   }
-  writeFileSync(OUT_PATH, json);
+  if (prev !== json) writeFileSync(OUT_PATH, json);
+  if (prevScorers !== scorersJson) writeFileSync(SCORERS_OUT_PATH, scorersJson);
   console.log(
-    `Päivitetty: ${mappedResults} tulosta (${preliminary.length} alustavaa), ${upcoming.length} tulevaa.`,
+    `Päivitetty: ${mappedResults} tulosta (${preliminary.length} alustavaa), ${upcoming.length} tulevaa, ${scorers.length} maalintekijää.`,
   );
 }
 

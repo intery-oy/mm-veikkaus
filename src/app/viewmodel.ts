@@ -6,6 +6,7 @@ import { computeStandings } from '../domain/scoring.js';
 import type { PickRole } from '../domain/types.js';
 import { bettors, picks } from '../data/picks.js';
 import { fixtureDates, matches, outcome, preliminaryIds, upcomingFixtures } from '../data/results.js';
+import { scorers } from '../data/scorers.js';
 import { teamById } from '../data/teams.js';
 import { playerById } from '../data/players.js';
 import { bettorAvatar, flagEmoji } from './flags.js';
@@ -132,6 +133,18 @@ export interface TeamOwnershipView {
   owners: TeamOwnerView[];
 }
 
+export interface ScorerView {
+  playerId: string | null;
+  playerName: string;
+  teamName: string;
+  teamFlag: string;
+  goals: number;
+  assists: number | null;
+  penalties: number | null;
+  playedMatches: number;
+  pickedBy: Array<{ name: string; avatar: string }>;
+}
+
 export interface PortalData {
   bettors: BettorView[];
   /** Montako ottelua on pelattu (tuloksellisia). */
@@ -155,6 +168,8 @@ export interface PortalData {
   insights: InsightCard[];
   /** Joukkuekohtainen omistusnäkymä. */
   teamOwnership: TeamOwnershipView[];
+  /** Live-maalipörssi, ei vaikuta bonuksiin ennen lopullista outcomea. */
+  topScorers: ScorerView[];
 }
 
 function teamName(id: string): string {
@@ -395,6 +410,16 @@ export function buildPortalData(): PortalData {
   ].filter((card): card is InsightCard => card !== null);
 
   const standingById = new Map(bettorViews.map((b) => [b.bettorId, b]));
+  const scorerPickersByPlayer = new Map<string, Array<{ name: string; avatar: string }>>();
+  for (const p of picks) {
+    const picker = { name: nameById.get(p.bettorId) ?? p.bettorId, avatar: bettorAvatar(p.bettorId) };
+    const existing = scorerPickersByPlayer.get(p.topScorerId) ?? [];
+    existing.push(picker);
+    scorerPickersByPlayer.set(p.topScorerId, existing);
+  }
+  for (const pickers of scorerPickersByPlayer.values()) {
+    pickers.sort((a, b) => a.name.localeCompare(b.name));
+  }
   const teamOwnership: TeamOwnershipView[] = [...ownerIdsByTeam.keys()]
     .map((teamId) => {
       const owners = picks
@@ -419,6 +444,17 @@ export function buildPortalData(): PortalData {
       };
     })
     .sort((a, b) => b.owners.length - a.owners.length || a.teamName.localeCompare(b.teamName));
+  const topScorers: ScorerView[] = scorers.slice(0, 10).map((s) => ({
+    playerId: s.playerId,
+    playerName: s.playerName,
+    teamName: s.teamName,
+    teamFlag: s.teamId ? flagEmoji(s.teamId) : '⚽',
+    goals: s.goals,
+    assists: s.assists,
+    penalties: s.penalties,
+    playedMatches: s.playedMatches,
+    pickedBy: s.playerId ? (scorerPickersByPlayer.get(s.playerId) ?? []) : [],
+  }));
 
   return {
     bettors: bettorViews,
@@ -451,5 +487,6 @@ export function buildPortalData(): PortalData {
     changeStory,
     insights,
     teamOwnership,
+    topScorers,
   };
 }

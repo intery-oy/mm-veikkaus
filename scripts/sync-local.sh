@@ -86,15 +86,16 @@ rm -f "$RECOVERY_STATE"
 # tiedostoon tallennetulla GitHub-tokenilla (ei avainnippua, ei TTY:tä).
 # Pushataan myös kun ollaan origin/main:ia edellä (aiemmin kasaantuneet commitit).
 need_push=false
-if [[ -n "$(git status --porcelain src/data/auto-results.generated.json)" ]]; then
-  # Julkaise versiotunniste (tulosten sha256) -> public/version.json -> live-sivu
+if [[ -n "$(git status --porcelain src/data/auto-results.generated.json src/data/auto-scorers.generated.json)" ]]; then
+  # Julkaise versiotunnisteet -> public/version.json -> live-sivu
   # tarjoaa sen osoitteessa /version.json. Vahti vertaa elävän sivun tunnistetta
   # odotettuun = aito end-to-end-tarkistus (todistaa että deploy meni perille).
   rhash="$(shasum -a 256 src/data/auto-results.generated.json | cut -d' ' -f1)"
-  printf '{"resultsHash":"%s","generatedAt":"%s"}\n' \
-    "$rhash" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > public/version.json
-  git add src/data/auto-results.generated.json public/version.json
-  git commit -m "Auto: päivitä tulokset (paikallinen cron)"
+  shash="$(shasum -a 256 src/data/auto-scorers.generated.json | cut -d' ' -f1)"
+  printf '{"resultsHash":"%s","scorersHash":"%s","generatedAt":"%s"}\n' \
+    "$rhash" "$shash" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > public/version.json
+  git add src/data/auto-results.generated.json src/data/auto-scorers.generated.json public/version.json
+  git commit -m "Auto: päivitä tulokset ja maalipörssi (paikallinen cron)"
   need_push=true
 fi
 if [[ -n "$(git log origin/main..HEAD --oneline 2>/dev/null)" ]]; then

@@ -87,13 +87,18 @@ fi
 # Verrataan elävän sivun /version.json:ia siihen mitä origin/main:in pitäisi tarjota.
 # Hälytetään vain jos viimeisin commit on >10 min vanha (deploy ehtinyt valmistua).
 LIVE_URL="https://mm-veikkaus-six.vercel.app/version.json"
-expected="$(git show origin/main:public/version.json 2>/dev/null | sed -n 's/.*"resultsHash":"\([a-f0-9]*\)".*/\1/p')"
+version_json="$(git show origin/main:public/version.json 2>/dev/null || true)"
+expected="$(printf '%s' "$version_json" | sed -n 's/.*"resultsHash":"\([a-f0-9]*\)".*/\1/p')"
+expected_scorers="$(printf '%s' "$version_json" | sed -n 's/.*"scorersHash":"\([a-f0-9]*\)".*/\1/p')"
 if [[ -n "$expected" ]]; then
-  live="$(curl -s --max-time 20 "$LIVE_URL" | sed -n 's/.*"resultsHash":"\([a-f0-9]*\)".*/\1/p')"
+  live_json="$(curl -s --max-time 20 "$LIVE_URL")"
+  live="$(printf '%s' "$live_json" | sed -n 's/.*"resultsHash":"\([a-f0-9]*\)".*/\1/p')"
+  live_scorers="$(printf '%s' "$live_json" | sed -n 's/.*"scorersHash":"\([a-f0-9]*\)".*/\1/p')"
   head_age=$(( $(date +%s) - $(git show -s --format=%ct origin/main 2>/dev/null || date +%s) ))
-  if [[ "$live" != "$expected" && $head_age -gt 600 ]]; then
+  if [[ ( "$live" != "$expected" || "$live_scorers" != "$expected_scorers" ) && $head_age -gt 600 ]]; then
     livedesc="${live:0:8}"; [[ -z "$live" ]] && livedesc="(ei vastausta)"
-    alert "live" "Live-sivu ei vastaa uusinta dataa — Vercel-deploy todennäköisesti epäonnistui. live=$livedesc odotettu=${expected:0:8}. Tarkista Vercel."
+    scorerdesc="${live_scorers:0:8}"; [[ -z "$live_scorers" ]] && scorerdesc="(puuttuu)"
+    alert "live" "Live-sivu ei vastaa uusinta dataa — Vercel-deploy todennäköisesti epäonnistui. tulokset live=$livedesc odotettu=${expected:0:8}, maalipörssi live=$scorerdesc odotettu=${expected_scorers:0:8}. Tarkista Vercel."
     problems=1
   else
     clear_alert "live"
