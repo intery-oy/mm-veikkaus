@@ -1,0 +1,504 @@
+{
+  "scorers": [
+    {
+      "playerId": "messi",
+      "playerName": "Lionel Messi",
+      "teamId": "ARG",
+      "teamName": "Argentina",
+      "goals": 8,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": "mbappe",
+      "playerName": "Kylian Mbappé",
+      "teamId": "FRA",
+      "teamName": "France",
+      "goals": 7,
+      "assists": 2,
+      "penalties": 1,
+      "playedMatches": 5
+    },
+    {
+      "playerId": "haaland",
+      "playerName": "Erling Haaland",
+      "teamId": "NOR",
+      "teamName": "Norway",
+      "goals": 7,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": "kane",
+      "playerName": "Harry Kane",
+      "teamId": "ENG",
+      "teamName": "England",
+      "goals": 6,
+      "assists": 1,
+      "penalties": 2,
+      "playedMatches": 5
+    },
+    {
+      "playerId": "dembele",
+      "playerName": "Ousmane Dembélé",
+      "teamId": "FRA",
+      "teamName": "France",
+      "goals": 4,
+      "assists": 2,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Ismaïla Sarr",
+      "teamId": "SEN",
+      "teamName": "Senegal",
+      "goals": 4,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Jude Bellingham",
+      "teamId": "ENG",
+      "teamName": "England",
+      "goals": 4,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Julián Quiñones",
+      "teamId": "MEX",
+      "teamName": "Mexico",
+      "goals": 4,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Mikel Oyarzabal",
+      "teamId": "ESP",
+      "teamName": "Spain",
+      "goals": 4,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": "vinicius",
+      "playerName": "Vinicius Junior",
+      "teamId": "BRA",
+      "teamName": "Brazil",
+      "goals": 4,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Deniz Undav",
+      "teamId": "GER",
+      "teamName": "Germany",
+      "goals": 3,
+      "assists": 2,
+      "penalties": null,
+      "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Johan Manzambi",
+      "teamId": "SUI",
+      "teamName": "Switzerland",
+      "goals": 3,
+      "assists": 2,
+      "penalties": null,
+      "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Cody Gakpo",
+      "teamId": "NED",
+      "teamName": "Netherlands",
+      "goals": 3,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Romelu Lukaku",
+      "teamId": "BEL",
+      "teamName": "Belgium",
+      "goals": 3,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Brian Brobbey",
+      "teamId": "NED",
+      "teamName": "Netherlands",
+      "goals": 3,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 4
+    },
+    {
+      "playerId": "ronaldo",
+      "playerName": "Cristiano Ronaldo",
+      "teamId": "POR",
+      "teamName": "Portugal",
+      "goals": 3,
+      "assists": null,
+      "penalties": 1,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Elijah Just",
+      "teamId": "NZL",
+      "teamName": "New Zealand",
+      "goals": 3,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 3
+    },
+    {
+      "playerId": null,
+      "playerName": "Folarin Balogun",
+      "teamId": "USA",
+      "teamName": "United States",
+      "goals": 3,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Ismael Saibari",
+      "teamId": "MAR",
+      "teamName": "Morocco",
+      "goals": 3,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Jonathan David",
+      "teamId": "CAN",
+      "teamName": "Canada",
+      "goals": 3,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Kai Havertz",
+      "teamId": "GER",
+      "teamName": "Germany",
+      "goals": 3,
+      "assists": null,
+      "penalties": 1,
+      "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Matheus Cunha",
+      "teamId": "BRA",
+      "teamName": "Brazil",
+      "goals": 3,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Raúl Jiménez",
+      "teamId": "MEX",
+      "teamName": "Mexico",
+      "goals": 3,
+      "assists": null,
+      "penalties": 1,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Yoane Wissa",
+      "teamId": "COD",
+      "teamName": "Congo DR",
+      "goals": 3,
+      "assists": null,
+      "penalties": 1,
+      "playedMatches": 3
+    },
+    {
+      "playerId": null,
+      "playerName": "Breel Embolo",
+      "teamId": "SUI",
+      "teamName": "Switzerland",
+      "goals": 2,
+      "assists": 2,
+      "penalties": 1,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Crysencio Summerville",
+      "teamId": "NED",
+      "teamName": "Netherlands",
+      "goals": 2,
+      "assists": 2,
+      "penalties": null,
+      "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Leandro Trossard",
+      "teamId": "BEL",
+      "teamName": "Belgium",
+      "goals": 2,
+      "assists": 2,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Riyad Mahrez",
+      "teamId": "ALG",
+      "teamName": "Algeria",
+      "goals": 2,
+      "assists": 2,
+      "penalties": null,
+      "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Ayase Ueda",
+      "teamId": "JPN",
+      "teamName": "Japan",
+      "goals": 2,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Bradley Barcola",
+      "teamId": "FRA",
+      "teamName": "France",
+      "goals": 2,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Maximiliano Araújo",
+      "teamId": "URU",
+      "teamName": "Uruguay",
+      "goals": 2,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 3
+    },
+    {
+      "playerId": null,
+      "playerName": "Mostafa Ziko",
+      "teamId": "EGY",
+      "teamName": "Egypt",
+      "goals": 2,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Nicolas Pépé",
+      "teamId": "CIV",
+      "teamName": "Ivory Coast",
+      "goals": 2,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 3
+    },
+    {
+      "playerId": null,
+      "playerName": "Pape Gueye",
+      "teamId": "SEN",
+      "teamName": "Senegal",
+      "goals": 2,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Ramin Rezaeian",
+      "teamId": "IRN",
+      "teamName": "Iran",
+      "goals": 2,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 3
+    },
+    {
+      "playerId": null,
+      "playerName": "Ruben Vargas",
+      "teamId": "SUI",
+      "teamName": "Switzerland",
+      "goals": 2,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Soufiane Rahimi",
+      "teamId": "MAR",
+      "teamName": "Morocco",
+      "goals": 2,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Amad Diallo",
+      "teamId": "CIV",
+      "teamName": "Ivory Coast",
+      "goals": 2,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 3
+    },
+    {
+      "playerId": null,
+      "playerName": "Anthony Elanga",
+      "teamId": "SWE",
+      "teamName": "Sweden",
+      "goals": 2,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Azzedine Ounahi",
+      "teamId": "MAR",
+      "teamName": "Morocco",
+      "goals": 2,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Cyle Larin",
+      "teamId": "CAN",
+      "teamName": "Canada",
+      "goals": 2,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Daichi Kamada",
+      "teamId": "JPN",
+      "teamName": "Japan",
+      "goals": 2,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Daniel Muñoz",
+      "teamId": "COL",
+      "teamName": "Colombia",
+      "goals": 2,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Emam Ashour",
+      "teamId": "EGY",
+      "teamName": "Egypt",
+      "goals": 2,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Ermin Mahmic",
+      "teamId": "BIH",
+      "teamName": "Bosnia-Herzegovina",
+      "goals": 2,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Habib Diarra",
+      "teamId": "SEN",
+      "teamName": "Senegal",
+      "goals": 2,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Malik Tillman",
+      "teamId": "USA",
+      "teamName": "United States",
+      "goals": 2,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 5
+    },
+    {
+      "playerId": null,
+      "playerName": "Marko Arnautovic",
+      "teamId": "AUT",
+      "teamName": "Austria",
+      "goals": 2,
+      "assists": null,
+      "penalties": 1,
+      "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Yasin Ayari",
+      "teamId": "SWE",
+      "teamName": "Sweden",
+      "goals": 2,
+      "assists": null,
+      "penalties": null,
+      "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Youri Tielemans",
+      "teamId": "BEL",
+      "teamName": "Belgium",
+      "goals": 2,
+      "assists": null,
+      "penalties": 1,
+      "playedMatches": 5
+    }
+  ]
+}
