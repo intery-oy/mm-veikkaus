@@ -1,6 +1,16 @@
 {
   "scorers": [
     {
+      "playerId": "mbappe",
+      "playerName": "Kylian Mbappé",
+      "teamId": "FRA",
+      "teamName": "France",
+      "goals": 8,
+      "assists": 2,
+      "penalties": 1,
+      "playedMatches": 6
+    },
+    {
       "playerId": "messi",
       "playerName": "Lionel Messi",
       "teamId": "ARG",
@@ -9,16 +19,6 @@
       "assists": 1,
       "penalties": null,
       "playedMatches": 5
-    },
-    {
-      "playerId": "mbappe",
-      "playerName": "Kylian Mbappé",
-      "teamId": "FRA",
-      "teamName": "France",
-      "goals": 7,
-      "assists": 2,
-      "penalties": 1,
-      "playedMatches": 6
     },
     {
       "playerId": "haaland",
@@ -45,7 +45,7 @@
       "playerName": "Ousmane Dembélé",
       "teamId": "FRA",
       "teamName": "France",
-      "goals": 4,
+      "goals": 5,
       "assists": 2,
       "penalties": null,
       "playedMatches": 6
