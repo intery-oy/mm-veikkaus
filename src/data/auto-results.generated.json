@@ -160,6 +160,10 @@
       "homeGoals": 2,
       "awayGoals": 0
     },
+    "QF-FRA-MAR": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "R16-ARG-EGY": {
       "homeGoals": 3,
       "awayGoals": 2
@@ -233,14 +237,10 @@
       "awayGoals": 1
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "QF-FRA-MAR"
+  ],
   "upcoming": [
-    {
-      "id": "QF-FRA-MAR",
-      "utcDate": "2026-07-09T20:00:00Z",
-      "homeId": "FRA",
-      "awayId": "MAR"
-    },
     {
       "id": "QF-ESP-BEL",
       "utcDate": "2026-07-10T19:00:00Z",
