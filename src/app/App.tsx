@@ -101,7 +101,7 @@ export function App() {
               <span>👟</span> Maalipörssi
             </h2>
             <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-black uppercase tracking-wider text-[--color-muted] shadow-sm">
-              Live · bonus ei vielä mukana
+              Oikea maalikuningas +10 p · live
             </span>
           </div>
           <div className="overflow-hidden rounded-3xl bg-white/90 shadow-md ring-1 ring-white/30 backdrop-blur">
@@ -126,9 +126,9 @@ export function App() {
                   <div className="truncate text-xs font-bold text-[--color-muted]">
                     {s.teamName}
                   </div>
-                  <div className="mt-1.5 flex flex-wrap gap-1">
-                    {s.pickedBy.length > 0 ? (
-                      s.pickedBy.map((p) => (
+                  {s.pickedBy.length > 0 && (
+                    <div className="mt-1.5 flex flex-wrap gap-1">
+                      {s.pickedBy.map((p) => (
                         <span
                           key={p.name}
                           className="flex items-center gap-1 rounded-full bg-[--color-grass]/10 px-2 py-0.5 text-xs font-bold text-[--color-ink]"
@@ -136,13 +136,9 @@ export function App() {
                           <span>{p.avatar}</span>
                           {p.name}
                         </span>
-                      ))
-                    ) : (
-                      <span className="text-xs font-bold text-[--color-faint]">
-                        Ei veikkauksia
-                      </span>
-                    )}
-                  </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <span className="num rounded-full bg-[--color-sun]/25 px-2 py-0.5 text-sm font-black text-[--color-ink]">
                   {s.goals}
