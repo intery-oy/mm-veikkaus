@@ -45,6 +45,10 @@ describe('buildPortalData', () => {
     expect(data.results.some((r) => r.id === 'C-BRA-MAR')).toBe(true);
   });
 
+  it('näyttää turnausrakenteen mukaiset jäljellä olevat ottelut, ei raakafiidin total-played-lukua', () => {
+    expect(data.remainingTournamentMatches).toBe(8);
+  });
+
   it('näyttää etusivulla vain 3 uusinta tulosta ja pitää vanhemmat erillään', () => {
     expect(data.latestResults).toHaveLength(Math.min(3, data.results.length));
     expect(data.matchLog).toHaveLength(Math.max(0, data.results.length - 3));

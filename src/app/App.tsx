@@ -24,7 +24,6 @@ export function App() {
   const data = buildPortalData();
   const leader = data.bettors[0];
   const anyPoints = data.bettors.some((b) => b.total > 0);
-  const remainingMatches = Math.max(0, data.totalMatches - data.playedMatches);
 
   // Seuraavat ottelut. Pidä juuri alkaneet pelit näkyvissä hetken, jotta ottelu
   // ei katoa, jos tuloshaku päivittyy muutaman minuutin myöhässä.
@@ -71,7 +70,7 @@ export function App() {
           </div>
         </div>
         <div className="mt-3 flex flex-wrap justify-center gap-2">
-          <Pill>⚽ {remainingMatches} ottelua jäljellä</Pill>
+          <Pill>⚽ {data.remainingTournamentMatches} ottelua jäljellä</Pill>
         </div>
       </header>
 

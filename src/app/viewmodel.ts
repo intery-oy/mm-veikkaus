@@ -21,6 +21,16 @@ export const ROLE_LABEL: Record<PickRole, string> = {
 
 // Roolien vakaa näyttöjärjestys korteissa.
 const ROLE_ORDER: PickRole[] = ['champion', 'silver', 'bronze', 'dark_horse', 'wild_card'];
+const KNOCKOUT_MATCH_TOTAL = 32;
+const KNOCKOUT_REMAINING_BY_STAGE: Record<string, number> = {
+  R32: 32,
+  R16: 16,
+  QF: 8,
+  SF: 4,
+  '3P': 2,
+  F: 1,
+  FINAL: 1,
+};
 
 export interface TeamPickView {
   teamId: string;
@@ -150,6 +160,8 @@ export interface PortalData {
   /** Montako ottelua on pelattu (tuloksellisia). */
   playedMatches: number;
   totalMatches: number;
+  /** Turnausrakenteen mukainen jäljellä olevien otteluiden määrä. */
+  remainingTournamentMatches: number;
   /** Onko koko outcome vielä auki. */
   outcomePending: boolean;
   /** Pelatut ottelut tuloksineen (tulosfiidiä varten). */
@@ -333,6 +345,13 @@ export function buildPortalData(): PortalData {
   const matchLog = [...results].reverse().slice(3);
 
   const playedMatches = results.length;
+  const activeKnockoutStage = upcomingFixtures
+    .map((fixture) => fixture.id.split('-')[0]!)
+    .find((stage) => stage in KNOCKOUT_REMAINING_BY_STAGE);
+  const remainingTournamentMatches =
+    activeKnockoutStage !== undefined
+      ? KNOCKOUT_REMAINING_BY_STAGE[activeKnockoutStage]!
+      : Math.max(0, matches.length + KNOCKOUT_MATCH_TOTAL - playedMatches);
   const outcomePending =
     outcome.championTeamId === null &&
     outcome.silverTeamId === null &&
@@ -460,6 +479,7 @@ export function buildPortalData(): PortalData {
     bettors: bettorViews,
     playedMatches,
     totalMatches: matches.length,
+    remainingTournamentMatches,
     outcomePending,
     results,
     latestResults,
