@@ -161,7 +161,7 @@
       "awayGoals": 0
     },
     "QF-ESP-BEL": {
-      "homeGoals": 1,
+      "homeGoals": 2,
       "awayGoals": 1
     },
     "QF-FRA-MAR": {
@@ -241,9 +241,7 @@
       "awayGoals": 1
     }
   },
-  "preliminaryIds": [
-    "QF-ESP-BEL"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "QF-NOR-ENG",
