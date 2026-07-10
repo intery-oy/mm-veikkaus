@@ -122,6 +122,16 @@
     },
     {
       "playerId": null,
+      "playerName": "Charles De Ketelaere",
+      "teamId": "BEL",
+      "teamName": "Belgium",
+      "goals": 3,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 6
+    },
+    {
+      "playerId": null,
       "playerName": "Cody Gakpo",
       "teamId": "NED",
       "teamName": "Netherlands",
@@ -389,16 +399,6 @@
       "assists": null,
       "penalties": null,
       "playedMatches": 4
-    },
-    {
-      "playerId": null,
-      "playerName": "Azzedine Ounahi",
-      "teamId": "MAR",
-      "teamName": "Morocco",
-      "goals": 2,
-      "assists": null,
-      "penalties": null,
-      "playedMatches": 6
     },
     {
       "playerId": null,
