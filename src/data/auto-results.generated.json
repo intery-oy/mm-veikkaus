@@ -160,6 +160,10 @@
       "homeGoals": 2,
       "awayGoals": 0
     },
+    "QF-ESP-BEL": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "QF-FRA-MAR": {
       "homeGoals": 2,
       "awayGoals": 0
@@ -237,14 +241,10 @@
       "awayGoals": 1
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "QF-ESP-BEL"
+  ],
   "upcoming": [
-    {
-      "id": "QF-ESP-BEL",
-      "utcDate": "2026-07-10T19:00:00Z",
-      "homeId": "ESP",
-      "awayId": "BEL"
-    },
     {
       "id": "QF-NOR-ENG",
       "utcDate": "2026-07-11T21:00:00Z",
