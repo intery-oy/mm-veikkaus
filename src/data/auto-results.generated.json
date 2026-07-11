@@ -254,6 +254,12 @@
       "utcDate": "2026-07-12T01:00:00Z",
       "homeId": "ARG",
       "awayId": "SUI"
+    },
+    {
+      "id": "SF-FRA-ESP",
+      "utcDate": "2026-07-14T19:00:00Z",
+      "homeId": "FRA",
+      "awayId": "ESP"
     }
   ],
   "knockoutFixtures": [
@@ -424,6 +430,12 @@
       "utcDate": "2026-07-12T01:00:00Z",
       "homeId": "ARG",
       "awayId": "SUI"
+    },
+    {
+      "id": "SF-FRA-ESP",
+      "utcDate": "2026-07-14T19:00:00Z",
+      "homeId": "FRA",
+      "awayId": "ESP"
     }
   ],
   "fixtureDates": {
@@ -526,6 +538,7 @@
     "R32-POR-CRO": "2026-07-02T23:00:00Z",
     "R32-RSA-CAN": "2026-06-28T19:00:00Z",
     "R32-SUI-ALG": "2026-07-03T03:00:00Z",
-    "R32-USA-BIH": "2026-07-02T00:00:00Z"
+    "R32-USA-BIH": "2026-07-02T00:00:00Z",
+    "SF-FRA-ESP": "2026-07-14T19:00:00Z"
   }
 }
