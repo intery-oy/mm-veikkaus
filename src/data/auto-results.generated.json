@@ -160,6 +160,10 @@
       "homeGoals": 2,
       "awayGoals": 0
     },
+    "QF-ARG-SUI": {
+      "homeGoals": 1,
+      "awayGoals": 0
+    },
     "QF-ESP-BEL": {
       "homeGoals": 2,
       "awayGoals": 1
@@ -245,14 +249,10 @@
       "awayGoals": 1
     }
   },
-  "preliminaryIds": [],
+  "preliminaryIds": [
+    "QF-ARG-SUI"
+  ],
   "upcoming": [
-    {
-      "id": "QF-ARG-SUI",
-      "utcDate": "2026-07-12T01:00:00Z",
-      "homeId": "ARG",
-      "awayId": "SUI"
-    },
     {
       "id": "SF-FRA-ESP",
       "utcDate": "2026-07-14T19:00:00Z",
