@@ -40,6 +40,7 @@ for (const match of matches) {
 
   const utcDate = fixtureDates[match.id];
   if (!utcDate) {
+    if (match.result !== null) continue;
     if (startedGroups.has(groupId(match.id))) missingSchedule.push(match.id);
     continue;
   }

@@ -41,6 +41,16 @@
       "playedMatches": 6
     },
     {
+      "playerId": null,
+      "playerName": "Jude Bellingham",
+      "teamId": "ENG",
+      "teamName": "England",
+      "goals": 6,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 6
+    },
+    {
       "playerId": "dembele",
       "playerName": "Ousmane Dembélé",
       "teamId": "FRA",
@@ -59,16 +69,6 @@
       "assists": 1,
       "penalties": null,
       "playedMatches": 4
-    },
-    {
-      "playerId": null,
-      "playerName": "Jude Bellingham",
-      "teamId": "ENG",
-      "teamName": "England",
-      "goals": 4,
-      "assists": 1,
-      "penalties": null,
-      "playedMatches": 6
     },
     {
       "playerId": null,

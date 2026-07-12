@@ -230,8 +230,8 @@ async function main() {
 
   const results: Record<string, MatchResult> = {};
   const preliminary: string[] = [];
-  const fixtureDates: Record<string, string> = {};
   const previous = readPreviousGenerated();
+  const fixtureDates: Record<string, string> = { ...(previous.fixtureDates ?? {}) };
   const previousResults = previous.results ?? {};
   const knockoutById = new Map<string, UpcomingFixture>();
   for (const fixture of previous.knockoutFixtures ?? []) {
