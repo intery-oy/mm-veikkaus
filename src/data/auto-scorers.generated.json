@@ -311,6 +311,16 @@
       "playedMatches": 6
     },
     {
+      "playerId": "lautaro",
+      "playerName": "Lautaro Martínez",
+      "teamId": "ARG",
+      "teamName": "Argentina",
+      "goals": 2,
+      "assists": 1,
+      "penalties": 1,
+      "playedMatches": 6
+    },
+    {
       "playerId": null,
       "playerName": "Maximiliano Araújo",
       "teamId": "URU",
@@ -459,16 +469,6 @@
       "assists": null,
       "penalties": null,
       "playedMatches": 4
-    },
-    {
-      "playerId": null,
-      "playerName": "Malik Tillman",
-      "teamId": "USA",
-      "teamName": "United States",
-      "goals": 2,
-      "assists": null,
-      "penalties": null,
-      "playedMatches": 5
     },
     {
       "playerId": null,
