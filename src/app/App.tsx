@@ -152,6 +152,37 @@ export function App() {
         </section>
       )}
 
+      <section className="mb-8 space-y-3">
+        <div className="flex flex-wrap items-end justify-between gap-2">
+          <h2 className="flex items-center gap-2 font-display text-2xl font-bold text-[--color-grass-deep]">
+            <span>🏅</span> Mitalisijat
+          </h2>
+          <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-black uppercase tracking-wider text-[--color-muted] shadow-sm">
+            Oikea ruutu ratkaisee
+          </span>
+        </div>
+        <div className="grid gap-2 sm:grid-cols-3">
+          <div className="rounded-2xl bg-white/90 px-3 py-2 shadow-sm ring-2 ring-[--color-gold]">
+            <div className="text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
+              Mestari
+            </div>
+            <div className="num text-xl font-black text-[--color-ink]">+15 p</div>
+          </div>
+          <div className="rounded-2xl bg-white/90 px-3 py-2 shadow-sm ring-2 ring-[--color-silver]">
+            <div className="text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
+              Hopea
+            </div>
+            <div className="num text-xl font-black text-[--color-ink]">+10 p</div>
+          </div>
+          <div className="rounded-2xl bg-white/90 px-3 py-2 shadow-sm ring-2 ring-[--color-bronze]">
+            <div className="text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
+              Pronssi
+            </div>
+            <div className="num text-xl font-black text-[--color-ink]">+6 p</div>
+          </div>
+        </div>
+      </section>
+
       {/* Seuraavaksi — tulevat ottelut, veikkaajat erikseen merkittynä */}
       {nextMatches.length > 0 && (
         <section className="mb-8 next-matches">

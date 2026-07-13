@@ -3,7 +3,18 @@
 // domain/scoring.test.ts:ssä.
 
 import { describe, expect, it } from 'vitest';
+import { matches, upcomingFixtures } from '../data/results.js';
 import { buildPortalData } from './viewmodel.js';
+
+const EXPECTED_REMAINING_BY_STAGE: Record<string, number> = {
+  R32: 32,
+  R16: 16,
+  QF: 8,
+  SF: 4,
+  '3P': 2,
+  F: 1,
+  FINAL: 1,
+};
 
 describe('buildPortalData', () => {
   const data = buildPortalData();
@@ -46,7 +57,15 @@ describe('buildPortalData', () => {
   });
 
   it('näyttää turnausrakenteen mukaiset jäljellä olevat ottelut, ei raakafiidin total-played-lukua', () => {
-    expect(data.remainingTournamentMatches).toBe(8);
+    const activeKnockoutStage = upcomingFixtures
+      .map((fixture) => fixture.id.split('-')[0]!)
+      .find((stage) => stage in EXPECTED_REMAINING_BY_STAGE);
+    const expected =
+      activeKnockoutStage !== undefined
+        ? EXPECTED_REMAINING_BY_STAGE[activeKnockoutStage]!
+        : Math.max(0, matches.length + 32 - data.playedMatches);
+
+    expect(data.remainingTournamentMatches).toBe(expected);
   });
 
   it('näyttää etusivulla vain 3 uusinta tulosta ja pitää vanhemmat erillään', () => {
