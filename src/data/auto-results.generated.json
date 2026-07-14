@@ -247,16 +247,14 @@
     "R32-POR-CRO": {
       "homeGoals": 2,
       "awayGoals": 1
+    },
+    "SF-FRA-ESP": {
+      "homeGoals": 0,
+      "awayGoals": 2
     }
   },
   "preliminaryIds": [],
   "upcoming": [
-    {
-      "id": "SF-FRA-ESP",
-      "utcDate": "2026-07-14T19:00:00Z",
-      "homeId": "FRA",
-      "awayId": "ESP"
-    },
     {
       "id": "SF-ENG-ARG",
       "utcDate": "2026-07-15T19:00:00Z",
