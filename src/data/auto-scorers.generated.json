@@ -8,7 +8,7 @@
       "goals": 8,
       "assists": 2,
       "penalties": 1,
-      "playedMatches": 6
+      "playedMatches": 7
     },
     {
       "playerId": "messi",
@@ -58,7 +58,7 @@
       "goals": 5,
       "assists": 2,
       "penalties": null,
-      "playedMatches": 6
+      "playedMatches": 7
     },
     {
       "playerId": null,
@@ -88,7 +88,7 @@
       "goals": 4,
       "assists": 1,
       "penalties": null,
-      "playedMatches": 6
+      "playedMatches": 7
     },
     {
       "playerId": "vinicius",
@@ -308,7 +308,7 @@
       "goals": 2,
       "assists": 1,
       "penalties": null,
-      "playedMatches": 6
+      "playedMatches": 7
     },
     {
       "playerId": "lautaro",
