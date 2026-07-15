@@ -248,20 +248,19 @@
       "homeGoals": 2,
       "awayGoals": 1
     },
+    "SF-ENG-ARG": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "SF-FRA-ESP": {
       "homeGoals": 0,
       "awayGoals": 2
     }
   },
-  "preliminaryIds": [],
-  "upcoming": [
-    {
-      "id": "SF-ENG-ARG",
-      "utcDate": "2026-07-15T19:00:00Z",
-      "homeId": "ENG",
-      "awayId": "ARG"
-    }
+  "preliminaryIds": [
+    "SF-ENG-ARG"
   ],
+  "upcoming": [],
   "knockoutFixtures": [
     {
       "id": "R32-RSA-CAN",
