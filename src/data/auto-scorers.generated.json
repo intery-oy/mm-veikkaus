@@ -1,6 +1,16 @@
 {
   "scorers": [
     {
+      "playerId": "messi",
+      "playerName": "Lionel Messi",
+      "teamId": "ARG",
+      "teamName": "Argentina",
+      "goals": 8,
+      "assists": 4,
+      "penalties": null,
+      "playedMatches": 7
+    },
+    {
       "playerId": "mbappe",
       "playerName": "Kylian Mbappé",
       "teamId": "FRA",
@@ -8,16 +18,6 @@
       "goals": 8,
       "assists": 2,
       "penalties": 1,
-      "playedMatches": 7
-    },
-    {
-      "playerId": "messi",
-      "playerName": "Lionel Messi",
-      "teamId": "ARG",
-      "teamName": "Argentina",
-      "goals": 8,
-      "assists": 2,
-      "penalties": null,
       "playedMatches": 7
     },
     {
@@ -139,6 +139,16 @@
       "assists": 1,
       "penalties": null,
       "playedMatches": 4
+    },
+    {
+      "playerId": "lautaro",
+      "playerName": "Lautaro Martínez",
+      "teamId": "ARG",
+      "teamName": "Argentina",
+      "goals": 3,
+      "assists": 1,
+      "penalties": 1,
+      "playedMatches": 7
     },
     {
       "playerId": null,
@@ -308,16 +318,6 @@
       "goals": 2,
       "assists": 1,
       "penalties": null,
-      "playedMatches": 7
-    },
-    {
-      "playerId": "lautaro",
-      "playerName": "Lautaro Martínez",
-      "teamId": "ARG",
-      "teamName": "Argentina",
-      "goals": 2,
-      "assists": 1,
-      "penalties": 1,
       "playedMatches": 7
     },
     {
