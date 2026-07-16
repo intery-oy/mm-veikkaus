@@ -258,7 +258,20 @@
     }
   },
   "preliminaryIds": [],
-  "upcoming": [],
+  "upcoming": [
+    {
+      "id": "BRONZE-FRA-ENG",
+      "utcDate": "2026-07-18T21:00:00Z",
+      "homeId": "FRA",
+      "awayId": "ENG"
+    },
+    {
+      "id": "FINAL-ESP-ARG",
+      "utcDate": "2026-07-19T19:00:00Z",
+      "homeId": "ESP",
+      "awayId": "ARG"
+    }
+  ],
   "knockoutFixtures": [
     {
       "id": "R32-RSA-CAN",
@@ -439,6 +452,18 @@
       "utcDate": "2026-07-15T19:00:00Z",
       "homeId": "ENG",
       "awayId": "ARG"
+    },
+    {
+      "id": "BRONZE-FRA-ENG",
+      "utcDate": "2026-07-18T21:00:00Z",
+      "homeId": "FRA",
+      "awayId": "ENG"
+    },
+    {
+      "id": "FINAL-ESP-ARG",
+      "utcDate": "2026-07-19T19:00:00Z",
+      "homeId": "ESP",
+      "awayId": "ARG"
     }
   ],
   "fixtureDates": {
@@ -454,6 +479,7 @@
     "B-CAN-QAT": "2026-06-18T22:00:00Z",
     "B-CAN-SUI": "2026-06-24T19:00:00Z",
     "B-QAT-SUI": "2026-06-13T19:00:00Z",
+    "BRONZE-FRA-ENG": "2026-07-18T21:00:00Z",
     "C-BRA-HAI": "2026-06-20T00:30:00Z",
     "C-BRA-MAR": "2026-06-13T22:00:00Z",
     "C-BRA-SCO": "2026-06-24T22:00:00Z",
@@ -478,6 +504,7 @@
     "F-NED-SWE": "2026-06-20T17:00:00Z",
     "F-NED-TUN": "2026-06-25T23:00:00Z",
     "F-SWE-TUN": "2026-06-15T02:00:00Z",
+    "FINAL-ESP-ARG": "2026-07-19T19:00:00Z",
     "G-BEL-EGY": "2026-06-15T19:00:00Z",
     "G-BEL-IRN": "2026-06-21T19:00:00Z",
     "G-BEL-NZL": "2026-06-27T03:00:00Z",
