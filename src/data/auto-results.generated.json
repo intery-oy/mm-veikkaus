@@ -1,8 +1,8 @@
 {
   "results": {
     "BRONZE-FRA-ENG": {
-      "homeGoals": 3,
-      "awayGoals": 5
+      "homeGoals": 4,
+      "awayGoals": 6
     },
     "C-BRA-HAI": {
       "homeGoals": 3,
@@ -261,9 +261,7 @@
       "awayGoals": 2
     }
   },
-  "preliminaryIds": [
-    "BRONZE-FRA-ENG"
-  ],
+  "preliminaryIds": [],
   "upcoming": [
     {
       "id": "FINAL-ESP-ARG",
