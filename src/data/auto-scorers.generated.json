@@ -18,7 +18,7 @@
       "goals": 8,
       "assists": 3,
       "penalties": 1,
-      "playedMatches": 7
+      "playedMatches": 8
     },
     {
       "playerId": "haaland",
@@ -38,7 +38,7 @@
       "goals": 6,
       "assists": 1,
       "penalties": 2,
-      "playedMatches": 7
+      "playedMatches": 8
     },
     {
       "playerId": null,
@@ -48,7 +48,7 @@
       "goals": 6,
       "assists": 1,
       "penalties": null,
-      "playedMatches": 7
+      "playedMatches": 8
     },
     {
       "playerId": "dembele",
@@ -58,7 +58,7 @@
       "goals": 5,
       "assists": 2,
       "penalties": null,
-      "playedMatches": 7
+      "playedMatches": 8
     },
     {
       "playerId": null,
@@ -318,7 +318,7 @@
       "goals": 2,
       "assists": 1,
       "penalties": null,
-      "playedMatches": 7
+      "playedMatches": 8
     },
     {
       "playerId": null,
