@@ -1,6 +1,16 @@
 {
   "scorers": [
     {
+      "playerId": "mbappe",
+      "playerName": "Kylian Mbappé",
+      "teamId": "FRA",
+      "teamName": "France",
+      "goals": 10,
+      "assists": 4,
+      "penalties": 1,
+      "playedMatches": 8
+    },
+    {
       "playerId": "messi",
       "playerName": "Lionel Messi",
       "teamId": "ARG",
@@ -11,16 +21,6 @@
       "playedMatches": 7
     },
     {
-      "playerId": "mbappe",
-      "playerName": "Kylian Mbappé",
-      "teamId": "FRA",
-      "teamName": "France",
-      "goals": 8,
-      "assists": 3,
-      "penalties": 1,
-      "playedMatches": 8
-    },
-    {
       "playerId": "haaland",
       "playerName": "Erling Haaland",
       "teamId": "NOR",
@@ -29,6 +29,16 @@
       "assists": null,
       "penalties": null,
       "playedMatches": 6
+    },
+    {
+      "playerId": "dembele",
+      "playerName": "Ousmane Dembélé",
+      "teamId": "FRA",
+      "teamName": "France",
+      "goals": 6,
+      "assists": 2,
+      "penalties": null,
+      "playedMatches": 8
     },
     {
       "playerId": "kane",
@@ -47,16 +57,6 @@
       "teamName": "England",
       "goals": 6,
       "assists": 1,
-      "penalties": null,
-      "playedMatches": 8
-    },
-    {
-      "playerId": "dembele",
-      "playerName": "Ousmane Dembélé",
-      "teamId": "FRA",
-      "teamName": "France",
-      "goals": 5,
-      "assists": 2,
       "penalties": null,
       "playedMatches": 8
     },
@@ -102,6 +102,16 @@
     },
     {
       "playerId": null,
+      "playerName": "Bukayo Saka",
+      "teamId": "ENG",
+      "teamName": "England",
+      "goals": 3,
+      "assists": 3,
+      "penalties": 1,
+      "playedMatches": 8
+    },
+    {
+      "playerId": null,
       "playerName": "Deniz Undav",
       "teamId": "GER",
       "teamName": "Germany",
@@ -119,6 +129,16 @@
       "assists": 2,
       "penalties": null,
       "playedMatches": 4
+    },
+    {
+      "playerId": null,
+      "playerName": "Bradley Barcola",
+      "teamId": "FRA",
+      "teamName": "France",
+      "goals": 3,
+      "assists": 1,
+      "penalties": null,
+      "playedMatches": 8
     },
     {
       "playerId": null,
@@ -312,16 +332,6 @@
     },
     {
       "playerId": null,
-      "playerName": "Bradley Barcola",
-      "teamId": "FRA",
-      "teamName": "France",
-      "goals": 2,
-      "assists": 1,
-      "penalties": null,
-      "playedMatches": 8
-    },
-    {
-      "playerId": null,
       "playerName": "Maximiliano Araújo",
       "teamId": "URU",
       "teamName": "Uruguay",
@@ -489,16 +499,6 @@
       "assists": null,
       "penalties": null,
       "playedMatches": 4
-    },
-    {
-      "playerId": null,
-      "playerName": "Youri Tielemans",
-      "teamId": "BEL",
-      "teamName": "Belgium",
-      "goals": 2,
-      "assists": null,
-      "penalties": 1,
-      "playedMatches": 5
     }
   ]
 }
