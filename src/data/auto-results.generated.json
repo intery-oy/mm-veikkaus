@@ -69,7 +69,7 @@
       "awayGoals": 1
     },
     "FINAL-ESP-ARG": {
-      "homeGoals": 0,
+      "homeGoals": 1,
       "awayGoals": 0
     },
     "G-BEL-EGY": {
@@ -265,9 +265,7 @@
       "awayGoals": 2
     }
   },
-  "preliminaryIds": [
-    "FINAL-ESP-ARG"
-  ],
+  "preliminaryIds": [],
   "upcoming": [],
   "knockoutFixtures": [
     {
