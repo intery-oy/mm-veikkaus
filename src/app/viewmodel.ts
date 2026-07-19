@@ -155,6 +155,15 @@ export interface ScorerView {
   pickedBy: Array<{ name: string; avatar: string }>;
 }
 
+export interface MedalBonusView {
+  role: 'champion' | 'silver' | 'bronze';
+  label: string;
+  points: number;
+  teamName: string | null;
+  flag: string | null;
+  awarded: boolean;
+}
+
 export interface PortalData {
   bettors: BettorView[];
   /** Montako ottelua on pelattu (tuloksellisia). */
@@ -182,6 +191,8 @@ export interface PortalData {
   teamOwnership: TeamOwnershipView[];
   /** Live-maalipörssi, ei vaikuta bonuksiin ennen lopullista outcomea. */
   topScorers: ScorerView[];
+  /** Mitalibonusten julkinen tila: mikä on jo jaettu ja mikä vielä auki. */
+  medalBonuses: MedalBonusView[];
 }
 
 function teamName(id: string): string {
@@ -474,6 +485,32 @@ export function buildPortalData(): PortalData {
     playedMatches: s.playedMatches,
     pickedBy: s.playerId ? (scorerPickersByPlayer.get(s.playerId) ?? []) : [],
   }));
+  const medalBonuses: MedalBonusView[] = [
+    {
+      role: 'champion',
+      label: 'Mestari',
+      points: 15,
+      teamName: outcome.championTeamId ? teamName(outcome.championTeamId) : null,
+      flag: outcome.championTeamId ? flagEmoji(outcome.championTeamId) : null,
+      awarded: outcome.championTeamId !== null,
+    },
+    {
+      role: 'silver',
+      label: 'Hopea',
+      points: 10,
+      teamName: outcome.silverTeamId ? teamName(outcome.silverTeamId) : null,
+      flag: outcome.silverTeamId ? flagEmoji(outcome.silverTeamId) : null,
+      awarded: outcome.silverTeamId !== null,
+    },
+    {
+      role: 'bronze',
+      label: 'Pronssi',
+      points: 6,
+      teamName: outcome.bronzeTeamId ? teamName(outcome.bronzeTeamId) : null,
+      flag: outcome.bronzeTeamId ? flagEmoji(outcome.bronzeTeamId) : null,
+      awarded: outcome.bronzeTeamId !== null,
+    },
+  ];
 
   return {
     bettors: bettorViews,
@@ -508,5 +545,6 @@ export function buildPortalData(): PortalData {
     insights,
     teamOwnership,
     topScorers,
+    medalBonuses,
   };
 }

@@ -37,6 +37,32 @@ describe('buildPortalData', () => {
   it('kun vain pronssi on kirjattu, pelaajabonukset ovat yhä "kesken" (points=null)', () => {
     expect(data.outcomePending).toBe(false);
     expect(data.bettors.find((b) => b.bettorId === 'meeri')?.total).toBe(93);
+    expect(data.medalBonuses).toEqual([
+      {
+        role: 'champion',
+        label: 'Mestari',
+        points: 15,
+        teamName: null,
+        flag: null,
+        awarded: false,
+      },
+      {
+        role: 'silver',
+        label: 'Hopea',
+        points: 10,
+        teamName: null,
+        flag: null,
+        awarded: false,
+      },
+      {
+        role: 'bronze',
+        label: 'Pronssi',
+        points: 6,
+        teamName: 'Englanti',
+        flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+        awarded: true,
+      },
+    ]);
     for (const b of data.bettors) {
       for (const slot of b.bonusSlots) {
         expect(slot.points).toBeNull();

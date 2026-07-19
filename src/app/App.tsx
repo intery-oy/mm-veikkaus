@@ -162,24 +162,41 @@ export function App() {
           </span>
         </div>
         <div className="grid gap-2 sm:grid-cols-3">
-          <div className="rounded-2xl bg-white/90 px-3 py-2 shadow-sm ring-2 ring-[--color-gold]">
-            <div className="text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
-              Mestari
+          {data.medalBonuses.map((m) => (
+            <div
+              key={m.role}
+              className={[
+                'rounded-2xl bg-white/90 px-3 py-2 shadow-sm ring-2',
+                m.role === 'champion'
+                  ? 'ring-[--color-gold]'
+                  : m.role === 'silver'
+                    ? 'ring-[--color-silver]'
+                    : 'ring-[--color-bronze]',
+              ].join(' ')}
+            >
+              <div className="flex items-center justify-between gap-2">
+                <div className="text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
+                  {m.label}
+                </div>
+                <span
+                  className={[
+                    'rounded-full px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-wider',
+                    m.awarded
+                      ? 'bg-[--color-grass-deep] text-white'
+                      : 'bg-black/5 text-[--color-muted]',
+                  ].join(' ')}
+                >
+                  {m.awarded ? 'Jaettu' : 'Jakamatta'}
+                </span>
+              </div>
+              <div className="num mt-1 text-xl font-black text-[--color-ink]">
+                +{m.points} p
+              </div>
+              <div className="mt-1 truncate text-sm font-black text-[--color-ink]">
+                {m.awarded && m.flag && m.teamName ? `${m.flag} ${m.teamName}` : 'Ratkeaa finaalissa'}
+              </div>
             </div>
-            <div className="num text-xl font-black text-[--color-ink]">+15 p</div>
-          </div>
-          <div className="rounded-2xl bg-white/90 px-3 py-2 shadow-sm ring-2 ring-[--color-silver]">
-            <div className="text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
-              Hopea
-            </div>
-            <div className="num text-xl font-black text-[--color-ink]">+10 p</div>
-          </div>
-          <div className="rounded-2xl bg-white/90 px-3 py-2 shadow-sm ring-2 ring-[--color-bronze]">
-            <div className="text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
-              Pronssi
-            </div>
-            <div className="num text-xl font-black text-[--color-ink]">+6 p</div>
-          </div>
+          ))}
         </div>
       </section>
 
