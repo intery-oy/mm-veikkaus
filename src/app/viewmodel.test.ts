@@ -120,6 +120,31 @@ describe('buildPortalData', () => {
     }
   });
 
+  it('näyttää finaalin top 3 -perusskenaariot ilman parhaan pelaajan bonusta', () => {
+    expect(data.finalScenarios).toEqual([
+      {
+        winnerTeamId: 'ESP',
+        winnerName: 'Espanja',
+        winnerFlag: '🇪🇸',
+        rows: [
+          { rank: 1, name: 'Helga', avatar: '🐼', total: 121 },
+          { rank: 1, name: 'Meeri', avatar: '🐝', total: 121 },
+          { rank: 3, name: 'Harri', avatar: '🐵', total: 103 },
+        ],
+      },
+      {
+        winnerTeamId: 'ARG',
+        winnerName: 'Argentiina',
+        winnerFlag: '🇦🇷',
+        rows: [
+          { rank: 1, name: 'Meeri', avatar: '🐝', total: 106 },
+          { rank: 2, name: 'Helga', avatar: '🐼', total: 96 },
+          { rank: 3, name: 'Juha', avatar: '🐲', total: 88 },
+        ],
+      },
+    ]);
+  });
+
   it('laskee pelatut joukkuepelit niin että omien joukkueiden keskinäinen peli lasketaan molemmille', () => {
     for (const b of data.bettors) {
       expect(b.playedTeamGames).toBeGreaterThanOrEqual(0);

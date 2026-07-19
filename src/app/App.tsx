@@ -101,112 +101,6 @@ export function App() {
         </section>
       )}
 
-      {data.topScorers.length > 0 && (
-        <section className="mb-8 space-y-3">
-          <div className="flex flex-wrap items-end justify-between gap-2">
-            <h2 className="flex items-center gap-2 font-display text-2xl font-bold text-[--color-grass-deep]">
-              <span>👟</span> Maalipörssi
-            </h2>
-            <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-black uppercase tracking-wider text-[--color-muted] shadow-sm">
-              +10 p on mukana taulukossa alustavana
-            </span>
-          </div>
-          <div className="overflow-hidden rounded-3xl bg-white/90 shadow-md ring-1 ring-white/30 backdrop-blur">
-            <div className="grid grid-cols-[auto_1fr_auto_auto] gap-2 border-b border-[--color-line] px-3 py-2 text-[0.7rem] font-black uppercase tracking-wider text-[--color-muted]">
-              <span>#</span>
-              <span>Pelaaja</span>
-              <span className="text-right">M</span>
-              <span className="hidden text-right sm:block">O</span>
-            </div>
-            {data.topScorers.map((s, i) => (
-              <div
-                key={`${s.playerName}-${s.teamName}`}
-                className="grid grid-cols-[auto_1fr_auto_auto] items-center gap-2 border-b border-[--color-line] px-3 py-2 last:border-b-0"
-              >
-                <span className="num w-5 text-sm font-black text-[--color-grass-deep]">
-                  {i + 1}
-                </span>
-                <div className="min-w-0">
-                  <div className="truncate text-sm font-black text-[--color-ink]">
-                    {s.teamFlag} {s.playerName}
-                  </div>
-                  <div className="truncate text-xs font-bold text-[--color-muted]">
-                    {s.teamName}
-                  </div>
-                  {s.pickedBy.length > 0 && (
-                    <div className="mt-1.5 flex flex-wrap gap-1">
-                      {s.pickedBy.map((p) => (
-                        <span
-                          key={p.name}
-                          className="flex items-center gap-1 rounded-full bg-[--color-grass]/10 px-2 py-0.5 text-xs font-bold text-[--color-ink]"
-                        >
-                          <span>{p.avatar}</span>
-                          {p.name}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <span className="num rounded-full bg-[--color-sun]/25 px-2 py-0.5 text-sm font-black text-[--color-ink]">
-                  {s.goals}
-                </span>
-                <span className="num hidden text-right text-xs font-bold text-[--color-muted] sm:block">
-                  {s.playedMatches}
-                </span>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      <section className="mb-8 space-y-3">
-        <div className="flex flex-wrap items-end justify-between gap-2">
-          <h2 className="flex items-center gap-2 font-display text-2xl font-bold text-[--color-grass-deep]">
-            <span>🏅</span> Mitalisijat
-          </h2>
-          <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-black uppercase tracking-wider text-[--color-muted] shadow-sm">
-            Oikea ruutu ratkaisee
-          </span>
-        </div>
-        <div className="grid gap-2 sm:grid-cols-3">
-          {data.medalBonuses.map((m) => (
-            <div
-              key={m.role}
-              className={[
-                'rounded-2xl bg-white/90 px-3 py-2 shadow-sm ring-2',
-                m.role === 'champion'
-                  ? 'ring-[--color-gold]'
-                  : m.role === 'silver'
-                    ? 'ring-[--color-silver]'
-                    : 'ring-[--color-bronze]',
-              ].join(' ')}
-            >
-              <div className="flex items-center justify-between gap-2">
-                <div className="text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
-                  {m.label}
-                </div>
-                <span
-                  className={[
-                    'rounded-full px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-wider',
-                    m.awarded
-                      ? 'bg-[--color-grass-deep] text-white'
-                      : 'bg-black/5 text-[--color-muted]',
-                  ].join(' ')}
-                >
-                  {m.awarded ? 'Jaettu' : 'Jakamatta'}
-                </span>
-              </div>
-              <div className="num mt-1 text-xl font-black text-[--color-ink]">
-                +{m.points} p
-              </div>
-              <div className="mt-1 truncate text-sm font-black text-[--color-ink]">
-                {m.awarded && m.flag && m.teamName ? `${m.flag} ${m.teamName}` : 'Ratkeaa finaalissa'}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Seuraavaksi — tulevat ottelut, veikkaajat erikseen merkittynä */}
       {nextMatches.length > 0 && (
         <section className="mb-8 next-matches">
@@ -294,52 +188,180 @@ export function App() {
             tulevat. ⚽
           </p>
         )}
-        <section className="rounded-3xl bg-white/90 p-4 shadow-md ring-1 ring-white/30 backdrop-blur">
-          <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-            <h2 className="font-display text-xl font-black text-[--color-grass-deep]">
-              Pisteiden tila
-            </h2>
-            <span className="rounded-full bg-[--color-sun]/25 px-3 py-1 text-xs font-black uppercase tracking-wider text-[--color-ink]">
-              ennen taulukkoa
-            </span>
+        <section className="overflow-hidden rounded-3xl bg-white/95 shadow-lg ring-2 ring-[--color-sun]/40 backdrop-blur">
+          <div className="bg-[--color-sun]/25 px-4 py-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h2 className="font-display text-2xl font-black text-[--color-ink]">
+                Pisteiden tila
+              </h2>
+              <span className="rounded-full bg-white/80 px-3 py-1 text-xs font-black uppercase tracking-wider text-[--color-grass-deep] shadow-sm">
+                taulukko sisältää alustavia pisteitä
+              </span>
+            </div>
+            <p className="mt-1 text-sm font-bold text-[--color-muted]">
+              Tässä on selitys ennen sarjataulukkoa: mikä on lopullista, mikä alustavaa ja mikä vielä räjähtää finaalissa.
+            </p>
           </div>
-          <div className="grid gap-3 sm:grid-cols-3">
-            <div className="rounded-2xl bg-[--color-grass]/10 p-3">
-              <div className="mb-1 text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
-                Jaettu
+
+          <div className="grid gap-3 p-4 lg:grid-cols-3">
+            <div className="rounded-2xl bg-[--color-grass]/10 p-3 ring-1 ring-[--color-grass]/20">
+              <div className="mb-2 flex items-center justify-between">
+                <div className="text-[0.7rem] font-black uppercase tracking-wider text-[--color-muted]">
+                  Jaettu lopullisesti
+                </div>
+                <span className="rounded-full bg-[--color-grass-deep] px-2 py-0.5 text-xs font-black text-white">
+                  mukana
+                </span>
               </div>
-              <ul className="space-y-1 text-sm font-bold text-[--color-ink]">
+              <ul className="space-y-1 text-sm font-black text-[--color-ink]">
                 <li>Ottelupisteet tähän asti</li>
                 <li>Pronssi +6 p: Englanti</li>
               </ul>
             </div>
-            <div className="rounded-2xl bg-[--color-sun]/20 p-3">
-              <div className="mb-1 text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
-                Mukana alustavana
+
+            <div className="rounded-2xl bg-[--color-sun]/25 p-3 ring-2 ring-[--color-sun]">
+              <div className="mb-2 flex items-center justify-between gap-2">
+                <div className="text-[0.7rem] font-black uppercase tracking-wider text-[--color-muted]">
+                  Mukana alustavana
+                </div>
+                <span className="rounded-full bg-[--color-ink] px-2 py-0.5 text-xs font-black text-white">
+                  +10 p
+                </span>
               </div>
-              <ul className="space-y-1 text-sm font-bold text-[--color-ink]">
-                <li>Maalikuningas +10 p: Mbappé</li>
-              </ul>
+              <div className="text-sm font-black text-[--color-ink]">
+                Maalikuningas: Mbappé
+              </div>
               {topScorerLeader && (
                 <p className="mt-2 text-xs font-bold text-[--color-muted]">
                   Peruste: live-maalipörssin kärki on {topScorerLeader.playerName},
-                  {` ${topScorerLeader.goals} maalia`}. Oikaistaan, jos finaali muuttaa kärjen.
+                  {` ${topScorerLeader.goals} maalia`}. Pisteet ovat taulukossa nyt,
+                  mutta ne oikaistaan, jos finaali vaihtaa maalikuninkaan.
                 </p>
               )}
             </div>
-            <div className="rounded-2xl bg-black/5 p-3">
-              <div className="mb-1 text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
-                Jakamatta
+
+            <div className="rounded-2xl bg-black/5 p-3 ring-1 ring-black/5">
+              <div className="mb-2 flex items-center justify-between">
+                <div className="text-[0.7rem] font-black uppercase tracking-wider text-[--color-muted]">
+                  Vielä jakamatta
+                </div>
+                <span className="rounded-full bg-white px-2 py-0.5 text-xs font-black text-[--color-muted]">
+                  finaali
+                </span>
               </div>
-              <ul className="space-y-1 text-sm font-bold text-[--color-ink]">
+              <ul className="space-y-1 text-sm font-black text-[--color-ink]">
                 <li>Mestari +15 p</li>
                 <li>Hopea +10 p</li>
                 <li>Paras pelaaja +10 p</li>
               </ul>
             </div>
           </div>
+
+          <div className="border-t border-[--color-line] p-4">
+            <div className="mb-3 flex items-center gap-2">
+              <span className="text-2xl">🔥</span>
+              <h3 className="font-display text-xl font-black text-[--color-grass-deep]">
+                Mitä jos finaali päättyy näin?
+              </h3>
+            </div>
+            <div className="grid gap-3 md:grid-cols-2">
+              {data.finalScenarios.map((scenario) => (
+                <div
+                  key={scenario.winnerTeamId}
+                  className="rounded-2xl bg-[--color-card] p-3 shadow-sm ring-1 ring-black/5"
+                >
+                  <div className="mb-2 flex items-center justify-between gap-2">
+                    <div className="font-display text-base font-black text-[--color-ink]">
+                      {scenario.winnerFlag} {scenario.winnerName} voittaa
+                    </div>
+                    <span className="rounded-full bg-[--color-grass]/10 px-2 py-0.5 text-xs font-black uppercase tracking-wider text-[--color-grass-deep]">
+                      top 3
+                    </span>
+                  </div>
+                  <div className="space-y-1.5">
+                    {scenario.rows.map((row) => (
+                      <div
+                        key={`${scenario.winnerTeamId}-${row.rank}-${row.name}`}
+                        className="flex items-center justify-between gap-2 rounded-xl bg-white/80 px-2 py-1.5"
+                      >
+                        <span className="flex min-w-0 items-center gap-2 font-bold text-[--color-ink]">
+                          <span className="num w-5 shrink-0 text-center">{row.rank}.</span>
+                          <span className="shrink-0">{row.avatar}</span>
+                          <span className="truncate">{row.name}</span>
+                        </span>
+                        <span className="num shrink-0 rounded-full bg-[--color-ink] px-2 py-0.5 text-sm font-black text-white">
+                          {row.total}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 rounded-2xl bg-[--color-sky]/10 px-3 py-2 text-sm font-bold text-[--color-muted]">
+              Nämä skenaariot sisältävät jaetun pronssin ja alustavan Mbappé-maalikuningasbonuksen.
+              Paras pelaaja +10 p on silti vielä jakamatta, eli viimeinen pieni kaaoskortti on yhä pakassa.
+            </p>
+          </div>
         </section>
         <StandingsTable bettors={data.bettors} />
+        {data.topScorers.length > 0 && (
+          <section className="space-y-3">
+            <div className="flex flex-wrap items-end justify-between gap-2">
+              <h2 className="flex items-center gap-2 font-display text-2xl font-bold text-[--color-grass-deep]">
+                <span>👟</span> Maalipörssi
+              </h2>
+              <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-black uppercase tracking-wider text-[--color-muted] shadow-sm">
+                +10 p on mukana taulukossa alustavana
+              </span>
+            </div>
+            <div className="overflow-hidden rounded-3xl bg-white/90 shadow-md ring-1 ring-white/30 backdrop-blur">
+              <div className="grid grid-cols-[auto_1fr_auto_auto] gap-2 border-b border-[--color-line] px-3 py-2 text-[0.7rem] font-black uppercase tracking-wider text-[--color-muted]">
+                <span>#</span>
+                <span>Pelaaja</span>
+                <span className="text-right">M</span>
+                <span className="hidden text-right sm:block">O</span>
+              </div>
+              {data.topScorers.map((s, i) => (
+                <div
+                  key={`${s.playerName}-${s.teamName}`}
+                  className="grid grid-cols-[auto_1fr_auto_auto] items-center gap-2 border-b border-[--color-line] px-3 py-2 last:border-b-0"
+                >
+                  <span className="num w-5 text-sm font-black text-[--color-grass-deep]">
+                    {i + 1}
+                  </span>
+                  <div className="min-w-0">
+                    <div className="truncate text-sm font-black text-[--color-ink]">
+                      {s.teamFlag} {s.playerName}
+                    </div>
+                    <div className="truncate text-xs font-bold text-[--color-muted]">
+                      {s.teamName}
+                    </div>
+                    {s.pickedBy.length > 0 && (
+                      <div className="mt-1.5 flex flex-wrap gap-1">
+                        {s.pickedBy.map((p) => (
+                          <span
+                            key={p.name}
+                            className="flex items-center gap-1 rounded-full bg-[--color-grass]/10 px-2 py-0.5 text-xs font-bold text-[--color-ink]"
+                          >
+                            <span>{p.avatar}</span>
+                            {p.name}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <span className="num rounded-full bg-[--color-sun]/25 px-2 py-0.5 text-sm font-black text-[--color-ink]">
+                    {s.goals}
+                  </span>
+                  <span className="num hidden text-right text-xs font-bold text-[--color-muted] sm:block">
+                    {s.playedMatches}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
         {data.latestResults.length > 0 && (
           <section className="space-y-2">
             <h2 className="flex items-center gap-2 font-display text-2xl font-bold text-[--color-grass-deep]">

@@ -166,6 +166,20 @@ export interface MedalBonusView {
   awarded: boolean;
 }
 
+export interface ScenarioStandingView {
+  rank: number;
+  name: string;
+  avatar: string;
+  total: number;
+}
+
+export interface FinalScenarioView {
+  winnerTeamId: string;
+  winnerName: string;
+  winnerFlag: string;
+  rows: ScenarioStandingView[];
+}
+
 export interface PortalData {
   bettors: BettorView[];
   /** Montako ottelua on pelattu (tuloksellisia). */
@@ -195,6 +209,8 @@ export interface PortalData {
   topScorers: ScorerView[];
   /** Mitalibonusten julkinen tila: mikä on jo jaettu ja mikä vielä auki. */
   medalBonuses: MedalBonusView[];
+  /** Top 3 -perusskenaariot finaalin voittajan mukaan, paras pelaaja vielä auki. */
+  finalScenarios: FinalScenarioView[];
 }
 
 function teamName(id: string): string {
@@ -515,6 +531,41 @@ export function buildPortalData(): PortalData {
       awarded: outcome.bronzeTeamId !== null,
     },
   ];
+  const finalScenarios: FinalScenarioView[] = (['ESP', 'ARG'] as const).map((winnerTeamId) => {
+    const finalMatch = {
+      id: 'FINAL-ESP-ARG',
+      homeTeamId: 'ESP',
+      awayTeamId: 'ARG',
+      result:
+        winnerTeamId === 'ESP'
+          ? { homeGoals: 1, awayGoals: 0 }
+          : { homeGoals: 0, awayGoals: 1 },
+    };
+    const scenarioOutcome = {
+      ...outcome,
+      championTeamId: winnerTeamId,
+      silverTeamId: winnerTeamId === 'ESP' ? 'ARG' : 'ESP',
+      bestPlayerId: null,
+    };
+    const scenarioStandings = computeStandings({
+      bettors,
+      picks,
+      matches: [...matches, finalMatch],
+      outcome: scenarioOutcome,
+    });
+
+    return {
+      winnerTeamId,
+      winnerName: teamName(winnerTeamId),
+      winnerFlag: flagEmoji(winnerTeamId),
+      rows: scenarioStandings.slice(0, 3).map((s) => ({
+        rank: s.rank,
+        name: nameById.get(s.bettorId) ?? s.bettorId,
+        avatar: bettorAvatar(s.bettorId),
+        total: s.total,
+      })),
+    };
+  });
 
   return {
     bettors: bettorViews,
@@ -550,5 +601,6 @@ export function buildPortalData(): PortalData {
     teamOwnership,
     topScorers,
     medalBonuses,
+    finalScenarios,
   };
 }
