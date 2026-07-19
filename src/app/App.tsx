@@ -24,9 +24,6 @@ export function App() {
   const data = buildPortalData();
   const leader = data.bettors[0];
   const anyPoints = data.bettors.some((b) => b.total > 0);
-  const hasProvisionalTopScorerPoints = data.bettors.some((b) =>
-    b.bonusSlots.some((slot) => slot.label === 'Maalikuningas' && slot.status === 'provisional'),
-  );
   const topScorerLeader = data.topScorers[0] ?? null;
 
   // Seuraavat ottelut. Pidä juuri alkaneet pelit näkyvissä hetken, jotta ottelu
@@ -75,9 +72,6 @@ export function App() {
         </div>
         <div className="mt-3 flex flex-wrap justify-center gap-2">
           <Pill>⚽ {data.remainingTournamentMatches} ottelua jäljellä</Pill>
-          {hasProvisionalTopScorerPoints && (
-            <Pill>👟 Maalikuningas +10 p mukana alustavana</Pill>
-          )}
         </div>
       </header>
 
