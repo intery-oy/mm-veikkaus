@@ -276,15 +276,14 @@ export function App() {
                     {scenario.rows.map((row) => (
                       <div
                         key={`${scenario.winnerTeamId}-${row.rank}-${row.name}`}
-                        className="flex items-center justify-between gap-2 rounded-xl bg-white/80 px-2 py-1.5"
+                        className="flex items-center gap-2 rounded-xl bg-white/80 px-2 py-1.5"
                       >
                         <span className="flex min-w-0 items-center gap-2 font-bold text-[--color-ink]">
                           <span className="num w-5 shrink-0 text-center">{row.rank}.</span>
                           <span className="shrink-0">{row.avatar}</span>
-                          <span className="truncate">{row.name}</span>
-                        </span>
-                        <span className="num shrink-0 rounded-full bg-[--color-ink] px-2 py-0.5 text-sm font-black text-white">
-                          {row.total} p
+                          <span className="truncate">
+                            {row.name} <span className="num font-black">{row.total} p</span>
+                          </span>
                         </span>
                       </div>
                     ))}
