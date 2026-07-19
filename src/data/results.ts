@@ -103,5 +103,5 @@ export const outcome: TournamentOutcome = {
   silverTeamId: null,
   bronzeTeamId: 'ENG',
   bestPlayerId: null,
-  topScorerId: null,
+  topScorerId: 'mbappe',
 };

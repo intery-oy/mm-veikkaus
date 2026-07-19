@@ -34,9 +34,9 @@ describe('buildPortalData', () => {
     }
   });
 
-  it('kun vain pronssi on kirjattu, pelaajabonukset ovat yhä "kesken" (points=null)', () => {
+  it('kun pronssi ja alustava maalikuningas on kirjattu, vain paras pelaaja on kesken', () => {
     expect(data.outcomePending).toBe(false);
-    expect(data.bettors.find((b) => b.bettorId === 'meeri')?.total).toBe(93);
+    expect(data.bettors.find((b) => b.bettorId === 'meeri')?.total).toBe(103);
     expect(data.medalBonuses).toEqual([
       {
         role: 'champion',
@@ -64,10 +64,15 @@ describe('buildPortalData', () => {
       },
     ]);
     for (const b of data.bettors) {
-      for (const slot of b.bonusSlots) {
-        expect(slot.points).toBeNull();
-      }
+      const bestPlayer = b.bonusSlots.find((slot) => slot.label === 'Paras pelaaja');
+      const topScorer = b.bonusSlots.find((slot) => slot.label === 'Maalikuningas');
+      expect(bestPlayer?.points).toBeNull();
+      expect(bestPlayer?.status).toBe('pending');
+      expect(topScorer?.points).not.toBeNull();
+      expect(topScorer?.status).toBe('provisional');
     }
+    const meeri = data.bettors.find((b) => b.bettorId === 'meeri');
+    expect(meeri?.bonusSlots.find((slot) => slot.label === 'Maalikuningas')?.points).toBe(10);
   });
 
   it('joukkuenimet on resolvattu suomeksi (id ei vuoda näyttöön)', () => {

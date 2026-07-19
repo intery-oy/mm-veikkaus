@@ -11,6 +11,7 @@ const MEDAL: Record<number, string> = { 1: '🥇', 2: '🥈', 3: '🥉' };
 function BonusRow({ slot }: { slot: BonusSlot }) {
   const pending = slot.points === null;
   const hit = !pending && slot.points! > 0;
+  const provisional = slot.status === 'provisional';
   return (
     <div className="flex items-center justify-between gap-2 py-1">
       <span className="flex min-w-0 items-center gap-1.5">
@@ -22,12 +23,19 @@ function BonusRow({ slot }: { slot: BonusSlot }) {
           ⚽ kesken
         </span>
       ) : (
-        <span
-          className={`num shrink-0 rounded-full px-2 py-0.5 text-sm font-bold ${
-            hit ? 'bg-[--color-grass-deep] text-white' : 'bg-black/5 text-[--color-faint]'
-          }`}
-        >
-          +{slot.points}
+        <span className="flex shrink-0 items-center gap-1">
+          <span
+            className={`num rounded-full px-2 py-0.5 text-sm font-bold ${
+              hit ? 'bg-[--color-grass-deep] text-white' : 'bg-black/5 text-[--color-faint]'
+            }`}
+          >
+            +{slot.points}
+          </span>
+          {provisional && (
+            <span className="rounded-full bg-[--color-sun]/25 px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-wider text-[--color-ink]">
+              alustava
+            </span>
+          )}
         </span>
       )}
     </div>

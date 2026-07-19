@@ -46,6 +46,8 @@ export interface BonusSlot {
   icon: string;
   /** Pisteet jos ratkennut; null jos kisat vielä kesken kyseiseltä osalta. */
   points: number | null;
+  /** Bonuksen tila UI:lle; maalikuningas voidaan näyttää alustavana ennen finaalia. */
+  status: 'pending' | 'provisional' | 'final';
   /** Mihin veikattiin (joukkue tai pelaaja). */
   pick: string;
 }
@@ -316,12 +318,14 @@ export function buildPortalData(): PortalData {
         label: 'Paras pelaaja',
         icon: '⭐',
         points: outcome.bestPlayerId === null ? null : s.prizeBonus.bestPlayer,
+        status: outcome.bestPlayerId === null ? 'pending' : 'final',
         pick: p ? playerName(p.bestPlayerId) : '—',
       },
       {
         label: 'Maalikuningas',
         icon: '👟',
         points: outcome.topScorerId === null ? null : s.prizeBonus.topScorer,
+        status: outcome.topScorerId === null ? 'pending' : 'provisional',
         pick: p ? playerName(p.topScorerId) : '—',
       },
     ];

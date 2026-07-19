@@ -98,12 +98,12 @@ export function App() {
         <section className="mb-8 space-y-3">
           <div className="flex flex-wrap items-end justify-between gap-2">
             <h2 className="flex items-center gap-2 font-display text-2xl font-bold text-[--color-grass-deep]">
-              <span>👟</span> Maalipörssi
-            </h2>
-            <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-black uppercase tracking-wider text-[--color-muted] shadow-sm">
-              Oikea maalikuningas +10 p · live
-            </span>
-          </div>
+            <span>👟</span> Maalipörssi
+          </h2>
+          <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-black uppercase tracking-wider text-[--color-muted] shadow-sm">
+              Alustava maalikuningas +10 p · live
+          </span>
+        </div>
           <div className="overflow-hidden rounded-3xl bg-white/90 shadow-md ring-1 ring-white/30 backdrop-blur">
             <div className="grid grid-cols-[auto_1fr_auto_auto] gap-2 border-b border-[--color-line] px-3 py-2 text-[0.7rem] font-black uppercase tracking-wider text-[--color-muted]">
               <span>#</span>
