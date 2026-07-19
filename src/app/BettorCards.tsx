@@ -31,8 +31,13 @@ function BonusRow({ slot }: { slot: BonusSlot }) {
           >
             +{slot.points}
           </span>
-          {provisional && (
+          {provisional && hit && (
             <span className="rounded-full bg-[--color-sun]/25 px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-wider text-[--color-ink]">
+              mukana alustavana
+            </span>
+          )}
+          {provisional && !hit && (
+            <span className="rounded-full bg-black/5 px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
               alustava
             </span>
           )}
