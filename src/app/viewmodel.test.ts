@@ -126,13 +126,6 @@ describe('buildPortalData', () => {
         winnerTeamId: 'ESP',
         winnerName: 'Espanja',
         winnerFlag: '🇪🇸',
-        silverTeamName: 'Argentiina',
-        silverTeamFlag: '🇦🇷',
-        pointNotes: [
-          'Espanja-valitsijoille finaalivoitosta +3 p',
-          'Espanja mestariruudussa +15 p',
-          'Argentiina hopearuudussa +10 p',
-        ],
         rows: [
           { rank: 1, name: 'Helga', avatar: '🐼', total: 121 },
           { rank: 1, name: 'Meeri', avatar: '🐝', total: 121 },
@@ -143,13 +136,6 @@ describe('buildPortalData', () => {
         winnerTeamId: 'ARG',
         winnerName: 'Argentiina',
         winnerFlag: '🇦🇷',
-        silverTeamName: 'Espanja',
-        silverTeamFlag: '🇪🇸',
-        pointNotes: [
-          'Argentiina-valitsijoille finaalivoitosta +3 p',
-          'Argentiina mestariruudussa +15 p',
-          'Espanja hopearuudussa +10 p',
-        ],
         rows: [
           { rank: 1, name: 'Meeri', avatar: '🐝', total: 106 },
           { rank: 2, name: 'Helga', avatar: '🐼', total: 96 },

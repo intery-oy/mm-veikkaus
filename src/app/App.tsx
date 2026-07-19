@@ -275,18 +275,8 @@ export function App() {
                       {scenario.winnerFlag} {scenario.winnerName} voittaa
                     </div>
                     <span className="rounded-full bg-[--color-grass]/10 px-2 py-0.5 text-xs font-black uppercase tracking-wider text-[--color-grass-deep]">
-                      top 3 pisteet
+                      top 3 kokonaispisteet
                     </span>
-                  </div>
-                  <div className="mb-2 rounded-xl bg-[--color-sun]/15 px-2 py-1.5">
-                    <div className="mb-1 text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
-                      Tässä skenaariossa jaetaan
-                    </div>
-                    <ul className="space-y-0.5 text-xs font-bold text-[--color-ink]">
-                      {scenario.pointNotes.map((note) => (
-                        <li key={`${scenario.winnerTeamId}-${note}`}>{note}</li>
-                      ))}
-                    </ul>
                   </div>
                   <div className="space-y-1.5">
                     {scenario.rows.map((row) => (
