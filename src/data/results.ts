@@ -101,7 +101,7 @@ export const matches: Match[] = [...groupMatches(), ...KNOCKOUT_MATCHES];
 export const outcome: TournamentOutcome = {
   championTeamId: null,
   silverTeamId: null,
-  bronzeTeamId: null,
+  bronzeTeamId: 'ENG',
   bestPlayerId: null,
   topScorerId: null,
 };

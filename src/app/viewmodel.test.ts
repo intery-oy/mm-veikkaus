@@ -34,8 +34,9 @@ describe('buildPortalData', () => {
     }
   });
 
-  it('kun outcome on auki, kaikki bonusruudut ovat "kesken" (points=null)', () => {
-    expect(data.outcomePending).toBe(true);
+  it('kun vain pronssi on kirjattu, pelaajabonukset ovat yhä "kesken" (points=null)', () => {
+    expect(data.outcomePending).toBe(false);
+    expect(data.bettors.find((b) => b.bettorId === 'meeri')?.total).toBe(93);
     for (const b of data.bettors) {
       for (const slot of b.bonusSlots) {
         expect(slot.points).toBeNull();
