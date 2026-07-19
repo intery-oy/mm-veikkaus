@@ -27,6 +27,7 @@ export function App() {
   const hasProvisionalTopScorerPoints = data.bettors.some((b) =>
     b.bonusSlots.some((slot) => slot.label === 'Maalikuningas' && slot.status === 'provisional'),
   );
+  const topScorerLeader = data.topScorers[0] ?? null;
 
   // Seuraavat ottelut. Pidä juuri alkaneet pelit näkyvissä hetken, jotta ottelu
   // ei katoa, jos tuloshaku päivittyy muutaman minuutin myöhässä.
@@ -293,6 +294,51 @@ export function App() {
             tulevat. ⚽
           </p>
         )}
+        <section className="rounded-3xl bg-white/90 p-4 shadow-md ring-1 ring-white/30 backdrop-blur">
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+            <h2 className="font-display text-xl font-black text-[--color-grass-deep]">
+              Pisteiden tila
+            </h2>
+            <span className="rounded-full bg-[--color-sun]/25 px-3 py-1 text-xs font-black uppercase tracking-wider text-[--color-ink]">
+              ennen taulukkoa
+            </span>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-3">
+            <div className="rounded-2xl bg-[--color-grass]/10 p-3">
+              <div className="mb-1 text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
+                Jaettu
+              </div>
+              <ul className="space-y-1 text-sm font-bold text-[--color-ink]">
+                <li>Ottelupisteet tähän asti</li>
+                <li>Pronssi +6 p: Englanti</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl bg-[--color-sun]/20 p-3">
+              <div className="mb-1 text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
+                Mukana alustavana
+              </div>
+              <ul className="space-y-1 text-sm font-bold text-[--color-ink]">
+                <li>Maalikuningas +10 p: Mbappé</li>
+              </ul>
+              {topScorerLeader && (
+                <p className="mt-2 text-xs font-bold text-[--color-muted]">
+                  Peruste: live-maalipörssin kärki on {topScorerLeader.playerName},
+                  {` ${topScorerLeader.goals} maalia`}. Oikaistaan, jos finaali muuttaa kärjen.
+                </p>
+              )}
+            </div>
+            <div className="rounded-2xl bg-black/5 p-3">
+              <div className="mb-1 text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
+                Jakamatta
+              </div>
+              <ul className="space-y-1 text-sm font-bold text-[--color-ink]">
+                <li>Mestari +15 p</li>
+                <li>Hopea +10 p</li>
+                <li>Paras pelaaja +10 p</li>
+              </ul>
+            </div>
+          </div>
+        </section>
         <StandingsTable bettors={data.bettors} />
         {data.latestResults.length > 0 && (
           <section className="space-y-2">
