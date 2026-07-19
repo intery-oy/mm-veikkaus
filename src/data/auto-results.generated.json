@@ -68,6 +68,10 @@
       "homeGoals": 5,
       "awayGoals": 1
     },
+    "FINAL-ESP-ARG": {
+      "homeGoals": 0,
+      "awayGoals": 0
+    },
     "G-BEL-EGY": {
       "homeGoals": 1,
       "awayGoals": 1
@@ -261,15 +265,10 @@
       "awayGoals": 2
     }
   },
-  "preliminaryIds": [],
-  "upcoming": [
-    {
-      "id": "FINAL-ESP-ARG",
-      "utcDate": "2026-07-19T19:00:00Z",
-      "homeId": "ESP",
-      "awayId": "ARG"
-    }
+  "preliminaryIds": [
+    "FINAL-ESP-ARG"
   ],
+  "upcoming": [],
   "knockoutFixtures": [
     {
       "id": "R32-RSA-CAN",
