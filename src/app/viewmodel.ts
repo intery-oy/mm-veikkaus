@@ -177,6 +177,9 @@ export interface FinalScenarioView {
   winnerTeamId: string;
   winnerName: string;
   winnerFlag: string;
+  silverTeamName: string;
+  silverTeamFlag: string;
+  pointNotes: string[];
   rows: ScenarioStandingView[];
 }
 
@@ -558,6 +561,13 @@ export function buildPortalData(): PortalData {
       winnerTeamId,
       winnerName: teamName(winnerTeamId),
       winnerFlag: flagEmoji(winnerTeamId),
+      silverTeamName: winnerTeamId === 'ESP' ? teamName('ARG') : teamName('ESP'),
+      silverTeamFlag: winnerTeamId === 'ESP' ? flagEmoji('ARG') : flagEmoji('ESP'),
+      pointNotes: [
+        `${teamName(winnerTeamId)}-valitsijoille finaalivoitosta +3 p`,
+        `${teamName(winnerTeamId)} mestariruudussa +15 p`,
+        `${winnerTeamId === 'ESP' ? teamName('ARG') : teamName('ESP')} hopearuudussa +10 p`,
+      ],
       rows: scenarioStandings.slice(0, 3).map((s) => ({
         rank: s.rank,
         name: nameById.get(s.bettorId) ?? s.bettorId,
