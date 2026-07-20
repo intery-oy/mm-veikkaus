@@ -89,17 +89,17 @@ function FinalAudit({ audits }: { audits: FinalAuditView[] }) {
                       {team.matches.map((match) => (
                         <div
                           key={match.id}
-                          className="grid grid-cols-[1fr_auto] items-center gap-2 rounded-xl bg-white/85 px-2 py-1.5 text-xs"
+                          className="rounded-xl bg-white/85 px-2 py-1.5 text-xs"
                         >
                           <div className="min-w-0">
-                            <div className="truncate font-bold text-[--color-ink]">
+                            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 font-bold text-[--color-ink]">
                               {match.source}
+                              <Points points={match.points} />
                             </div>
                             <div className="font-bold text-[--color-muted]">
                               {match.resultLabel}: {match.points === 3 ? '3 p' : match.points === 1 ? '1 p' : '0 p'}
                             </div>
                           </div>
-                          <Points points={match.points} />
                         </div>
                       ))}
                     </div>
@@ -210,9 +210,11 @@ export function App() {
             ))}
           </div>
         </div>
-        <div className="mt-3 flex flex-wrap justify-center gap-2">
-          <Pill>⚽ {data.remainingTournamentMatches} ottelua jäljellä</Pill>
-        </div>
+        {data.remainingTournamentMatches > 0 && (
+          <div className="mt-3 flex flex-wrap justify-center gap-2">
+            <Pill>⚽ {data.remainingTournamentMatches} ottelua jäljellä</Pill>
+          </div>
+        )}
       </header>
 
       {leader && anyPoints && (
@@ -327,7 +329,6 @@ export function App() {
           </p>
         )}
         <StandingsTable bettors={data.bettors} />
-        <FinalAudit audits={data.finalAudit} />
         <section className="overflow-hidden rounded-3xl bg-white/95 shadow-lg ring-2 ring-[--color-sun]/40 backdrop-blur">
           <div className="bg-[--color-sun]/25 px-4 py-3">
             <div className="flex flex-wrap items-center justify-between gap-2">
@@ -564,6 +565,7 @@ export function App() {
           />
         </div>
         <BettorCards bettors={data.bettors} />
+        <FinalAudit audits={data.finalAudit} />
       </main>
     </div>
   );
