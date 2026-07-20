@@ -119,6 +119,22 @@ describe('buildPortalData', () => {
     }
   });
 
+  it('rakentaa Helgan ja Meerin tarkistuslaskelman lähteineen', () => {
+    expect(data.finalAudit.map((audit) => audit.bettorId)).toEqual(['helga', 'meeri']);
+    for (const audit of data.finalAudit) {
+      const matchPoints = audit.teams.reduce((sum, team) => sum + team.points, 0);
+      const medalPoints = audit.medals.reduce((sum, bonus) => sum + bonus.points, 0);
+      const prizePoints = audit.prizes.reduce((sum, bonus) => sum + bonus.points, 0);
+      expect(matchPoints).toBe(audit.matchPoints);
+      expect(medalPoints).toBe(audit.medalBonusTotal);
+      expect(prizePoints).toBe(audit.prizeBonusTotal);
+      expect(matchPoints + medalPoints + prizePoints).toBe(audit.total);
+      expect(audit.teams.flatMap((team) => team.matches).every((source) => source.source.includes('-'))).toBe(true);
+      expect(audit.medals.every((bonus) => bonus.source.startsWith('Lopputulos:'))).toBe(true);
+      expect(audit.prizes.every((bonus) => bonus.source.startsWith('Lopputulos:'))).toBe(true);
+    }
+  });
+
   it('ei näytä finaaliskenaarioita, kun finaali on jo ratkaistu', () => {
     expect(data.finalScenarios).toEqual([]);
     expect(data.bettors.slice(0, 3).map((b) => ({ rank: b.rank, name: b.name, total: b.total })))
