@@ -297,8 +297,7 @@ export function App() {
                 ))}
               </div>
               <p className="mt-3 rounded-2xl bg-[--color-sky]/10 px-3 py-2 text-sm font-bold text-[--color-muted]">
-                Nämä skenaariot sisältävät jaetun pronssin ja alustavan Mbappé-maalikuningasbonuksen.
-                Paras pelaaja +10 p on silti vielä jakamatta, eli viimeinen pieni kaaoskortti on yhä pakassa.
+                Nämä skenaariot eivät sisällä parhaan pelaajan bonusta.
               </p>
             </div>
           )}

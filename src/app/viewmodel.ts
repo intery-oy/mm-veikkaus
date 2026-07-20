@@ -46,7 +46,7 @@ export interface BonusSlot {
   icon: string;
   /** Pisteet jos ratkennut; null jos kisat vielä kesken kyseiseltä osalta. */
   points: number | null;
-  /** Bonuksen tila UI:lle; maalikuningas voidaan näyttää alustavana ennen finaalia. */
+  /** Bonuksen tila UI:lle. */
   status: 'pending' | 'provisional' | 'final';
   /** Mihin veikattiin (joukkue tai pelaaja). */
   pick: string;
