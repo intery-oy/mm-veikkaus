@@ -193,13 +193,7 @@ export function App() {
               <h2 className="font-display text-2xl font-black text-[--color-ink]">
                 Pisteiden tila
               </h2>
-              <span className="rounded-full bg-white/80 px-3 py-1 text-xs font-black uppercase tracking-wider text-[--color-grass-deep] shadow-sm">
-                taulukko sisältää alustavia pisteitä
-              </span>
             </div>
-            <p className="mt-1 text-sm font-bold text-[--color-muted]">
-              Tässä on selitys ennen sarjataulukkoa: mikä on lopullista, mikä alustavaa ja mikä vielä räjähtää finaalissa.
-            </p>
           </div>
 
           <div className="grid gap-3 p-4 lg:grid-cols-3">
