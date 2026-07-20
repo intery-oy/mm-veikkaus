@@ -187,6 +187,7 @@ export function App() {
             tulevat. ⚽
           </p>
         )}
+        <StandingsTable bettors={data.bettors} />
         <section className="overflow-hidden rounded-3xl bg-white/95 shadow-lg ring-2 ring-[--color-sun]/40 backdrop-blur">
           <div className="bg-[--color-sun]/25 px-4 py-3">
             <div className="flex flex-wrap items-center justify-between gap-2">
@@ -301,7 +302,6 @@ export function App() {
             </div>
           )}
         </section>
-        <StandingsTable bettors={data.bettors} />
         {data.topScorers.length > 0 && (
           <section className="space-y-3">
             <div className="flex flex-wrap items-end justify-between gap-2">
