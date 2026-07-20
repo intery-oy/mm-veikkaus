@@ -341,7 +341,7 @@ export function buildPortalData(): PortalData {
         label: 'Maalikuningas',
         icon: '👟',
         points: outcome.topScorerId === null ? null : s.prizeBonus.topScorer,
-        status: outcome.topScorerId === null ? 'pending' : 'provisional',
+        status: outcome.topScorerId === null ? 'pending' : 'final',
         pick: p ? playerName(p.topScorerId) : '—',
       },
     ];

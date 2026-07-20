@@ -212,6 +212,7 @@ export function App() {
                 <li>Mestari +15 p: Espanja</li>
                 <li>Hopea +10 p: Argentiina</li>
                 <li>Pronssi +6 p: Englanti</li>
+                <li>Paras pelaaja +10 p: Rodri</li>
                 <li>Maalikuningas +10 p: Mbappé</li>
               </ul>
             </div>
@@ -219,20 +220,20 @@ export function App() {
             <div className="rounded-2xl bg-[--color-sun]/25 p-3 ring-2 ring-[--color-sun]">
               <div className="mb-2 flex items-center justify-between gap-2">
                 <div className="text-[0.7rem] font-black uppercase tracking-wider text-[--color-muted]">
-                  Vielä jakamatta
+                  Kaikki jaettu
                 </div>
                 <span className="rounded-full bg-[--color-ink] px-2 py-0.5 text-xs font-black text-white">
-                  +10 p
+                  valmis
                 </span>
               </div>
               <div className="text-sm font-black text-[--color-ink]">
-                Paras pelaaja
+                Rodri paras pelaaja
               </div>
               {topScorerLeader && (
                 <p className="mt-2 text-xs font-bold text-[--color-muted]">
-                  Maalikuningas on jo mukana: {topScorerLeader.playerName},
-                  {` ${topScorerLeader.goals} maalia`}. Taulukkoon jää enää parhaan pelaajan
-                  palkinnon vaikutus.
+                  Maalikuningas: {topScorerLeader.playerName},
+                  {` ${topScorerLeader.goals} maalia`}. Jokainen bonusruutu on nyt mukana
+                  lopullisessa taulukossa.
                 </p>
               )}
             </div>
@@ -310,7 +311,7 @@ export function App() {
                 <span>👟</span> Maalipörssi
               </h2>
               <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-black uppercase tracking-wider text-[--color-muted] shadow-sm">
-                +10 p on mukana taulukossa alustavana
+                +10 p mukana lopullisessa taulukossa
               </span>
             </div>
             <div className="overflow-hidden rounded-3xl bg-white/90 shadow-md ring-1 ring-white/30 backdrop-blur">
