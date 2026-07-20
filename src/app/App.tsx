@@ -23,6 +23,7 @@ export function App() {
   // Data on committoitua (seed + results.ts) — laske kerran renderissä.
   const data = buildPortalData();
   const leader = data.bettors[0];
+  const leaders = leader ? data.bettors.filter((b) => b.total === leader.total) : [];
   const anyPoints = data.bettors.some((b) => b.total > 0);
   const topScorerLeader = data.topScorers[0] ?? null;
 
@@ -77,19 +78,23 @@ export function App() {
 
       {leader && anyPoints && (
         <section className="mb-6 flex items-center gap-4 rounded-3xl bg-white/90 p-4 shadow-md ring-1 ring-white/30 backdrop-blur">
-          <div className="relative grid h-16 w-16 shrink-0 place-items-center rounded-full bg-[--color-sun]/25 text-4xl ring-2 ring-[--color-gold]">
-            <span>{leader.avatar}</span>
+          <div className="relative flex h-16 w-24 shrink-0 items-center justify-center -space-x-2 rounded-full bg-[--color-sun]/25 text-4xl ring-2 ring-[--color-gold]">
+            {leaders.map((b) => (
+              <span key={b.bettorId} className="grid h-12 w-12 place-items-center rounded-full bg-white/80">
+                {b.avatar}
+              </span>
+            ))}
             <span className="absolute -right-2 -top-3 rotate-12 text-3xl drop-shadow-sm">👑</span>
           </div>
           <div className="min-w-0">
             <div className="font-display text-xs font-black uppercase tracking-wider text-[--color-muted]">
-              Kärjessä nyt
+              Voittajat
             </div>
             <div className="truncate font-display text-2xl font-black text-[--color-ink]">
-              {leader.name}
+              {leaders.map((b) => b.name).join(' ja ')}
             </div>
             <div className="num mt-1 text-sm font-bold text-[--color-grass-deep]">
-              {leader.total} pistettä · {leader.playedTeamGames} joukkuepeliä
+              {leader.total} pistettä
             </div>
           </div>
         </section>
