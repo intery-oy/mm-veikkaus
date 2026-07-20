@@ -99,8 +99,8 @@ const KNOCKOUT_MATCHES: Match[] = (auto.knockoutFixtures ?? []).map((fixture) =>
 export const matches: Match[] = [...groupMatches(), ...KNOCKOUT_MATCHES];
 
 export const outcome: TournamentOutcome = {
-  championTeamId: null,
-  silverTeamId: null,
+  championTeamId: 'ESP',
+  silverTeamId: 'ARG',
   bronzeTeamId: 'ENG',
   bestPlayerId: null,
   topScorerId: 'mbappe',

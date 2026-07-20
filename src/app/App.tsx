@@ -208,28 +208,31 @@ export function App() {
                 </span>
               </div>
               <ul className="space-y-1 text-sm font-black text-[--color-ink]">
-                <li>Ottelupisteet tähän asti</li>
+                <li>Ottelupisteet kaikista peleistä</li>
+                <li>Mestari +15 p: Espanja</li>
+                <li>Hopea +10 p: Argentiina</li>
                 <li>Pronssi +6 p: Englanti</li>
+                <li>Maalikuningas +10 p: Mbappé</li>
               </ul>
             </div>
 
             <div className="rounded-2xl bg-[--color-sun]/25 p-3 ring-2 ring-[--color-sun]">
               <div className="mb-2 flex items-center justify-between gap-2">
                 <div className="text-[0.7rem] font-black uppercase tracking-wider text-[--color-muted]">
-                  Mukana alustavana
+                  Vielä jakamatta
                 </div>
                 <span className="rounded-full bg-[--color-ink] px-2 py-0.5 text-xs font-black text-white">
                   +10 p
                 </span>
               </div>
               <div className="text-sm font-black text-[--color-ink]">
-                Maalikuningas: Mbappé
+                Paras pelaaja
               </div>
               {topScorerLeader && (
                 <p className="mt-2 text-xs font-bold text-[--color-muted]">
-                  Peruste: live-maalipörssin kärki on {topScorerLeader.playerName},
-                  {` ${topScorerLeader.goals} maalia`}. Pisteet ovat taulukossa nyt,
-                  mutta ne oikaistaan, jos finaali vaihtaa maalikuninkaan.
+                  Maalikuningas on jo mukana: {topScorerLeader.playerName},
+                  {` ${topScorerLeader.goals} maalia`}. Taulukkoon jää enää parhaan pelaajan
+                  palkinnon vaikutus.
                 </p>
               )}
             </div>
@@ -237,65 +240,67 @@ export function App() {
             <div className="rounded-2xl bg-black/5 p-3 ring-1 ring-black/5">
               <div className="mb-2 flex items-center justify-between">
                 <div className="text-[0.7rem] font-black uppercase tracking-wider text-[--color-muted]">
-                  Vielä jakamatta
+                  Lopputulos
                 </div>
                 <span className="rounded-full bg-white px-2 py-0.5 text-xs font-black text-[--color-muted]">
                   finaali
                 </span>
               </div>
               <ul className="space-y-1 text-sm font-black text-[--color-ink]">
-                <li>Mestari +15 p</li>
-                <li>Hopea +10 p</li>
-                <li>Paras pelaaja +10 p</li>
+                <li>Espanja 1–0 Argentiina</li>
+                <li>Espanja maailmanmestari</li>
+                <li>Argentiina hopealla</li>
               </ul>
             </div>
           </div>
 
-          <div className="border-t border-[--color-line] p-4">
-            <div className="mb-3 flex items-center gap-2">
-              <span className="text-2xl">🔥</span>
-              <h3 className="font-display text-xl font-black text-[--color-grass-deep]">
-                Mitä jos finaali päättyy näin?
-              </h3>
-            </div>
-            <div className="grid gap-3 md:grid-cols-2">
-              {data.finalScenarios.map((scenario) => (
-                <div
-                  key={scenario.winnerTeamId}
-                  className="rounded-2xl bg-[--color-card] p-3 shadow-sm ring-1 ring-black/5"
-                >
-                  <div className="mb-2 flex items-center justify-between gap-2">
-                    <div className="font-display text-base font-black text-[--color-ink]">
-                      {scenario.winnerFlag} {scenario.winnerName} voittaa
-                    </div>
-                    <span className="rounded-full bg-[--color-grass]/10 px-2 py-0.5 text-xs font-black uppercase tracking-wider text-[--color-grass-deep]">
-                      top 3 kokonaispisteet
-                    </span>
-                  </div>
-                  <div className="space-y-1.5">
-                    {scenario.rows.map((row) => (
-                      <div
-                        key={`${scenario.winnerTeamId}-${row.rank}-${row.name}`}
-                        className="flex items-center gap-2 rounded-xl bg-white/80 px-2 py-1.5"
-                      >
-                        <span className="flex min-w-0 items-center gap-2 font-bold text-[--color-ink]">
-                          <span className="num w-5 shrink-0 text-center">{row.rank}.</span>
-                          <span className="shrink-0">{row.avatar}</span>
-                          <span className="truncate">
-                            {row.name} <span className="num font-black">{row.total} p</span>
-                          </span>
-                        </span>
+          {data.finalScenarios.length > 0 && (
+            <div className="border-t border-[--color-line] p-4">
+              <div className="mb-3 flex items-center gap-2">
+                <span className="text-2xl">🔥</span>
+                <h3 className="font-display text-xl font-black text-[--color-grass-deep]">
+                  Mitä jos finaali päättyy näin?
+                </h3>
+              </div>
+              <div className="grid gap-3 md:grid-cols-2">
+                {data.finalScenarios.map((scenario) => (
+                  <div
+                    key={scenario.winnerTeamId}
+                    className="rounded-2xl bg-[--color-card] p-3 shadow-sm ring-1 ring-black/5"
+                  >
+                    <div className="mb-2 flex items-center justify-between gap-2">
+                      <div className="font-display text-base font-black text-[--color-ink]">
+                        {scenario.winnerFlag} {scenario.winnerName} voittaa
                       </div>
-                    ))}
+                      <span className="rounded-full bg-[--color-grass]/10 px-2 py-0.5 text-xs font-black uppercase tracking-wider text-[--color-grass-deep]">
+                        top 3 kokonaispisteet
+                      </span>
+                    </div>
+                    <div className="space-y-1.5">
+                      {scenario.rows.map((row) => (
+                        <div
+                          key={`${scenario.winnerTeamId}-${row.rank}-${row.name}`}
+                          className="flex items-center gap-2 rounded-xl bg-white/80 px-2 py-1.5"
+                        >
+                          <span className="flex min-w-0 items-center gap-2 font-bold text-[--color-ink]">
+                            <span className="num w-5 shrink-0 text-center">{row.rank}.</span>
+                            <span className="shrink-0">{row.avatar}</span>
+                            <span className="truncate">
+                              {row.name} <span className="num font-black">{row.total} p</span>
+                            </span>
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+              <p className="mt-3 rounded-2xl bg-[--color-sky]/10 px-3 py-2 text-sm font-bold text-[--color-muted]">
+                Nämä skenaariot sisältävät jaetun pronssin ja alustavan Mbappé-maalikuningasbonuksen.
+                Paras pelaaja +10 p on silti vielä jakamatta, eli viimeinen pieni kaaoskortti on yhä pakassa.
+              </p>
             </div>
-            <p className="mt-3 rounded-2xl bg-[--color-sky]/10 px-3 py-2 text-sm font-bold text-[--color-muted]">
-              Nämä skenaariot sisältävät jaetun pronssin ja alustavan Mbappé-maalikuningasbonuksen.
-              Paras pelaaja +10 p on silti vielä jakamatta, eli viimeinen pieni kaaoskortti on yhä pakassa.
-            </p>
-          </div>
+          )}
         </section>
         <StandingsTable bettors={data.bettors} />
         {data.topScorers.length > 0 && (

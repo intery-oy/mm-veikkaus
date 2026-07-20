@@ -379,10 +379,16 @@ export function buildPortalData(): PortalData {
   const activeKnockoutStage = upcomingFixtures
     .map((fixture) => fixture.id.split('-')[0]!)
     .find((stage) => stage in KNOCKOUT_REMAINING_BY_STAGE);
-  const remainingTournamentMatches =
-    activeKnockoutStage !== undefined
-      ? KNOCKOUT_REMAINING_BY_STAGE[activeKnockoutStage]!
-      : Math.max(0, matches.length + KNOCKOUT_MATCH_TOTAL - playedMatches);
+  let remainingTournamentMatches = Math.max(
+    0,
+    matches.length + KNOCKOUT_MATCH_TOTAL - playedMatches,
+  );
+  if (activeKnockoutStage !== undefined) {
+    remainingTournamentMatches = KNOCKOUT_REMAINING_BY_STAGE[activeKnockoutStage]!;
+  }
+  if (outcome.championTeamId !== null && outcome.silverTeamId !== null) {
+    remainingTournamentMatches = 0;
+  }
   const outcomePending =
     outcome.championTeamId === null &&
     outcome.silverTeamId === null &&
@@ -531,41 +537,44 @@ export function buildPortalData(): PortalData {
       awarded: outcome.bronzeTeamId !== null,
     },
   ];
-  const finalScenarios: FinalScenarioView[] = (['ESP', 'ARG'] as const).map((winnerTeamId) => {
-    const finalMatch = {
-      id: 'FINAL-ESP-ARG',
-      homeTeamId: 'ESP',
-      awayTeamId: 'ARG',
-      result:
-        winnerTeamId === 'ESP'
-          ? { homeGoals: 1, awayGoals: 0 }
-          : { homeGoals: 0, awayGoals: 1 },
-    };
-    const scenarioOutcome = {
-      ...outcome,
-      championTeamId: winnerTeamId,
-      silverTeamId: winnerTeamId === 'ESP' ? 'ARG' : 'ESP',
-      bestPlayerId: null,
-    };
-    const scenarioStandings = computeStandings({
-      bettors,
-      picks,
-      matches: [...matches, finalMatch],
-      outcome: scenarioOutcome,
-    });
+  const finalScenarios: FinalScenarioView[] =
+    outcome.championTeamId === null && outcome.silverTeamId === null
+      ? (['ESP', 'ARG'] as const).map((winnerTeamId) => {
+          const finalMatch = {
+            id: 'FINAL-ESP-ARG',
+            homeTeamId: 'ESP',
+            awayTeamId: 'ARG',
+            result:
+              winnerTeamId === 'ESP'
+                ? { homeGoals: 1, awayGoals: 0 }
+                : { homeGoals: 0, awayGoals: 1 },
+          };
+          const scenarioOutcome = {
+            ...outcome,
+            championTeamId: winnerTeamId,
+            silverTeamId: winnerTeamId === 'ESP' ? 'ARG' : 'ESP',
+            bestPlayerId: null,
+          };
+          const scenarioStandings = computeStandings({
+            bettors,
+            picks,
+            matches: [...matches, finalMatch],
+            outcome: scenarioOutcome,
+          });
 
-    return {
-      winnerTeamId,
-      winnerName: teamName(winnerTeamId),
-      winnerFlag: flagEmoji(winnerTeamId),
-      rows: scenarioStandings.slice(0, 3).map((s) => ({
-        rank: s.rank,
-        name: nameById.get(s.bettorId) ?? s.bettorId,
-        avatar: bettorAvatar(s.bettorId),
-        total: s.total,
-      })),
-    };
-  });
+          return {
+            winnerTeamId,
+            winnerName: teamName(winnerTeamId),
+            winnerFlag: flagEmoji(winnerTeamId),
+            rows: scenarioStandings.slice(0, 3).map((s) => ({
+              rank: s.rank,
+              name: nameById.get(s.bettorId) ?? s.bettorId,
+              avatar: bettorAvatar(s.bettorId),
+              total: s.total,
+            })),
+          };
+        })
+      : [];
 
   return {
     bettors: bettorViews,

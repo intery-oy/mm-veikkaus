@@ -3,7 +3,7 @@
 // domain/scoring.test.ts:ssä.
 
 import { describe, expect, it } from 'vitest';
-import { matches, upcomingFixtures } from '../data/results.js';
+import { upcomingFixtures } from '../data/results.js';
 import { buildPortalData } from './viewmodel.js';
 
 const EXPECTED_REMAINING_BY_STAGE: Record<string, number> = {
@@ -34,25 +34,25 @@ describe('buildPortalData', () => {
     }
   });
 
-  it('kun pronssi ja alustava maalikuningas on kirjattu, vain paras pelaaja on kesken', () => {
+  it('kun finaali ja maalikuningas on kirjattu, vain paras pelaaja on kesken', () => {
     expect(data.outcomePending).toBe(false);
-    expect(data.bettors.find((b) => b.bettorId === 'meeri')?.total).toBe(103);
+    expect(data.bettors.find((b) => b.bettorId === 'meeri')?.total).toBe(121);
     expect(data.medalBonuses).toEqual([
       {
         role: 'champion',
         label: 'Mestari',
         points: 15,
-        teamName: null,
-        flag: null,
-        awarded: false,
+        teamName: 'Espanja',
+        flag: '🇪🇸',
+        awarded: true,
       },
       {
         role: 'silver',
         label: 'Hopea',
         points: 10,
-        teamName: null,
-        flag: null,
-        awarded: false,
+        teamName: 'Argentiina',
+        flag: '🇦🇷',
+        awarded: true,
       },
       {
         role: 'bronze',
@@ -88,16 +88,13 @@ describe('buildPortalData', () => {
     expect(data.results.some((r) => r.id === 'C-BRA-MAR')).toBe(true);
   });
 
-  it('näyttää turnausrakenteen mukaiset jäljellä olevat ottelut, ei raakafiidin total-played-lukua', () => {
+  it('näyttää finaalin jälkeen nolla jäljellä olevaa ottelua', () => {
     const activeKnockoutStage = upcomingFixtures
       .map((fixture) => fixture.id.split('-')[0]!)
       .find((stage) => stage in EXPECTED_REMAINING_BY_STAGE);
-    const expected =
-      activeKnockoutStage !== undefined
-        ? EXPECTED_REMAINING_BY_STAGE[activeKnockoutStage]!
-        : Math.max(0, matches.length + 32 - data.playedMatches);
 
-    expect(data.remainingTournamentMatches).toBe(expected);
+    expect(activeKnockoutStage).toBeUndefined();
+    expect(data.remainingTournamentMatches).toBe(0);
   });
 
   it('näyttää etusivulla vain 3 uusinta tulosta ja pitää vanhemmat erillään', () => {
@@ -120,29 +117,14 @@ describe('buildPortalData', () => {
     }
   });
 
-  it('näyttää finaalin top 3 -perusskenaariot ilman parhaan pelaajan bonusta', () => {
-    expect(data.finalScenarios).toEqual([
-      {
-        winnerTeamId: 'ESP',
-        winnerName: 'Espanja',
-        winnerFlag: '🇪🇸',
-        rows: [
-          { rank: 1, name: 'Helga', avatar: '🐼', total: 121 },
-          { rank: 1, name: 'Meeri', avatar: '🐝', total: 121 },
-          { rank: 3, name: 'Harri', avatar: '🐵', total: 103 },
-        ],
-      },
-      {
-        winnerTeamId: 'ARG',
-        winnerName: 'Argentiina',
-        winnerFlag: '🇦🇷',
-        rows: [
-          { rank: 1, name: 'Meeri', avatar: '🐝', total: 106 },
-          { rank: 2, name: 'Helga', avatar: '🐼', total: 96 },
-          { rank: 3, name: 'Juha', avatar: '🐲', total: 88 },
-        ],
-      },
-    ]);
+  it('ei näytä finaaliskenaarioita, kun finaali on jo ratkaistu', () => {
+    expect(data.finalScenarios).toEqual([]);
+    expect(data.bettors.slice(0, 3).map((b) => ({ rank: b.rank, name: b.name, total: b.total })))
+      .toEqual([
+        { rank: 1, name: 'Helga', total: 121 },
+        { rank: 1, name: 'Meeri', total: 121 },
+        { rank: 3, name: 'Harri', total: 103 },
+      ]);
   });
 
   it('laskee pelatut joukkuepelit niin että omien joukkueiden keskinäinen peli lasketaan molemmille', () => {
