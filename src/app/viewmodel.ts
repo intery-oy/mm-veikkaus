@@ -183,6 +183,7 @@ export interface FinalScenarioView {
 export interface AuditMatchSourceView {
   id: string;
   source: string;
+  sourceWithPoints: string;
   resultLabel: string;
   points: number;
 }
@@ -324,6 +325,10 @@ function matchSource(match: Match): string {
   return `${flagEmoji(match.homeTeamId)} ${teamName(match.homeTeamId)} ${result.homeGoals}-${result.awayGoals} ${flagEmoji(match.awayTeamId)} ${teamName(match.awayTeamId)}`;
 }
 
+function matchPointsLabel(points: number): string {
+  return points > 0 ? `+${points} p` : '0 p';
+}
+
 function buildFinalAudit(
   targetIds: string[],
   bettorViews: BettorView[],
@@ -350,6 +355,7 @@ function buildFinalAudit(
           return {
             id: `${teamPick.teamId}-${match.id}`,
             source: matchSource(match),
+            sourceWithPoints: `${matchSource(match)} -> ${scored.resultLabel} ${matchPointsLabel(scored.points)}`,
             resultLabel: scored.resultLabel,
             points: scored.points,
           };

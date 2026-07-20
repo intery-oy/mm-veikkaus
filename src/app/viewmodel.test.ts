@@ -130,6 +130,16 @@ describe('buildPortalData', () => {
       expect(prizePoints).toBe(audit.prizeBonusTotal);
       expect(matchPoints + medalPoints + prizePoints).toBe(audit.total);
       expect(audit.teams.flatMap((team) => team.matches).every((source) => source.source.includes('-'))).toBe(true);
+      expect(
+        audit.teams
+          .flatMap((team) => team.matches)
+          .every(
+            (source) =>
+              source.sourceWithPoints.includes(source.source) &&
+              source.sourceWithPoints.includes(source.resultLabel) &&
+              source.sourceWithPoints.endsWith(source.points > 0 ? `+${source.points} p` : '0 p'),
+          ),
+      ).toBe(true);
       expect(audit.medals.every((bonus) => bonus.source.startsWith('Lopputulos:'))).toBe(true);
       expect(audit.prizes.every((bonus) => bonus.source.startsWith('Lopputulos:'))).toBe(true);
     }

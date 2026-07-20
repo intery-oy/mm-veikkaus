@@ -92,12 +92,8 @@ function FinalAudit({ audits }: { audits: FinalAuditView[] }) {
                           className="rounded-xl bg-white/85 px-2 py-1.5 text-xs"
                         >
                           <div className="min-w-0">
-                            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 font-bold text-[--color-ink]">
-                              {match.source}
-                              <Points points={match.points} />
-                            </div>
-                            <div className="font-bold text-[--color-muted]">
-                              {match.resultLabel}: {match.points === 3 ? '3 p' : match.points === 1 ? '1 p' : '0 p'}
+                            <div className="font-bold text-[--color-ink]">
+                              {match.sourceWithPoints}
                             </div>
                           </div>
                         </div>
