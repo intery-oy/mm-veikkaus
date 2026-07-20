@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { buildPortalData } from './viewmodel.js';
+import type { FinalAuditView } from './viewmodel.js';
 import { StandingsTable } from './StandingsTable.js';
 import { BettorCards } from './BettorCards.js';
 import { Confetti } from './Confetti.js';
@@ -17,6 +18,144 @@ function backerCountLabel(count: number): string {
   if (count === 0) return 'Ei panosta';
   if (count === 1) return '1 veikkaaja kentällä';
   return `${count} veikkaajaa kentällä`;
+}
+
+function Points({ points }: { points: number }) {
+  return (
+    <span className={`num shrink-0 rounded-full px-2 py-0.5 text-xs font-black ${points > 0 ? 'bg-[--color-grass-deep] text-white' : 'bg-black/5 text-[--color-muted]'}`}>
+      {points > 0 ? `+${points} p` : '0 p'}
+    </span>
+  );
+}
+
+function FinalAudit({ audits }: { audits: FinalAuditView[] }) {
+  if (audits.length === 0) return null;
+
+  return (
+    <section className="space-y-3">
+      <div className="flex flex-wrap items-end justify-between gap-2">
+        <h2 className="flex items-center gap-2 font-display text-2xl font-bold text-[--color-grass-deep]">
+          <span>🧾</span> Tarkistuslaskelma
+        </h2>
+        <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-black uppercase tracking-wider text-[--color-muted] shadow-sm">
+          jokaisen pisteen lähde näkyvissä
+        </span>
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        {audits.map((audit) => (
+          <article
+            key={audit.bettorId}
+            className="overflow-hidden rounded-3xl bg-white/95 shadow-lg ring-1 ring-white/40 backdrop-blur"
+          >
+            <header className="flex items-center justify-between gap-3 bg-[--color-sun]/25 px-4 py-3">
+              <div className="flex min-w-0 items-center gap-3">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white/80 text-3xl">
+                  {audit.avatar}
+                </span>
+                <div className="min-w-0">
+                  <h3 className="truncate font-display text-xl font-black text-[--color-ink]">
+                    {audit.name}
+                  </h3>
+                  <div className="text-sm font-bold text-[--color-muted]">
+                    {audit.matchPoints} ottelupistettä + {audit.medalBonusTotal} mitalibonusta +{' '}
+                    {audit.prizeBonusTotal} palkintobonusta
+                  </div>
+                </div>
+              </div>
+              <div className="num rounded-2xl bg-[--color-ink] px-3 py-2 text-2xl font-black text-white">
+                {audit.total} p
+              </div>
+            </header>
+
+            <div className="space-y-4 p-4">
+              <div className="space-y-3">
+                {audit.teams.map((team) => (
+                  <div key={`${audit.bettorId}-${team.roleLabel}-${team.teamName}`} className="rounded-2xl bg-[--color-grass]/5 p-3 ring-1 ring-[--color-grass]/10">
+                    <div className="mb-2 flex items-center justify-between gap-2">
+                      <div className="min-w-0">
+                        <div className="text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
+                          {team.roleLabel}
+                        </div>
+                        <div className="truncate font-black text-[--color-ink]">
+                          {team.flag} {team.teamName}
+                        </div>
+                      </div>
+                      <span className="num rounded-full bg-[--color-sun]/25 px-2 py-0.5 text-xs font-black text-[--color-ink]">
+                        {team.points} p yhteensä
+                      </span>
+                    </div>
+                    <div className="space-y-1">
+                      {team.matches.map((match) => (
+                        <div
+                          key={match.id}
+                          className="grid grid-cols-[1fr_auto] items-center gap-2 rounded-xl bg-white/85 px-2 py-1.5 text-xs"
+                        >
+                          <div className="min-w-0">
+                            <div className="truncate font-bold text-[--color-ink]">
+                              {match.source}
+                            </div>
+                            <div className="font-bold text-[--color-muted]">
+                              {match.resultLabel}: {match.points === 3 ? '3 p' : match.points === 1 ? '1 p' : '0 p'}
+                            </div>
+                          </div>
+                          <Points points={match.points} />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="rounded-2xl bg-[--color-sky]/10 p-3 ring-1 ring-[--color-sky]/20">
+                  <div className="mb-2 text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
+                    Mitalibonukset
+                  </div>
+                  <div className="space-y-1">
+                    {audit.medals.map((bonus) => (
+                      <div key={bonus.label} className="flex items-center justify-between gap-2 rounded-xl bg-white/80 px-2 py-1.5 text-xs">
+                        <div className="min-w-0">
+                          <div className="font-black text-[--color-ink]">
+                            {bonus.label}: {bonus.pick}
+                          </div>
+                          <div className="truncate font-bold text-[--color-muted]">
+                            {bonus.source}
+                          </div>
+                        </div>
+                        <Points points={bonus.points} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-2xl bg-[--color-sun]/20 p-3 ring-1 ring-[--color-sun]/40">
+                  <div className="mb-2 text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
+                    Palkintobonukset
+                  </div>
+                  <div className="space-y-1">
+                    {audit.prizes.map((bonus) => (
+                      <div key={bonus.label} className="flex items-center justify-between gap-2 rounded-xl bg-white/80 px-2 py-1.5 text-xs">
+                        <div className="min-w-0">
+                          <div className="font-black text-[--color-ink]">
+                            {bonus.label}: {bonus.pick}
+                          </div>
+                          <div className="truncate font-bold text-[--color-muted]">
+                            {bonus.source}
+                          </div>
+                        </div>
+                        <Points points={bonus.points} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
 }
 
 export function App() {
@@ -188,6 +327,7 @@ export function App() {
           </p>
         )}
         <StandingsTable bettors={data.bettors} />
+        <FinalAudit audits={data.finalAudit} />
         <section className="overflow-hidden rounded-3xl bg-white/95 shadow-lg ring-2 ring-[--color-sun]/40 backdrop-blur">
           <div className="bg-[--color-sun]/25 px-4 py-3">
             <div className="flex flex-wrap items-center justify-between gap-2">

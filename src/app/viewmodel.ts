@@ -3,7 +3,7 @@
 // Komponentit ovat "tyhmiä" — kaikki johdettu data lasketaan täällä.
 
 import { computeStandings } from '../domain/scoring.js';
-import type { PickRole } from '../domain/types.js';
+import type { Match, PickRole } from '../domain/types.js';
 import { bettors, picks } from '../data/picks.js';
 import { fixtureDates, matches, outcome, preliminaryIds, upcomingFixtures } from '../data/results.js';
 import { scorers } from '../data/scorers.js';
@@ -180,6 +180,41 @@ export interface FinalScenarioView {
   rows: ScenarioStandingView[];
 }
 
+export interface AuditMatchSourceView {
+  id: string;
+  source: string;
+  resultLabel: string;
+  points: number;
+}
+
+export interface AuditTeamSourceView {
+  roleLabel: string;
+  teamName: string;
+  flag: string;
+  points: number;
+  matches: AuditMatchSourceView[];
+}
+
+export interface AuditBonusSourceView {
+  label: string;
+  pick: string;
+  source: string;
+  points: number;
+}
+
+export interface FinalAuditView {
+  bettorId: string;
+  name: string;
+  avatar: string;
+  total: number;
+  matchPoints: number;
+  medalBonusTotal: number;
+  prizeBonusTotal: number;
+  teams: AuditTeamSourceView[];
+  medals: AuditBonusSourceView[];
+  prizes: AuditBonusSourceView[];
+}
+
 export interface PortalData {
   bettors: BettorView[];
   /** Montako ottelua on pelattu (tuloksellisia). */
@@ -211,6 +246,8 @@ export interface PortalData {
   medalBonuses: MedalBonusView[];
   /** Top 3 -perusskenaariot finaalin voittajan mukaan, paras pelaaja vielä auki. */
   finalScenarios: FinalScenarioView[];
+  /** Lopullinen tarkistuslaskelma voittajille, lähde näkyvissä joka pisteelle. */
+  finalAudit: FinalAuditView[];
 }
 
 function teamName(id: string): string {
@@ -270,6 +307,112 @@ function formatRankDelta(delta: number): string {
   if (delta > 0) return `+${delta} sijaa`;
   if (delta < 0) return `${delta} sijaa`;
   return 'ei sijamuutosta';
+}
+
+function pointsForTeamSource(teamId: string, match: Match): { points: number; resultLabel: string } {
+  const result = match.result!;
+  const isHome = match.homeTeamId === teamId;
+  const own = isHome ? result.homeGoals : result.awayGoals;
+  const opp = isHome ? result.awayGoals : result.homeGoals;
+  if (own > opp) return { points: 3, resultLabel: 'voitto' };
+  if (own === opp) return { points: 1, resultLabel: 'tasapeli' };
+  return { points: 0, resultLabel: 'tappio' };
+}
+
+function matchSource(match: Match): string {
+  const result = match.result!;
+  return `${flagEmoji(match.homeTeamId)} ${teamName(match.homeTeamId)} ${result.homeGoals}-${result.awayGoals} ${flagEmoji(match.awayTeamId)} ${teamName(match.awayTeamId)}`;
+}
+
+function buildFinalAudit(
+  targetIds: string[],
+  bettorViews: BettorView[],
+  picksById: Map<string, (typeof picks)[number]>,
+): FinalAuditView[] {
+  const viewsById = new Map(bettorViews.map((b) => [b.bettorId, b]));
+
+  return targetIds
+    .map((bettorId) => {
+      const bettor = viewsById.get(bettorId);
+      const pick = picksById.get(bettorId);
+      if (!bettor || !pick) return null;
+
+      const teams: AuditTeamSourceView[] = pick.teams.map((teamPick) => {
+        const played = matches
+          .filter(
+            (match) =>
+              match.result !== null &&
+              (match.homeTeamId === teamPick.teamId || match.awayTeamId === teamPick.teamId),
+          )
+          .sort(compareMatchAsc);
+        const sources = played.map((match) => {
+          const scored = pointsForTeamSource(teamPick.teamId, match);
+          return {
+            id: `${teamPick.teamId}-${match.id}`,
+            source: matchSource(match),
+            resultLabel: scored.resultLabel,
+            points: scored.points,
+          };
+        });
+        return {
+          roleLabel: ROLE_LABEL[teamPick.role],
+          teamName: teamName(teamPick.teamId),
+          flag: flagEmoji(teamPick.teamId),
+          points: sources.reduce((sum, source) => sum + source.points, 0),
+          matches: sources,
+        };
+      });
+
+      const medals: AuditBonusSourceView[] = [
+        {
+          label: 'Mestari',
+          pick: `${flagEmoji(pick.teams.find((t) => t.role === 'champion')!.teamId)} ${teamName(pick.teams.find((t) => t.role === 'champion')!.teamId)}`,
+          source: `Lopputulos: ${outcome.championTeamId ? `${flagEmoji(outcome.championTeamId)} ${teamName(outcome.championTeamId)} mestari` : 'mestari ei tiedossa'}`,
+          points: bettor.teams.find((t) => t.role === 'champion')?.teamId === outcome.championTeamId ? 15 : 0,
+        },
+        {
+          label: 'Hopea',
+          pick: `${flagEmoji(pick.teams.find((t) => t.role === 'silver')!.teamId)} ${teamName(pick.teams.find((t) => t.role === 'silver')!.teamId)}`,
+          source: `Lopputulos: ${outcome.silverTeamId ? `${flagEmoji(outcome.silverTeamId)} ${teamName(outcome.silverTeamId)} hopea` : 'hopea ei tiedossa'}`,
+          points: bettor.teams.find((t) => t.role === 'silver')?.teamId === outcome.silverTeamId ? 10 : 0,
+        },
+        {
+          label: 'Pronssi',
+          pick: `${flagEmoji(pick.teams.find((t) => t.role === 'bronze')!.teamId)} ${teamName(pick.teams.find((t) => t.role === 'bronze')!.teamId)}`,
+          source: `Lopputulos: ${outcome.bronzeTeamId ? `${flagEmoji(outcome.bronzeTeamId)} ${teamName(outcome.bronzeTeamId)} pronssi` : 'pronssi ei tiedossa'}`,
+          points: bettor.teams.find((t) => t.role === 'bronze')?.teamId === outcome.bronzeTeamId ? 6 : 0,
+        },
+      ];
+
+      const prizes: AuditBonusSourceView[] = [
+        {
+          label: 'Paras pelaaja',
+          pick: playerName(pick.bestPlayerId),
+          source: `Lopputulos: ${outcome.bestPlayerId ? `${playerName(outcome.bestPlayerId)} paras pelaaja` : 'paras pelaaja ei tiedossa'}`,
+          points: pick.bestPlayerId === outcome.bestPlayerId ? 10 : 0,
+        },
+        {
+          label: 'Maalikuningas',
+          pick: playerName(pick.topScorerId),
+          source: `Lopputulos: ${outcome.topScorerId ? `${playerName(outcome.topScorerId)} maalikuningas` : 'maalikuningas ei tiedossa'}`,
+          points: pick.topScorerId === outcome.topScorerId ? 10 : 0,
+        },
+      ];
+
+      return {
+        bettorId,
+        name: bettor.name,
+        avatar: bettor.avatar,
+        total: bettor.total,
+        matchPoints: bettor.matchPoints,
+        medalBonusTotal: bettor.medalBonusTotal,
+        prizeBonusTotal: bettor.prizeBonusTotal,
+        teams,
+        medals,
+        prizes,
+      };
+    })
+    .filter((audit): audit is FinalAuditView => audit !== null);
 }
 
 export function buildPortalData(): PortalData {
@@ -575,6 +718,7 @@ export function buildPortalData(): PortalData {
           };
         })
       : [];
+  const finalAudit = buildFinalAudit(['helga', 'meeri'], bettorViews, picksById);
 
   return {
     bettors: bettorViews,
@@ -611,5 +755,6 @@ export function buildPortalData(): PortalData {
     topScorers,
     medalBonuses,
     finalScenarios,
+    finalAudit,
   };
 }
