@@ -142,6 +142,13 @@ describe('buildPortalData', () => {
       ).toBe(true);
       expect(audit.medals.every((bonus) => bonus.source.startsWith('Lopputulos:'))).toBe(true);
       expect(audit.prizes.every((bonus) => bonus.source.startsWith('Lopputulos:'))).toBe(true);
+      expect(
+        [...audit.medals, ...audit.prizes].every(
+          (bonus) =>
+            bonus.sourceWithPoints.includes(bonus.source) &&
+            bonus.sourceWithPoints.endsWith(bonus.points > 0 ? `+${bonus.points} p` : '0 p'),
+        ),
+      ).toBe(true);
     }
   });
 

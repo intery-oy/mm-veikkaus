@@ -200,6 +200,7 @@ export interface AuditBonusSourceView {
   label: string;
   pick: string;
   source: string;
+  sourceWithPoints: string;
   points: number;
 }
 
@@ -329,6 +330,10 @@ function matchPointsLabel(points: number): string {
   return points > 0 ? `+${points} p` : '0 p';
 }
 
+function bonusSourceWithPoints(source: string, points: number): string {
+  return `${source} -> ${matchPointsLabel(points)}`;
+}
+
 function buildFinalAudit(
   targetIds: string[],
   bettorViews: BettorView[],
@@ -369,7 +374,7 @@ function buildFinalAudit(
         };
       });
 
-      const medals: AuditBonusSourceView[] = [
+      const medalRows = [
         {
           label: 'Mestari',
           pick: `${flagEmoji(pick.teams.find((t) => t.role === 'champion')!.teamId)} ${teamName(pick.teams.find((t) => t.role === 'champion')!.teamId)}`,
@@ -389,8 +394,12 @@ function buildFinalAudit(
           points: bettor.teams.find((t) => t.role === 'bronze')?.teamId === outcome.bronzeTeamId ? 6 : 0,
         },
       ];
+      const medals: AuditBonusSourceView[] = medalRows.map((row) => ({
+        ...row,
+        sourceWithPoints: bonusSourceWithPoints(row.source, row.points),
+      }));
 
-      const prizes: AuditBonusSourceView[] = [
+      const prizeRows = [
         {
           label: 'Paras pelaaja',
           pick: playerName(pick.bestPlayerId),
@@ -404,6 +413,10 @@ function buildFinalAudit(
           points: pick.topScorerId === outcome.topScorerId ? 10 : 0,
         },
       ];
+      const prizes: AuditBonusSourceView[] = prizeRows.map((row) => ({
+        ...row,
+        sourceWithPoints: bonusSourceWithPoints(row.source, row.points),
+      }));
 
       return {
         bettorId,

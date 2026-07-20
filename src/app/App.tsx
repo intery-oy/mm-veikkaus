@@ -20,11 +20,16 @@ function backerCountLabel(count: number): string {
   return `${count} veikkaajaa kentällä`;
 }
 
-function Points({ points }: { points: number }) {
+function AuditBonusLine({ bonus }: { bonus: FinalAuditView['medals'][number] }) {
   return (
-    <span className={`num shrink-0 rounded-full px-2 py-0.5 text-xs font-black ${points > 0 ? 'bg-[--color-grass-deep] text-white' : 'bg-black/5 text-[--color-muted]'}`}>
-      {points > 0 ? `+${points} p` : '0 p'}
-    </span>
+    <div className="rounded-xl bg-white/80 px-2 py-1.5 text-xs">
+      <div className="font-black text-[--color-ink]">
+        {bonus.label}: {bonus.pick}
+      </div>
+      <div className="font-bold text-[--color-muted]">
+        {bonus.sourceWithPoints}
+      </div>
+    </div>
   );
 }
 
@@ -110,17 +115,7 @@ function FinalAudit({ audits }: { audits: FinalAuditView[] }) {
                   </div>
                   <div className="space-y-1">
                     {audit.medals.map((bonus) => (
-                      <div key={bonus.label} className="flex items-center justify-between gap-2 rounded-xl bg-white/80 px-2 py-1.5 text-xs">
-                        <div className="min-w-0">
-                          <div className="font-black text-[--color-ink]">
-                            {bonus.label}: {bonus.pick}
-                          </div>
-                          <div className="truncate font-bold text-[--color-muted]">
-                            {bonus.source}
-                          </div>
-                        </div>
-                        <Points points={bonus.points} />
-                      </div>
+                      <AuditBonusLine key={bonus.label} bonus={bonus} />
                     ))}
                   </div>
                 </div>
@@ -131,17 +126,7 @@ function FinalAudit({ audits }: { audits: FinalAuditView[] }) {
                   </div>
                   <div className="space-y-1">
                     {audit.prizes.map((bonus) => (
-                      <div key={bonus.label} className="flex items-center justify-between gap-2 rounded-xl bg-white/80 px-2 py-1.5 text-xs">
-                        <div className="min-w-0">
-                          <div className="font-black text-[--color-ink]">
-                            {bonus.label}: {bonus.pick}
-                          </div>
-                          <div className="truncate font-bold text-[--color-muted]">
-                            {bonus.source}
-                          </div>
-                        </div>
-                        <Points points={bonus.points} />
-                      </div>
+                      <AuditBonusLine key={bonus.label} bonus={bonus} />
                     ))}
                   </div>
                 </div>
