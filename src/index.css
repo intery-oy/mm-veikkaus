@@ -61,6 +61,30 @@ body {
   font-family: var(--font-display);
 }
 
+.bonus-points {
+  display: inline-flex;
+  min-width: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.bonus-points--hit {
+  background: var(--color-grass-deep);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(20, 83, 45, 0.18);
+}
+
+.bonus-points--miss {
+  background: #edf3ef;
+  color: var(--color-ink);
+}
+
 /* Iloinen pomppu napautukseen / hoveriin. */
 .pop {
   transition:

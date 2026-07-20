@@ -30,9 +30,7 @@ function BonusRow({ slot }: { slot: BonusSlot }) {
       ) : (
         <span className="flex shrink-0 items-center gap-1">
           <span
-            className={`num rounded-full px-2 py-0.5 text-sm font-bold ${
-              hit ? 'bg-[--color-grass-deep] text-white' : 'bg-black/5 text-[--color-faint]'
-            }`}
+            className={`bonus-points num ${hit ? 'bonus-points--hit' : 'bonus-points--miss'}`}
           >
             {hit ? `+${slot.points} p` : '0 p'}
           </span>
