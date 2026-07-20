@@ -13,10 +13,15 @@ function BonusRow({ slot }: { slot: BonusSlot }) {
   const hit = !pending && slot.points! > 0;
   const provisional = slot.status === 'provisional';
   return (
-    <div className="flex items-center justify-between gap-2 py-1">
-      <span className="flex min-w-0 items-center gap-1.5">
-        <span className="shrink-0">{slot.icon}</span>
-        <span className="truncate text-[--color-ink]">{slot.pick}</span>
+    <div className="flex items-center justify-between gap-2 py-1.5">
+      <span className="flex min-w-0 items-center gap-2">
+        <span className="shrink-0 text-base">{slot.icon}</span>
+        <span className="min-w-0">
+          <span className="block text-[0.65rem] font-black uppercase tracking-wider text-[--color-muted]">
+            {slot.label}
+          </span>
+          <span className="block truncate font-bold text-[--color-ink]">{slot.pick}</span>
+        </span>
       </span>
       {pending ? (
         <span className="shrink-0 rounded-full bg-[--color-sky]/15 px-2 py-0.5 text-[0.7rem] font-bold text-[--color-sky]">
@@ -29,7 +34,7 @@ function BonusRow({ slot }: { slot: BonusSlot }) {
               hit ? 'bg-[--color-grass-deep] text-white' : 'bg-black/5 text-[--color-faint]'
             }`}
           >
-            +{slot.points}
+            {hit ? `+${slot.points} p` : '0 p'}
           </span>
           {provisional && hit && (
             <span className="rounded-full bg-[--color-sun]/25 px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-wider text-[--color-ink]">
